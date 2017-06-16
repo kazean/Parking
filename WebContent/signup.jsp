@@ -31,8 +31,8 @@
   
   
 </script>
-</head>
 
+<<<<<<< HEAD
 <style>
 
 
@@ -51,7 +51,21 @@
    <input class='btSignup' type='button' value = '가입' >
  
 </div>
+=======
+>>>>>>> yunmiheo
 
+  <div class="signup" >
+    <div class="infobox">signup</div>
+    <form method = "post">
+      NAME:       <input type = "text" name ="c_name" ><br>
+      ID(이메일) :         <input  type = "text"  name ='c_id' required>&nbsp; <button> 중복확인</button><br>
+          비밀번호:      <input type = "password" name ="c_password"><br>
+          비밀번호 확인(없앨까?): <input type = "password" name ="c_password1"><br>
+          차량번호:       <input type = "text" name ="c_car_number" ><br>
+          휴대전화 번호:       <input type = "text" name ="c_phone_number" ><br>
+     <input style="position:static; right: 10px ; "  type='submit' value = '가입'>
+    </form>
+  </div>
 
 
 </body>
