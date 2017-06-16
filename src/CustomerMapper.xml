@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CustomerMapper">
+
+<insert id="insert" parameterType="Customer" >
+INSERT INTO customer(c_id, c_password, c_name, c_phone_number, c_car_number,
+			c_card_number, c_date, c_status)
+VALUES (#{c_id}, #{c_password}, #{c_name}, #{c_phone_number}, #{c_car_number},
+<<<<<<< HEAD
+			#{c_card_number},  now(), #{c_status})
+</insert>
+
+<select id="selectById" parameterType="String" resultType="Customer">
+SELECT * FROM customer WHERE c_id = #{c_id}
+=======
+			#{c_card_number}, SYSDATE, #{c_status})
+</insert>
+
+<select id="selectById" parameterType="String">
+SELECT c_id FROM customer WHERE id = #{c_id}
+>>>>>>> refs/remotes/origin/master
+</select>
+
+</mapper>
