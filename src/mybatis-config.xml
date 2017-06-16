@@ -5,9 +5,12 @@
 <configuration>
  <typeAliases>
  	<typeAlias alias="Parking" type="com.parking.vo.Parking"/>
+ 	<typeAlias alias="Customer" type="com.parking.vo.Customer"/>
  </typeAliases>
-
+ 
   <mappers>
  	<mapper resource="ParkingMapper.xml"/>
+ 	<mapper resource="CustomerMapper.xml"/>
   </mappers>
+  
 </configuration>

@@ -2,14 +2,8 @@
 <% String contextPath=request.getContextPath();%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <style>
-div a{
-font-size: small;
-font-style: normal;
 
-}
 </style>
-
-<!-- 포함될 페이지 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
 
@@ -32,8 +26,7 @@ font-style: normal;
               $("article").html(responseData.trim()); 
             } 
           }
-        }); // end ajax
-        return false;
+        }); return false; // end ajax
       });   //end click
   });
   
@@ -49,7 +42,6 @@ text-align:right;
 height : 40px;
 font-size: large;
 }
-
 
 .menu a{
 text-decoration: none; 
