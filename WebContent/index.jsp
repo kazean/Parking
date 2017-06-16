@@ -6,7 +6,7 @@
 <head>
 <meta content="text/html; charset=UTF-8">
 <title>index.jsp</title>
-
+<!-- hello -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
 	$(function(){
