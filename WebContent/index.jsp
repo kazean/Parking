@@ -38,5 +38,9 @@
 	    <input type="submit" value="submit"> <!-- 추가예정 -->
 	  </form>
 	</div>
+    
+    <div>
+      <jsp:include page="menu.jsp"></jsp:include>
+    </div> 
 </body>
 </html>
