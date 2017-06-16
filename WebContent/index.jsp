@@ -35,7 +35,7 @@
 <body>
 	<div>
 	  <form>
-	    <input type="submit" value="submit">
+	    <input type="submit" value="submit"> <!-- 추가예정 -->
 	  </form>
 	</div>
 </body>
