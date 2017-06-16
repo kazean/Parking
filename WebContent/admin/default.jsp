@@ -51,7 +51,6 @@ $(function(){
 		</form>
 	</div>
 	
-	
 	<!--<script src = "parking/js/admin.js"></script>  -->
 </body>
 </html>
