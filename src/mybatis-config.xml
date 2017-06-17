@@ -5,20 +5,14 @@
 <configuration>
  <typeAliases>
  	<typeAlias alias="Parking" type="com.parking.vo.Parking"/>
-<<<<<<< HEAD
  	<typeAlias alias="Customer" type="com.parking.vo.Customer"/>
-=======
  	<typeAlias alias="Admin" type="com.parking.vo.Admin"/>
->>>>>>> f18f1906cecf173d6946631dea112449a7ff7a32
  </typeAliases>
  
   <mappers>
  	<mapper resource="ParkingMapper.xml"/>
-<<<<<<< HEAD
  	<mapper resource="CustomerMapper.xml"/>
-=======
  	<mapper resource="AdminMapper.xml"/>
->>>>>>> f18f1906cecf173d6946631dea112449a7ff7a32
   </mappers>
   
 </configuration>
