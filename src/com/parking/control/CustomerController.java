@@ -1,14 +1,15 @@
 package com.parking.control;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.parking.dao.CustomerDAOMysql;
 import com.parking.vo.Customer;
+
 
 @Controller
 public class CustomerController {
@@ -19,15 +20,19 @@ public class CustomerController {
 	//존재하는 이이디인지 체크 - 구현중~!
 	@RequestMapping(value="checkId.do")
 	public String checkId(String c_id, Model model){
-		String msg = "1";
+		System.out.println("c_id : "+c_id);
+		String msg = "";
 		Customer c = dao.selectById(c_id);
 		String dbId = null;
-		if(c!=null) {
-			dbId = c.getC_id();
-			if(dbId.equals(c_id)){
-			msg = "-1";
-			}
+		if("".equals(c_id)) {
+			msg="2";      // 아이디를 확인해주세요
+		}else if(c!=null) {
+			msg = "-1";   // 다른아이디 사용해주세요.
+		}else{
+			msg="1";      // 사용가능한 아이디 입니다.
 		}
+		
+		
 		model.addAttribute("msg", msg);
 		return "/result.jsp";
 	}  // end checkId
@@ -48,6 +53,7 @@ public class CustomerController {
 		Customer c = new Customer(c_id, c_password, c_name, c_phone_number, c_car_number,
 				c_card_number, 'N');
 		if(c!=null) {
+			
 			dao.signup(c);
 			msg = "1";
 		}
@@ -83,7 +89,13 @@ public class CustomerController {
 	//로그아웃
 	@RequestMapping(value="/logout.do")
 	public String logout(HttpSession session) {
+		
 		session.removeAttribute("customer");
 		return "/result.jsp";
 	}
+	
+	
+	
+	
+	
 }

@@ -1,45 +1,35 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta content="text/html; charset=UTF-8">
-<title>index.jsp</title>
+<meta charset="UTF-8">
+<title>login.jsp</title>
+</head>
+  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
-	$(function(){
-	  var $parentObj = $("article");
-	  if($parentObj.length ==0){
-	    $parentObj=$("body");
-	  }
-	    	  
-	  var $form = $("form");
-	  $form.submit(function(){
-	    $.ajax({
-	      url:"selectAll.do",
-	      method:'POST',
-	      success:function(response){
-	        $parentObj.empty();
-	        $parentObj.html(response.trim());
-	      }
-	    });
-	    return false;
-	  });
-	  
-	});
 </script>
-</head>
+<style>
+.background {
+min-height: 100%;
+min-width: /* 1024px */512px; 
+width: 100%; 
+height: auto;
+top: 0;
+left: 0;
+}
+
+</style>
 
 <body>
-	<div>
-	  <form>
-	    <input type="submit" value="submit"> <!-- 추가예정 -->
-	  </form>
-	</div>
-    
-    <div>
-      <jsp:include page="menu.jsp"></jsp:include>
-    </div> 
+  <header><jsp:include page="menu.jsp"></jsp:include></header>
+  <article>
+  <img src="stock.jpg" class="background" alt="" ></img>
+  <div class="container">
+  </div>
+  
+  
+  </article>
+  <footer></footer>
 </body>
 </html>
