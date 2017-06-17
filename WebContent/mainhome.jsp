@@ -7,7 +7,80 @@
 </head>
   
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- datepicker 사용드라이버 시작-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"><!-- jQuery UI CSS파일 -->
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script><!-- jQuery UI 라이브러리 js파일 -->
+<!-- datepicker 사용드라이버 종료-->
+
+
+
 <script>
+
+$(function(){
+	
+	//캘린터 형태로 보여주기 시작
+	$('#reserveEntranceTime').datepicker({
+		/* 포맷 */
+		dateFormat : 'yymmdd',
+		changeMonth: true, 
+        dayNames: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
+        dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], 
+        monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+    	
+	    /* 최소 선택일자  */     
+	    minDate: -0, 
+        maxDate: "+30D",
+    
+   		 /* 하단 버튼*/
+    	showButtonPanel: true, 
+        currentText: '오늘 날짜', 
+        closeText: '닫기', 
+        
+        /* 년도, 달 드롭바 만들기 */
+        changeMonth: true, 
+        changeYear: true,
+        nextText: '다음 달',
+        prevText: '이전 달',
+        
+	
+	});
+	
+	$('#reserveExitTime').datepicker({
+		
+		/* 포맷 */
+		dateFormat : 'yymmdd',
+		changeMonth: true, 
+        dayNames: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
+        dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], 
+        monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+    	
+	    /* 최소 선택일자  */     
+	    minDate: -0, 
+        maxDate: "+30D",
+    
+   		 /* 하단 버튼*/
+    	showButtonPanel: true, 
+        currentText: '오늘 날짜', 
+        closeText: '닫기', 
+        
+        /* 년도, 달 드롭바 만들기 */
+        changeMonth: true, 
+        changeYear: true,
+        nextText: '다음 달',
+        prevText: '이전 달',
+
+	});
+	
+	function settingCal(){
+		
+	}
+	
+	
+	
+	
+});
 </script>
 <style>
 
@@ -27,19 +100,20 @@ article {font-family: 'Open Sans', sans-serif;}
     min-height: 1500px;
 }
 /* 스케쥴체크박스 */
-.selectschedule{
- width:800px; 
- height:100px; 
- border: 1px solid;
- border-radius: 50px;
- border-color:#F2B210;  
- margin:auto; 
- padding:30px; 
- position:absolute;
- top:30%;  
- left:50%;  
- background:#F2B210;  
- transform:translate(-50%, -50%)}
+.selectschedule {
+   width:800px; 
+   height:50px; 
+   border: 1px solid;
+   border-radius: 20px;
+   border-color:#F2B210;  
+   margin:auto; 
+   padding:30px; 
+   position:absolute;
+   top:30%;  
+   left:50%;  
+   background:#F2B210;  
+   transform:translate(-50%, -50%)
+ }
 
 
 /* 메인 텍스트그룹 */
@@ -48,11 +122,11 @@ article {font-family: 'Open Sans', sans-serif;}
     position:absolute;
     top:10%;  
     left:0%; 
-    position: absolute;
     margin-left: 38.5%;
     margin-top:30%;
     text-align: center;
     max-width: 1200px;
+    height: 80px;
 }
 
 /* 큰글씨 */
@@ -73,7 +147,7 @@ article {font-family: 'Open Sans', sans-serif;}
 }
 
 /* 버튼 */
-/* #content #your-move {
+.joinus {
     text-decoration: none;
     text-transform: uppercase;
     color: #f2f2f2;
@@ -81,13 +155,13 @@ article {font-family: 'Open Sans', sans-serif;}
     border-color: #b43322;
     background-color: #b43322;
     display: inline-block;
-    padding: 19px;
-    font-size: 19px;
+    padding: 13px;
+    font-size: 13px;
 }
-#content #your-move:hover {
+.joinus:hover {
     border-color: #891e1b;
     background-color: #891e1b;
-} */
+}
 
 </style>
 
@@ -98,7 +172,16 @@ article {font-family: 'Open Sans', sans-serif;}
   <div class="background">
   
   <!-- 메인화면 시간체크 박스 시작 -->
-  <div class="selectschedule"></div>
+  <div class="selectschedule">
+  
+  <form action="">
+    <input type="text" id="" placeholder = "주차하려는 지역명"/>
+    <input type="text" id="reserveEntranceTime" placeholder="입차일자"/>
+    <input type="text"  id="reserveExitTime" placeholder="출차일자"/>
+    <input type="submit" id ="smReserve" value="주차장 선택하러 가기"/>
+  </form>
+  
+  </div>
   <!-- 메인화면 시간체크 박스 끝 -->
   
   <!-- 메인화면 텍스트 시작 -->
@@ -106,7 +189,7 @@ article {font-family: 'Open Sans', sans-serif;}
       <h1>즐거운 주차생활</h1>
       <p>누구보다 쉽고 빠르게, 가까운 주차장을 찾아 들어가쟈!<br>
                  KITRI parking을 이용하는 나야말로 진정한 승자!!!! </p>
-      <a href="#home" id="your-move"><strong>start here</strong></a>
+      <a href="signup.jsp" class="joinus"><strong>JOIN US</strong></a>
   </div> 
   <!-- 메인화면 텍스트 끝 -->
   

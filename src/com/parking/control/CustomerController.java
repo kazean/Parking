@@ -93,7 +93,14 @@ public class CustomerController {
 		return "/result.jsp";
 	}
 	
-	
+	//내정보 페이지
+	@RequestMapping(value="/mypage.do")
+	public String myPage(HttpSession session) {
+		
+		
+		
+		return "/mypage.jsp";
+	}
 	
 	
 	
