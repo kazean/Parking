@@ -15,8 +15,6 @@
       $parentObj = $("body");
     }
     
-   
-	  
     //중복 비밀번호 체크시작
     var $c_id = $("input[name=c_id]");
     $("input[name=c_name]").focus(function(){
@@ -54,13 +52,12 @@
         method : 'POST',
         data : $data,
         success : function(responseData) { 
-        	console.log(responseData);
-        	lotation.href=contextPath;
+        	alert("가입완료! 환영합니다 ");
+        	location.href='<%=contextPath%>';
         	//$parentObj.html(responseData);
         }
       }); return false;  // end ajax
    });  // end submit
-   
  }); // end function
   
   
@@ -79,9 +76,6 @@
 
 <body>
 
-
-
-
 <div class="signup" >
   <div class="infobox">signup</div>
 <div>
@@ -92,24 +86,11 @@
     비밀번호:     <input type = "password" name ="c_password" required><br>
    차량번호:       <input type = "text" name ="c_car_number" required ><br>
     휴대전화 번호:       <input type = "text" name ="c_phone_number"pattern="\d{3}-\d{3,4}-\d{4}" required > <br>'-' 포함입력하세요
-    
-    
-    
-    
     <br>
   <input class='btSignup' type='submit' value = '가입' >
   </form>
 </div>
 </div>
-
-
-
-
-  
- 
-
-
-
 
 </body>
 </html>

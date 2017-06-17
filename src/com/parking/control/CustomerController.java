@@ -17,7 +17,7 @@ public class CustomerController {
 	@Autowired
 	CustomerDAOMysql dao =null;
 	
-	//존재하는 이이디인지 체크 - 구현중~!
+	//존재하는 이이디인지 체크
 	@RequestMapping(value="checkId.do")
 	public String checkId(String c_id, Model model){
 		System.out.println("c_id : "+c_id);
@@ -31,7 +31,6 @@ public class CustomerController {
 		}else{
 			msg="1";      // 사용가능한 아이디 입니다.
 		}
-		
 		
 		model.addAttribute("msg", msg);
 		return "/result.jsp";

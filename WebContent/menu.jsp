@@ -40,13 +40,16 @@ div a{
 <style>
 
 .menu{
+position: relative;
 margin :auto;
 background-color: #F2B210;
 padding : 10px;
 text-align:right;
 height : 30px;
 font-size: large;
+
 }
+
 .menu a{text-decoration: none; color: #F0F8FF;font-weight:bold;}
 .menu a:hover{ color: #666666; text-decoration: none; }
 .home{float:left }
@@ -54,15 +57,16 @@ font-size: large;
 
 <div class="menu">
 
-<a href="index.jsp" class="home">home</a>
+<a href="index.jsp" class="home">Home</a>
 <c:set var="customer" value="${sessionScope.customer}"/>
 <c:choose>
   <c:when test="${empty customer}" >
-    <a href="signupcustomermain.jsp">join</a> &nbsp;&nbsp;
-    <a href="login.jsp">login</a>
+    <a href="signupcustomermain.jsp">Join</a> &nbsp;&nbsp;
+    <a href="login.jsp">Login</a>
   </c:when>
   <c:otherwise>
-    <a href ="logout.do">logout</a>&nbsp;&nbsp;
+     <a href ="mypage.do">Mypage</a>&nbsp;&nbsp;
+    <a href ="logout.do">Logout</a>&nbsp;&nbsp;
   </c:otherwise>
 </c:choose>
     
