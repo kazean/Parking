@@ -2,7 +2,6 @@
 <% String contextPath=request.getContextPath();%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <style>
-div a{
 
 </style>
 
@@ -13,11 +12,11 @@ div a{
     
     
 	  var $a =$(".menu").find("a");
+	  var c_id = $('.mypage').attr('id');
       $a.click(function(){
     	  var url = $(this).attr("href");
-    	  console.log(url+"클릭");
         $.ajax({url: url,
-            method : 'GET', 
+        	method : 'GET', 
             success: function(responseData){
             var result = responseData.trim();
             	if(url =="logout.do"){
@@ -65,7 +64,7 @@ font-size: large;
     <a href="login.jsp">Login</a>
   </c:when>
   <c:otherwise>
-     <a href ="mypage.do">Mypage</a>&nbsp;&nbsp;
+     <a href ="mypage.jsp">MyPage</a>&nbsp;&nbsp;
     <a href ="logout.do">Logout</a>&nbsp;&nbsp;
   </c:otherwise>
 </c:choose>

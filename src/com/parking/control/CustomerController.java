@@ -17,7 +17,7 @@ public class CustomerController {
 	@Autowired
 	CustomerDAOMysql dao =null;
 	
-	//존재하는 이이디인지 체크
+	//존재하는 이이디인지 체크 - 구현중~!
 	@RequestMapping(value="checkId.do")
 	public String checkId(String c_id, Model model){
 		System.out.println("c_id : "+c_id);
@@ -32,6 +32,7 @@ public class CustomerController {
 			msg="1";      // 사용가능한 아이디 입니다.
 		}
 		
+		
 		model.addAttribute("msg", msg);
 		return "/result.jsp";
 	}  // end checkId
@@ -45,7 +46,8 @@ public class CustomerController {
 						String c_phone_number,
 						String c_car_number,
 						String c_card_number,
-						Model model
+						Model model,
+						HttpSession session
 						) {
 		String msg ="";
 		System.out.println("signup");
@@ -54,6 +56,7 @@ public class CustomerController {
 		if(c!=null) {
 			
 			dao.signup(c);
+			session.setAttribute("customer", c);
 			msg = "1";
 		}
 		model.addAttribute("msg",msg);
@@ -93,14 +96,21 @@ public class CustomerController {
 		return "/result.jsp";
 	}
 	
-	//내정보 페이지
-	@RequestMapping(value="/mypage.do")
-	public String myPage(HttpSession session) {
+	//패스워드 확인
+	@RequestMapping(value="/checkpassword.do")
+	public String checkPassword(String c_password,Model model,HttpSession session) {
+		Customer c = (Customer) session.getAttribute("customer");
 		
-		
-		
-		return "/mypage.jsp";
+		System.out.println(c_password);
+		if(c_password !=null){
+			if(c_password.equals(c.getC_password())){
+				return "/myinformation.jsp";
+			}
+		}
+		return null;
 	}
+	
+	
 	
 	
 	
