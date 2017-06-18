@@ -14,7 +14,7 @@
 
 $(function(){
 	
-	
+	//개인정보 확인전 비밀번호 다시확인
 	$('.passwordconfirm').find('form').submit(function(){
 		console.log("비밀번호 체크하러 가요.");
 		console.log("비밀번호 체크하러 가요.");

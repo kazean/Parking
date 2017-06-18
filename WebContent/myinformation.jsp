@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mypage.jsp</title>
+<title>myinformation.jsp</title>
 </head>
   
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -26,7 +26,7 @@ $(function(){
 
 
 <c:set var="customer" value="${sessionScope.customer}" />
-
+가입일자 : <fmt:formatDate value="${customer.c_date}" pattern="yyyy-MM-dd"/><br>
 아이디 :  ${customer.c_id}   <br>
 비밀번호 :  ${customer.c_password}<br>
 전화번호 :  ${customer.c_phone_number}<br>
