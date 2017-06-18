@@ -34,7 +34,7 @@ $(function(){
     
    		 /* 하단 버튼*/
     	showButtonPanel: true, 
-        currentText: '오늘 날짜', 
+    	currentText: '오늘' ,
         closeText: '닫기', 
         
         /* 년도, 달 드롭바 만들기 */
@@ -62,7 +62,7 @@ $(function(){
     
    		 /* 하단 버튼*/
     	showButtonPanel: true, 
-        currentText: '오늘 날짜', 
+   	    currentText: '오늘' ,
         closeText: '닫기', 
         
         /* 년도, 달 드롭바 만들기 */
@@ -101,18 +101,18 @@ article {font-family: 'Open Sans', sans-serif;}
 }
 /* 스케쥴체크박스 */
 .selectschedule {
-   width:800px; 
-   height:50px; 
-   border: 1px solid;
-   border-radius: 20px;
-   border-color:#F2B210;  
-   margin:auto; 
-   padding:30px; 
-   position:absolute;
-   top:30%;  
-   left:50%;  
-   background:#F2B210;  
-   transform:translate(-50%, -50%)
+ width:800px; 
+ height:30px; 
+ border: 1px solid;
+ border-radius: 20px;
+ border-color:#F2B210;  
+ margin:auto; 
+ padding:30px; 
+ position:absolute;
+ top:30%;  
+ left:50%;  
+ background:#F2B210;  
+ transform:translate(-50%, -50%)
  }
 
 
@@ -123,7 +123,7 @@ article {font-family: 'Open Sans', sans-serif;}
     top:10%;  
     left:0%; 
     margin-left: 38.5%;
-    margin-top:30%;
+    margin-top:20%;
     text-align: center;
     max-width: 1200px;
     height: 80px;
@@ -151,16 +151,16 @@ article {font-family: 'Open Sans', sans-serif;}
     text-decoration: none;
     text-transform: uppercase;
     color: #f2f2f2;
-    border: 1px solid #ac1100;
-    border-color: #b43322;
-    background-color: #b43322;
+    border: 1px solid #222222;
+    /* border-color: #b43322; 빨간색*/
+    background-color: #222222;
     display: inline-block;
     padding: 13px;
     font-size: 13px;
 }
 .joinus:hover {
-    border-color: #891e1b;
-    background-color: #891e1b;
+    border-color: #F2B210;
+    background-color:#F2B210;
 }
 
 </style>
@@ -186,10 +186,10 @@ article {font-family: 'Open Sans', sans-serif;}
   
   <!-- 메인화면 텍스트 시작 -->
   <div class="content">
-      <h1>즐거운 주차생활</h1>
+      <h1> <span style="background-color:#F2F2F2">쉽고빠른 검색, 그리고 바로주차</span></h1>
       <p>누구보다 쉽고 빠르게, 가까운 주차장을 찾아 들어가쟈!<br>
                  KITRI parking을 이용하는 나야말로 진정한 승자!!!! </p>
-      <a href="signup.jsp" class="joinus"><strong>JOIN US</strong></a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfKL1Mz2serFCWmCeS5iRDvWOLBZGR8YdAQBz8ZWyGxqkGmNA/viewform?usp=sf_link" class="joinus" target="_blank"><strong>JOIN US - 제휴 신청하기</strong></a>
   </div> 
   <!-- 메인화면 텍스트 끝 -->
   
