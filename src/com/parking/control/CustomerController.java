@@ -73,16 +73,16 @@ public class CustomerController {
 	public String login(String c_id,String c_password,Model model,HttpSession session) {
 		
 		String msg="";
-		Customer c;
-		List<Reservation>  list;
+		Customer c =null;
+		List<Reservation> list = null;
 
 		//로그인할 때, 주문내역세션에 저장 & 마이페이지에서 보여주기 위해서 모델에 예약내역 저장
 		session.removeAttribute("customer");
 		if(dao.selectById(c_id)!=null) {
 			c = dao.selectById(c_id);
+			// list= rDao.selectById(c_id); null 수정중
 			
-			if(!"".equals(rDao.selectById(c_id))){
-			list= rDao.selectById(c_id);
+			if(list !=null){
 			model.addAttribute("list", list);
 			}
 			

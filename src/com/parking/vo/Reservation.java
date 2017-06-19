@@ -21,6 +21,7 @@ public class Reservation {
 	 
 	 
 	 
+	 
 	public Reservation(String reserve_number, String reserve_c_id, String reserve_parking_code,
 			Date reserve_entrance_time, Date reserve_exit_time, String reserve_status, Date reserve_time,
 			Date refund_time) {

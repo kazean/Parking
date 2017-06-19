@@ -1,5 +1,7 @@
 package com.parking.control;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -63,6 +65,24 @@ public class ParkingController {
 		model.addAttribute("result", list);
 		
 		return "/test.jsp";
+	}
+	
+
+	
+	@RequestMapping(value = "/selectByLocation.do")
+	public String selectByLocation(String location, Date reserveEntranceTime, Date reserveExitTime, Model model){
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+		String in = sdf.format(reserveEntranceTime);
+		String out = sdf.format(reserveExitTime);
+		System.out.println("location :"+location+"reserveEntranceTime :"+in+"reserveExitTime :"+out);
+		
+		List<Parking> list = dao.selectByLocation(location);
+		model.addAttribute("list", list);
+		for(Parking p : list){
+			System.out.println(p);
+		}
+		return "/parkingList.jsp";
 	}
 	
 }

@@ -73,11 +73,34 @@ $(function(){
 
 	});
 	
-	function settingCal(){
-		
-	}
-	
-	
+	 /* <input type="text" id="palceName"  placeholder = "주차하려는 지역명"/>
+    <input type="text" id="reserveEntranceTime" placeholder="입차일자"/>
+    <input type="text"  id="reserveExitTime" placeholder="출차일자"/>
+    <input type="submit" id ="smReserve" value="주차장 선택하러 가기"/> */
+    var $form = $('.selectschedule').find('form');
+    $form.find('input[id=btReserve]').click(function(){
+    	var location = $('#location').val();
+    	var reserveEntranceTime = $('#reserveEntranceTime').datepicker("getDate");
+    	var reserveExitTime = $('#reserveExitTime').datepicker("getDate")
+    	console.log("location :"+location+"reserveEntranceTime :"+reserveEntranceTime+"reserveExitTime :"+reserveExitTime);
+    	
+    	$.ajax({
+    		url : 'selectByLocation.do',
+    		data : {
+    			'location':  location ,
+    			'reserveEntranceTime' :  reserveEntranceTime,
+    			'reserveExitTime' :  reserveExitTime
+    		},
+    		success : function(responseData){
+    			
+    			$('article').empty();
+    			$('article').html(responseData.trim());
+    			
+    		}
+    	});return false;
+    	
+    	
+    });
 	
 	
 });
@@ -174,11 +197,11 @@ article {font-family: 'Open Sans', sans-serif;}
   <!-- 메인화면 시간체크 박스 시작 -->
   <div class="selectschedule">
   
-  <form action="">
-    <input type="text" id="" placeholder = "주차하려는 지역명"/>
+  <form>
+    <input type="text" id="location" placeholder = "주차하려는 지역명"/>
     <input type="text" id="reserveEntranceTime" placeholder="입차일자"/>
     <input type="text"  id="reserveExitTime" placeholder="출차일자"/>
-    <input type="submit" id ="smReserve" value="주차장 선택하러 가기"/>
+    <input type="button" id ="btReserve" value="주차장 선택하러 가기"/>
   </form>
   
   </div>
@@ -198,4 +221,5 @@ article {font-family: 'Open Sans', sans-serif;}
   
   <footer></footer>
 </body>
-</html>
+</html> 
+

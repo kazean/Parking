@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.parking.vo.Parking;
+import com.parking.vo.Reservation;
 
 @Repository
 public class ParkingDAOMySQL {
@@ -26,6 +27,10 @@ public class ParkingDAOMySQL {
 		List<Parking> list = session.selectList("ParkingMapper.selectAll");
 		
 		return list;
+	}
+
+	public List<Parking> selectByLocation(String location) {
+		return session.selectList("ParkingMapper.selectByLocation","%"+location+"%");
 	}
 	
 }
