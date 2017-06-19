@@ -1,5 +1,7 @@
 package com.parking.control;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.parking.dao.CustomerDAOMysql;
+import com.parking.dao.ReservationDAOMysql;
 import com.parking.vo.Customer;
+import com.parking.vo.Reservation;
 
 
 @Controller
@@ -16,6 +20,7 @@ public class CustomerController {
 	
 	@Autowired
 	CustomerDAOMysql dao =null;
+	ReservationDAOMysql rDao = null;
 	
 	//존재하는 이이디인지 체크 - 구현중~!
 	@RequestMapping(value="checkId.do")
@@ -69,12 +74,18 @@ public class CustomerController {
 		
 		String msg="";
 		Customer c;
-		
+		List<Reservation>  list;
+
+		//로그인할 때, 주문내역세션에 저장 & 마이페이지에서 보여주기 위해서 모델에 예약내역 저장
 		session.removeAttribute("customer");
-		
 		if(dao.selectById(c_id)!=null) {
 			c = dao.selectById(c_id);
-			System.out.println(c);
+			
+			if(!"".equals(rDao.selectById(c_id))){
+			list= rDao.selectById(c_id);
+			model.addAttribute("list", list);
+			}
+			
 			if(c.getC_password().equals(c_password)){
 				session.setAttribute("customer", c);
 				msg="1";
@@ -109,9 +120,6 @@ public class CustomerController {
 		}
 		return null;
 	}
-	
-	
-	
 	
 	
 }

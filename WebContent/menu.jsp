@@ -11,6 +11,7 @@
   $(function(){
     
     
+	  //각각의 메뉴를 누를때마다 이동하는 액션
 	  var $a =$(".menu").find("a");
 	  var c_id = $('.mypage').attr('id');
       $a.click(function(){
@@ -24,6 +25,7 @@
             	location.href ="<%=contextPath%>";
             }else if(url =="index.jsp"){
             	location.href =url;
+            	
             }else{
                console.log(result);
             	$("article").empty();
@@ -32,6 +34,16 @@
           },
         }); return false; // end ajax
       });   //end click
+
+    	  
+    	  
+      
+      
+      
+      
+      
+      
+      
   });
   
 </script>
@@ -64,7 +76,7 @@ font-size: large;
     <a href="login.jsp">Login</a>
   </c:when>
   <c:otherwise>
-     <a href ="mypage.jsp">MyPage</a>&nbsp;&nbsp;
+     <a href ="mypage.jsp"  id="mypage">MyPage</a>&nbsp;&nbsp;
     <a href ="logout.do">Logout</a>&nbsp;&nbsp;
   </c:otherwise>
 </c:choose>
