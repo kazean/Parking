@@ -15,4 +15,13 @@ VALUES (#{c_id}, #{c_password}, #{c_name}, #{c_phone_number}, #{c_car_number},
 SELECT * FROM customer WHERE c_id = #{c_id}
 </select>
 
+
+<!-- 해당 아이디에 대한 예약내역  -->
+<select id="reservation" parameterType="String" resultType="Reservation">
+select reserve_number,reserve_parking_code,reserve_entrance_time,reserve_exit_time,reserve_status,
+	   reserve_time,refund_time
+from reservation
+where reserve_c_id = #{c_id}
+</select>
+
 </mapper>
