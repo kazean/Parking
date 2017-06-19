@@ -5,68 +5,68 @@
 <mapper namespace="ParkingMapper">
 
 <insert id="insert" parameterType="Parking" >
-INSERT INTO PARKING (
-  	parking_name,
-  	parking_address,
-  	parking_phone_number,
-  	parking_latitude,
- 	parking_longitude,
-  	parking_status,
-  	parking_operation,
-  	parking_type,
- 	parking_is_mechan,
- 	parking_impossible_car_type,
- 	parking_pay_type,
-	parking_capacity,
- 	parking_cur_seat,
-  	parking_rates,
-	parking_rates_time,
-	parking_add_rates,
- 	parking_add_rates_time,
- 	parking_day_rates,
- 	parking_month_rates,
- 	parking_weekdays_begin_time,
- 	parking_weekdays_end_time,
- 	parking_sat_begin_time,
- 	parking_sat_end_time,
-	parking_holidays_begin_time,
-	parking_holidays_end_time
-)
-
-VALUES (
-	#{parking_name},
-	#{parking_address},
-	#{parking_phone_number},
-	#{parking_latitude},
- 	#{parking_longitude},	
-	#{parking_status},
-	#{parking_operation},
-	#{parking_type},
-	#{parking_is_mechan},
-	#{parking_impossible_car_type},
-	#{parking_pay_type},
-	#{parking_capacity},
-	#{parking_cur_seat},
-	#{parking_rates},
-	#{parking_rates_time},
-	#{parking_add_rates},
-	#{parking_add_rates_time},
-	#{parking_day_rates},
-	#{parking_month_rates},
-	#{parking_weekdays_begin_time},
-	#{parking_weekdays_end_time},
-	#{parking_sat_begin_time},
-	#{parking_sat_end_time},
-	#{parking_holidays_begin_time},
-	#{parking_holidays_end_time}
-)
+	INSERT INTO PARKING (
+	  	parking_name,
+	  	parking_address,
+	  	parking_phone_number,
+	  	parking_latitude,
+	 	parking_longitude,
+	  	parking_status,
+	  	parking_operation,
+	  	parking_type,
+	 	parking_is_mechan,
+	 	parking_impossible_car_type,
+	 	parking_pay_type,
+		parking_capacity,
+	 	parking_cur_seat,
+	  	parking_rates,
+		parking_rates_time,
+		parking_add_rates,
+	 	parking_add_rates_time,
+	 	parking_day_rates,
+	 	parking_month_rates,
+	 	parking_weekdays_begin_time,
+	 	parking_weekdays_end_time,
+	 	parking_sat_begin_time,
+	 	parking_sat_end_time,
+		parking_holidays_begin_time,
+		parking_holidays_end_time
+	)
+	
+	VALUES (
+		#{parking_name},
+		#{parking_address},
+		#{parking_phone_number},
+		#{parking_latitude},
+	 	#{parking_longitude},	
+		#{parking_status},
+		#{parking_operation},
+		#{parking_type},
+		#{parking_is_mechan},
+		#{parking_impossible_car_type},
+		#{parking_pay_type},
+		#{parking_capacity},
+		#{parking_cur_seat},
+		#{parking_rates},
+		#{parking_rates_time},
+		#{parking_add_rates},
+		#{parking_add_rates_time},
+		#{parking_day_rates},
+		#{parking_month_rates},
+		#{parking_weekdays_begin_time},
+		#{parking_weekdays_end_time},
+		#{parking_sat_begin_time},
+		#{parking_sat_end_time},
+		#{parking_holidays_begin_time},
+		#{parking_holidays_end_time}
+	);
 </insert>
 
 <select id="selectAll" resultType="Parking">
-SELECT 
-	parking_name, parking_address, parking_phone_number, parking_pay_type, parking_capacity,
-	parking_cur_seat, parking_latitude, parking_longitude, parking_weekdays_begin_time, parking_weekdays_end_time
-FROM parking;
+	SELECT 
+		parking_name, parking_address, parking_phone_number, parking_pay_type, parking_capacity,
+		parking_cur_seat, parking_latitude, parking_longitude, parking_weekdays_begin_time, parking_weekdays_end_time
+	FROM parking;
 </select>
 
 </mapper>

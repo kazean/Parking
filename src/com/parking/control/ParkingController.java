@@ -29,8 +29,8 @@ public class ParkingController {
 	@Autowired
 	ParkingDAOMySQL dao;
 	
-	/*@RequestMapping(value = "/insert.do", method=RequestMethod.POST)
-	public String httpPost(Model model){
+	@RequestMapping(value = "/insert.do")
+	public String http(Model model){
 		Public_parking_RestTemplateServiceImpl rest = new Public_parking_RestTemplateServiceImpl();
 		Public_parking_coordinate_RestTemplateServiceImpl coordRest = new Public_parking_coordinate_RestTemplateServiceImpl();
 		
@@ -55,9 +55,9 @@ public class ParkingController {
 			e.printStackTrace();
 		}
 		return "/test.jsp";
-	}*/
+	}
 	
-	@RequestMapping(value = "/selectAll.do", method=RequestMethod.POST)
+	@RequestMapping(value = "/selectAll.do")
 	public String httpPost(Model model){
 		List<Parking> list = dao.selectAll();
 		model.addAttribute("result", list);
