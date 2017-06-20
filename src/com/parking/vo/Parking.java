@@ -16,7 +16,8 @@ public class Parking implements Serializable{
 	
 	// 위도, 경도를 찾기위해 필요한 임시값 (실제로 db에 들어갈 값x)
 	private String parking_search_code; 
-	
+	//
+	private int parking_code;		// 주차장 전용 코드
 	private String parking_p_id;		// 제휴 주차장 파트너 아이디 (=> *default null)
 	private String parking_name;		// 주차장 이름
 	private String parking_address;		// 주차장 주소 (도로명 기준)
@@ -54,9 +55,10 @@ public class Parking implements Serializable{
 		super();
 	}
 	
-	public Parking(String parking_name, String parking_address, double parking_latitude, double parking_longitude,
+	public Parking(int parking_code, String parking_name, String parking_address, double parking_latitude, double parking_longitude,
 			int parking_status, int parking_operation, int parking_type, String parking_impossible_car_type) {
 		super();
+		this.parking_code = parking_code;
 		this.parking_name = parking_name;
 		this.parking_address = parking_address;
 		this.parking_latitude = parking_latitude;
@@ -67,7 +69,7 @@ public class Parking implements Serializable{
 		this.parking_impossible_car_type = parking_impossible_car_type;
 	}
 
-	public Parking(String parking_p_id, 
+	public Parking(int parking_code, String parking_p_id, 
 			String parking_name, String parking_address, String parking_phone_number,
 			double parking_latitude, double parking_longitude, 
 			int parking_status, int parking_operation, int parking_type, 
@@ -80,6 +82,7 @@ public class Parking implements Serializable{
 			Time parking_sat_begin_time, Time parking_sat_end_time, 
 			Time parking_holidays_begin_time, Time parking_holidays_end_time) {
 		super();
+		this.parking_code = parking_code;
 		this.parking_p_id = parking_p_id;
 		this.parking_name = parking_name;
 		this.parking_address = parking_address;
@@ -107,8 +110,16 @@ public class Parking implements Serializable{
 		this.parking_holidays_begin_time = parking_holidays_begin_time;
 		this.parking_holidays_end_time = parking_holidays_end_time;
 	}
-
-	// getter & setter
+	
+	// getter and setter
+	public int getParking_code() {
+		return parking_code;
+	}
+	
+	public void setParking_code(int parking_code) {
+		this.parking_code = parking_code;
+	}
+	
 	public String getParking_p_id() {
 		return parking_p_id;
 	}
