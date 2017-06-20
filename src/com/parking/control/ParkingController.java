@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.xml.ws.Response;
 
+import org.apache.ibatis.annotations.Param;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.LoggerFactory;
@@ -69,21 +70,27 @@ public class ParkingController {
 		return "/test.jsp";
 	}
 		
+	//selectByLocation 시작
+	//메인페이지에서 검색시 지역명으로 주차장 불러옴
 	@RequestMapping(value = "/selectByLocation.do")
-	public String selectByLocation(String location, Date reserveEntranceTime, Date reserveExitTime, Model model){
+	public String selectByLocation(String location, /*Date reserveEntranceTime, Date reserveExitTime,*/ Model model) {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+		/*SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 		String in = sdf.format(reserveEntranceTime);
 		String out = sdf.format(reserveExitTime);
-		System.out.println("location :"+location+"reserveEntranceTime :"+in+"reserveExitTime :"+out);
+		System.out.println("location :"+location+"reserveEntranceTime :"+in+"reserveExitTime :"+out);*/
+		
+		//디폴트 지정 param으로 수정예정
+		if("".equals(location)){
+			location = "강남";
+		}
 		
 		List<Parking> list = pdao.selectByLocation(location);
 		model.addAttribute("list", list);
-		for(Parking p : list){
-			System.out.println(p);
-		}
 		return "/parkingList.jsp";
 	}
+	//selectByLocation 끝
+	
 	
 	// start of androidSelectAll
 	// 안드로이드에서 DB를 요청하면 오는 메소드
