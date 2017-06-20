@@ -16,7 +16,7 @@ public class Parking implements Serializable{
 	
 	// 위도, 경도를 찾기위해 필요한 임시값 (실제로 db에 들어갈 값x)
 	private String parking_search_code; 
-	
+	//
 	private int parking_code;		// 주차장 전용 코드
 	private String parking_p_id;		// 제휴 주차장 파트너 아이디 (=> *default null)
 	private String parking_name;		// 주차장 이름
