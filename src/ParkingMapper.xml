@@ -64,8 +64,9 @@
 
 <select id="selectAll" resultType="Parking">
 	SELECT 
-		parking_name, parking_address, parking_phone_number, parking_pay_type, parking_capacity,
-		parking_cur_seat, parking_latitude, parking_longitude, parking_weekdays_begin_time, parking_weekdays_end_time
+		parking_code, parking_name, parking_address, parking_phone_number, parking_pay_type, parking_capacity,
+		parking_cur_seat, parking_latitude, parking_longitude, parking_weekdays_begin_time, parking_weekdays_end_time,
+		parking_sat_begin_time, parking_sat_end_time, parking_holidays_begin_time, parking_holidays_end_time
 	FROM parking;
 </select>
 
