@@ -1,3 +1,4 @@
 /target
 */pom.properties
 */MANIFEST.MF
+WebContent/WEB-INF/lib/orgjson.jar
