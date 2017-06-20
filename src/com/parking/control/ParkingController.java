@@ -85,18 +85,13 @@ public class ParkingController {
 		return "/parkingList.jsp";
 	}
 	
-	// start of androidSelectAll.do
-	// �ȵ���̵忡�� post�������� db�� �ִ� ��� ������ ������ ��û�� ���
+	// start of androidSelectAll
+	// 안드로이드에서 DB를 요청하면 오는 메소드
 	@RequestMapping(value = "/androidSelectAll.do", method = RequestMethod.POST)
 	@ResponseBody
 	public JSONObject androidSelectAll() {
+		System.out.println("androidSelectAll()");
 		List<Parking> list = pdao.selectAll();
-		/*JSONArray jArray = new JSONArray(list.toArray());
-		JSONObject json = new JSONObject();
-		json.put("list", jArray);
-		System.out.println("jArray's length : " + jArray.length());
-		
-		return json;*/
 		JSONArray jArray = new JSONArray();
 		for(int i = 0; i < list.size(); i++) {
 			Parking p = list.get(i);
@@ -132,5 +127,5 @@ public class ParkingController {
 		JSONObject json = new JSONObject();
 		json.put("list", jArray);
 		return json;
-	} // end of androidSelectAll.do
+	} // end of androidSelectAll
 }
