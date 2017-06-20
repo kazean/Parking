@@ -5,7 +5,6 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Parking implements Serializable{
-	
 	// 필드 = 테이블의 '칼럼'
 	/* [알림] default 써져있는 필드는 실제로 db에서 default 설정이 되어있습니다.
 	1-(1). default 값 = '0' or '-1'인 경우 -> API에서 '해당 정보를 제공하지 않는다.' 는 뜻입니다.
