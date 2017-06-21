@@ -94,7 +94,7 @@ public class ParkingController {
 	
 	// start of androidSelectAll
 	// 안드로이드에서 DB를 요청하면 오는 메소드
-	@RequestMapping(value = "/androidSelectAll.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/androidSelectAll.do")
 	@ResponseBody
 	public JSONObject androidSelectAll() {
 		System.out.println("androidSelectAll()");
@@ -116,10 +116,22 @@ public class ParkingController {
 			j.put("parking_pay_type", p.getParking_pay_type());
 			j.put("parking_capacity", p.getParking_capacity());
 			j.put("parking_cur_seat", p.getParking_cur_seat());
+			
+			if(p.getParking_rates_time() / 60 >= 1) {
+				p.setParking_rates(p.getParking_rates() * p.getParking_rates_time() / 60);
+				//System.out.println("기본 요금 : " + p.getParking_rates());
+			}
+			else {
+				if(p.getParking_rates_time() != 0)
+					p.setParking_rates(p.getParking_rates() * 60 / p.getParking_rates_time());
+				//System.out.println("기본 요금 : " + p.getParking_rates());
+			}
 			j.put("parking_rates", p.getParking_rates());
 			j.put("parking_rates_time", p.getParking_rates_time());
+			
 			j.put("parking_add_rates", p.getParking_add_rates());
 			j.put("parking_add_rates_time", p.getParking_add_rates_time());
+			
 			j.put("parking_day_rates", p.getParking_day_rates());
 			j.put("parking_month_rates", p.getParking_month_rates());
 			j.put("parking_weekdays_begin_time", p.getParking_weekdays_begin_time());
@@ -129,6 +141,7 @@ public class ParkingController {
 			j.put("parking_holidays_begin_time", p.getParking_holidays_begin_time());
 			j.put("parking_holidays_end_time", p.getParking_holidays_end_time());
 			jArray.add(i, j);
+			//System.out.println("기본 요금 시간 : " + p.getParking_rates_time());
 		}		
 		
 		JSONObject json = new JSONObject();
