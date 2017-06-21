@@ -36,7 +36,7 @@ public class ParkingController {
 	@Autowired
 	ParkingDAOMySQL pDao;
 	
-	private final Logger log = (Logger) LoggerFactory.getLogger(ParkingController.class);
+	//private final Logger log = (Logger) LoggerFactory.getLogger(ParkingController.class);
 
 	/**
 	 * @author yeahni
