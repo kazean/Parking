@@ -15,26 +15,30 @@ import com.parking.vo.Admin;
 
 @Controller
 public class AdminController {
-
+	
+	// --건들지 마시오--
 	@Autowired
 	AdminService service;
-
+	
+	/**
+	 * 
+	 * @param admin
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/admin/admin.do", method=RequestMethod.POST)
-	public String check(@RequestParam(required = false, defaultValue="")String id, @RequestParam(required = false, defaultValue="")String password, HttpSession session){
-		System.out.println("AAA");
-		
-		if(id != "" && password != ""){
-			Admin admin = new Admin(id, password);
+	public String check(@RequestBody Admin admin, HttpSession session){
+		if(admin != null){
 			Admin responseAdmin = service.login(admin);
 		
-			if(responseAdmin.getA_name() != null){
+			if(responseAdmin.getA_id() != null){
 				System.out.println(responseAdmin);
 				session.setAttribute("responseAdmin", responseAdmin);
 				return "/admin/main.jsp";
 			} 
 		
 		}
-		return "/admin/index.jsp";
+		return "/admin/default.jsp";
 	}
 	
 }

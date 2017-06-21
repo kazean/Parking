@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ParkingMapper">
 
+<!-- 주차장 API 정보를 추가 @author yeahni -->
 <insert id="insert" parameterType="Parking" >
 	INSERT INTO PARKING (
 	  	parking_name,
@@ -62,14 +63,20 @@
 	);
 </insert>
 
+<!-- 전체 주차장 정보 가져오기 @author yeahni -->
 <select id="selectAll" resultType="Parking">
-	SELECT 
-		parking_code, parking_name, parking_address, parking_phone_number, parking_pay_type, parking_capacity,
-		parking_cur_seat, parking_latitude, parking_longitude, parking_weekdays_begin_time, parking_weekdays_end_time,
-		parking_sat_begin_time, parking_sat_end_time, parking_holidays_begin_time, parking_holidays_end_time
+	SELECT *
 	FROM parking;
 </select>
 
+<!-- 주차장 코드로 정보 가져오기 @author yeahni -->
+<select id="selectByCode" parameterType="Parking" resultType="Parking">
+	SELECT * 
+	FROM parking
+	WHERE parking_code = #{parking_code};
+</select>
+
+<!-- @author hawstrike -->
 <select id="selectByLocation"  parameterType="String"   resultType="Parking">
 	SELECT 
 		parking_name, parking_address, parking_phone_number, parking_pay_type, parking_capacity,
@@ -77,8 +84,5 @@
 	FROM parking
 	WHERE parking_address LIKE #{value}
 </select>
-
-
-
 
 </mapper>

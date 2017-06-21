@@ -91,12 +91,6 @@ public class ParkingController {
 	@ResponseBody
 	public JSONObject androidSelectAll() {
 		List<Parking> list = pdao.selectAll();
-		/*JSONArray jArray = new JSONArray(list.toArray());
-		JSONObject json = new JSONObject();
-		json.put("list", jArray);
-		System.out.println("jArray's length : " + jArray.length());
-		
-		return json;*/
 		JSONArray jArray = new JSONArray();
 		for(int i = 0; i < list.size(); i++) {
 			Parking p = list.get(i);

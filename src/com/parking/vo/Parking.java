@@ -1,77 +1,64 @@
 package com.parking.vo;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
 
+/**
+ * '주차장' 테이블
+ * @author yeahni
+ * @update hawstrike
+ * @comment 칼럼이 추가되었습니다.
+ */
 public class Parking implements Serializable{
 	
-	// 필드 = 테이블의 '칼럼'
-	/* [알림] default 써져있는 필드는 실제로 db에서 default 설정이 되어있습니다.
-	1-(1). default 값 = '0' or '-1'인 경우 -> API에서 '해당 정보를 제공하지 않는다.' 는 뜻입니다.
-	1-(2). default 값 = 'null'인 경우	   -> '해당 정보가 제휴되지 않은 주차장이다.'는 뜻입니다.
+	// 필드
+	/* 
+	 * pk: parking_code
+	 * fk: parking_p_id (partner -> p_id)
+	 */
+	private String parking_search_code; // 위도, 경도를 찾기위해 필요한 임시값 (실제로 db에 들어갈 값x)
+ 
+	private int parking_code;			// INT          NOT NULL AUTO_INCREMENT COMMENT '주차장 코드'
+	private String parking_p_id;		// VARCHAR(20)  NULL     		 	COMMENT '제휴 주차장 파트너 아이디'
+	private String parking_name;		// VARCHAR(150) NOT NULL 			COMMENT '주차장 이름'
+	private String parking_address;		// VARCHAR(200) NOT NULL 		 	COMMENT '주차장 주소 (도로명 기준)'
+	private String parking_phone_number;// VARCHAR(15)  NULL DEFAULT 0   	COMMENT '주차장 전화번호 (-포함)'
 	
-	2. 요일의 end_time = '0000'일 경우     -> '해당 요일에는 운영하지 않는다'.	     는 뜻입니다. */
+	private double parking_latitude;	// DOUBLE   	NULL DEFAULT 0.0 	COMMENT '주차장 위도'
+	private double parking_longitude;	// DOUBLE    	NULL DEFAULT 0.0 	COMMENT '주차장 경도'
 	
+	private int parking_status;			// TINYINT(2)   NOT NULL DEFAULT 1  COMMENT '주차장 영업 상태 (1:영업 / 2:공사 / 3:폐업)'
+	private int parking_operation;		// TINYINT(2)   NOT NULL     		COMMENT '주차장 구분 (1:공영 / 2:민영 / 3:개인)'
+	private int parking_type;			// TINYINT(2)   NOT NULL     		COMMENT '주차장 유형 (1:노상 / 2:노외)'
+	private boolean parking_is_mechan;	// BOOLEAN      NULL DEFAULT false 	COMMENT '주차장 기계식 여부 (true&1:기계식o / false&0: 기계식x)'
+	private String parking_impossible_car_type;	// VARCHAR(3) NULL DEFAULT 'ooo' COMMENT '주차장 반입 제한 여부  (대형수입소형 허용될경우 o, 허용안될 경우x)'
+	private int parking_pay_type;		// INT          NULL DEFAULT 1 		COMMENT '주차장 결제 방법 (1:모두 / 2:현금 / 3:카드 / 4: 무료)'
 	
-	// 위도, 경도를 찾기위해 필요한 임시값 (실제로 db에 들어갈 값x)
-	private String parking_search_code; 
-	//
-	private int parking_code;		// 주차장 전용 코드
-	private String parking_p_id;		// 제휴 주차장 파트너 아이디 (=> *default null)
-	private String parking_name;		// 주차장 이름
-	private String parking_address;		// 주차장 주소 (도로명 기준)
-	private String parking_phone_number;// 주차장 전화번호 (-제외 => *default 0)
+	private String parking_capacity; 	// INT          NULL DEFAULT 0 		COMMENT '주차장 전체 좌석(0일 경우 좌석 정보 제공x)'
+	private int parking_cur_seat;		// INT          NULL DEFAULT -1 	COMMENT '주차장 현재 주차중인 대수 (-1일 경우 실시간 정보 제공x)'
 	
-	private double parking_latitude;	// 주차장 위도 (=> *default 0.0)
-	private double parking_longitude;	// 주차장 경도 (=> *default 0.0)
-	
-	private int parking_status;			// 주차장 영업 상태 (1:영업 / 2:공사 / 3:폐업 => *default 1)
-	private int parking_operation;		// 주차장 구분 (1:공영 / 2:민영 / 3:개인 => 전국 데이터는 2, 서울시 데이터는 1)
-	private int parking_type;			// 주차장 유형 (1:노상 / 2:노외)
-	private boolean parking_is_mechan;	// 주차장 기계식 여부 (true:기계식 / false: 기계식아님 => *default false)
-	private String parking_impossible_car_type;	// 주차장 반입 제한 여부  (대형수입소형 허용될경우 o, 허용안될 경우x => *default 'ooo')
-	private int parking_pay_type;		// 주차장 결제 방법 (1:모두 / 2:현금 / 3:카드 / 4: 무료 => *default 1)
-	
-	private String parking_capacity; 	// 주차장 전체 좌석 (=> *default 0 = 0일 경우 좌석 정보 제공x) 
-	private int parking_cur_seat;		// 주차장 현재 주차중인 대수 (=> *default -1 = -1일 경우 실시간 정보 제공x)
-	
-	private int parking_rates;			// 주차장 기본 요금 (원 단위 기준 => *default 0)
-	private int parking_rates_time;		// 주차장 기본 요금 시간 (분 단위 기준 => *default 0)
-	private int parking_add_rates;		// 주차장 추가 요금 (원 단위 기준 => *default 0)
-	private int parking_add_rates_time; // 주차장 추가 요금 시간 (분 단위 기준 => *default 0)
-	private int parking_day_rates;		// 주차장 일 주차권 요금 (원 단위 기준 => *default 0)
-	private int parking_month_rates;	// 주차장 월 정기 요금 (원 단위 기준 => *default 0)
+	private int parking_rates;			// INT          NULL DEFAULT 0 		COMMENT '주차장 기본 요금 (원 단위 기준)'
+	private int parking_rates_time;		// INT          NULL DEFAULT 0 		COMMENT '주차장 기본 요금 시간 (분 단위 기준)'
+	private int parking_add_rates;		// INT          NULL DEFAULT 0 		COMMENT '주차장 추가 요금 (원 단위 기준)'
+	private int parking_add_rates_time; // INT          NULL DEFAULT 0 		COMMENT '주차장 추가 요금 시간 (분 단위 기준)'
+	private int parking_day_rates;		// INT          NULL DEFAULT 0 		COMMENT '주차장 일 주차권 요금 (원 단위 기준)'
+	private int parking_month_rates;	// INT          NULL DEFAULT 0 		COMMENT '주차장 월 정기 요금 (원 단위 기준)'
 	 
-	private Time parking_weekdays_begin_time; // 주차장 평일 운영시간 -> 시작 (시, 분 포함 => *default 0000)
-	private Time parking_weekdays_end_time;	  // 주차장 평일 운영시간 -> 종료 (시, 분 포함 => *default 0000)
-	private Time parking_sat_begin_time;	  // 주차장 토요일 운영시간 -> 시작 (시, 분 포함 => *default 0000)
-	private Time parking_sat_end_time;		  // 주차장 토요일 운영시간 -> 종료 (시, 분 포함 => *default 0000)
-	private Time parking_holidays_begin_time; // 주차장 공휴일 운영시간 -> 시작 (시, 분 포함 => *default 0000)
-	private Time parking_holidays_end_time;	  // 주차장 공휴일 운영시간 -> 종료 (시, 분 포함 => *default 0000)
+	private Time parking_weekdays_begin_time; // TIME   NULL DEFAULT 0000 	COMMENT '주차장 평일 운영시간 -> 시작 (시, 분 포함)'
+	private Time parking_weekdays_end_time;	  // TIME   NULL DEFAULT 0000 	COMMENT '주차장 평일 운영시간 -> 종료 (시, 분 포함)'
+	private Time parking_sat_begin_time;	  // TIME   NULL DEFAULT 0000 	COMMENT '주차장 토요일 운영시간 -> 시작 (시, 분 포함)'
+	private Time parking_sat_end_time;		  // TIME   NULL DEFAULT 0000 	COMMENT '주차장 토요일 운영시간 -> 종료 (시, 분 포함)'
+	private Time parking_holidays_begin_time; // TIME   NULL DEFAULT 0000 	COMMENT '주차장 공휴일 운영시간 -> 시작 (시, 분 포함)'
+	private Time parking_holidays_end_time;	  // TIME   NULL DEFAULT 0000 	COMMENT '주차장 공휴일 운영시간 -> 종료 (시, 분 포함)'
+	private Date parking_update_time;		  // DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '주차장 기본 정보의 업데이트 시간'
 	
 	// 생성자
 	public Parking() {
-		super();
 	}
 	
-	public Parking(int parking_code, String parking_name, String parking_address, double parking_latitude, double parking_longitude,
-			int parking_status, int parking_operation, int parking_type, String parking_impossible_car_type) {
-		super();
-		this.parking_code = parking_code;
-		this.parking_name = parking_name;
-		this.parking_address = parking_address;
-		this.parking_latitude = parking_latitude;
-		this.parking_longitude = parking_longitude;
-		this.parking_status = parking_status;
-		this.parking_operation = parking_operation;
-		this.parking_type = parking_type;
-		this.parking_impossible_car_type = parking_impossible_car_type;
-	}
-
-	public Parking(int parking_code, String parking_p_id, 
-			String parking_name, String parking_address, String parking_phone_number,
-			double parking_latitude, double parking_longitude, 
+	public Parking(String parking_name, String parking_address, String parking_phone_number,
+			double parking_latitude, double parking_longitude,
 			int parking_status, int parking_operation, int parking_type, 
 			boolean parking_is_mechan, String parking_impossible_car_type, int parking_pay_type,
 			String parking_capacity, int parking_cur_seat, 
@@ -81,9 +68,6 @@ public class Parking implements Serializable{
 			Time parking_weekdays_begin_time, Time parking_weekdays_end_time,
 			Time parking_sat_begin_time, Time parking_sat_end_time, 
 			Time parking_holidays_begin_time, Time parking_holidays_end_time) {
-		super();
-		this.parking_code = parking_code;
-		this.parking_p_id = parking_p_id;
 		this.parking_name = parking_name;
 		this.parking_address = parking_address;
 		this.parking_phone_number = parking_phone_number;
@@ -111,11 +95,65 @@ public class Parking implements Serializable{
 		this.parking_holidays_end_time = parking_holidays_end_time;
 	}
 	
-	// getter and setter
+	public Parking(String parking_p_id,
+			String parking_name, String parking_address, String parking_phone_number,
+			double parking_latitude, double parking_longitude,
+			int parking_status, int parking_operation, int parking_type, 
+			boolean parking_is_mechan, String parking_impossible_car_type, int parking_pay_type,
+			String parking_capacity, int parking_cur_seat, 
+			int parking_rates, int parking_rates_time,
+			int parking_add_rates, int parking_add_rates_time, 
+			int parking_day_rates, int parking_month_rates,
+			Time parking_weekdays_begin_time, Time parking_weekdays_end_time,
+			Time parking_sat_begin_time, Time parking_sat_end_time, 
+			Time parking_holidays_begin_time, Time parking_holidays_end_time) {
+		this(parking_name, parking_address, parking_phone_number,
+				parking_latitude, parking_longitude, 
+				parking_status, parking_operation, parking_type,
+				parking_is_mechan, parking_impossible_car_type, parking_pay_type,
+				parking_capacity, parking_cur_seat,
+				parking_rates, parking_rates_time,
+				parking_add_rates, parking_add_rates_time,
+				parking_day_rates, parking_month_rates,
+				parking_weekdays_begin_time, parking_weekdays_end_time,
+				parking_sat_begin_time, parking_sat_end_time,
+				parking_holidays_begin_time, parking_holidays_end_time);
+		
+	}
+
+	public Parking(int parking_code, 
+			String parking_p_id, 
+			String parking_name, String parking_address, String parking_phone_number,
+			double parking_latitude, double parking_longitude, 
+			int parking_status, int parking_operation, int parking_type, 
+			boolean parking_is_mechan, String parking_impossible_car_type, int parking_pay_type,
+			String parking_capacity, int parking_cur_seat, 
+			int parking_rates, int parking_rates_time,
+			int parking_add_rates, int parking_add_rates_time, 
+			int parking_day_rates, int parking_month_rates,
+			Time parking_weekdays_begin_time, Time parking_weekdays_end_time,
+			Time parking_sat_begin_time, Time parking_sat_end_time, 
+			Time parking_holidays_begin_time, Time parking_holidays_end_time,
+			Date parking_update_time) {
+		this(parking_p_id, parking_name, parking_address, parking_phone_number,
+				parking_latitude, parking_longitude, 
+				parking_status, parking_operation, parking_type,
+				parking_is_mechan, parking_impossible_car_type, parking_pay_type,
+				parking_capacity, parking_cur_seat,
+				parking_rates, parking_rates_time,
+				parking_add_rates, parking_add_rates_time,
+				parking_day_rates, parking_month_rates,
+				parking_weekdays_begin_time, parking_weekdays_end_time,
+				parking_sat_begin_time, parking_sat_end_time,
+				parking_holidays_begin_time, parking_holidays_end_time);
+		this.parking_code = parking_code;
+		this.parking_update_time = parking_update_time;
+	}
+	
+	// getter & setter
 	public int getParking_code() {
 		return parking_code;
 	}
-	
 	public void setParking_code(int parking_code) {
 		this.parking_code = parking_code;
 	}
@@ -154,7 +192,6 @@ public class Parking implements Serializable{
 	public void setParking_latitude(double parking_latitude) {
 		this.parking_latitude = parking_latitude;
 	}
-
 
 	public double getParking_longitude() {
 		return parking_longitude;

@@ -7,7 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
 <c:set var="list" value="${requestScope.result}"/>
 <c:choose>
-  <c:when test="${empty list }">
+  <c:when test="${empty list}">
   <h3>err.</h3>
   </c:when>
   
