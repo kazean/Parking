@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.xml.ws.Response;
 
+import org.apache.ibatis.annotations.Param;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.LoggerFactory;
@@ -69,27 +70,34 @@ public class ParkingController {
 		return "/test.jsp";
 	}
 		
+	//selectByLocation 시작
+	//메인페이지에서 검색시 지역명으로 주차장 불러옴
 	@RequestMapping(value = "/selectByLocation.do")
-	public String selectByLocation(String location, Date reserveEntranceTime, Date reserveExitTime, Model model){
+	public String selectByLocation(String location, /*Date reserveEntranceTime, Date reserveExitTime,*/ Model model) {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+		/*SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 		String in = sdf.format(reserveEntranceTime);
 		String out = sdf.format(reserveExitTime);
-		System.out.println("location :"+location+"reserveEntranceTime :"+in+"reserveExitTime :"+out);
+		System.out.println("location :"+location+"reserveEntranceTime :"+in+"reserveExitTime :"+out);*/
+		
+		//디폴트 지정 param으로 수정예정
+		if("".equals(location)){
+			location = "강남";
+		}
 		
 		List<Parking> list = pdao.selectByLocation(location);
 		model.addAttribute("list", list);
-		for(Parking p : list){
-			System.out.println(p);
-		}
 		return "/parkingList.jsp";
 	}
+	//selectByLocation 끝
 	
-	// start of androidSelectAll.do
-	// �ȵ���̵忡�� post�������� db�� �ִ� ��� ������ ������ ��û�� ���
-	@RequestMapping(value = "/androidSelectAll.do", method = RequestMethod.POST)
+	
+	// start of androidSelectAll
+	// 안드로이드에서 DB를 요청하면 오는 메소드
+	@RequestMapping(value = "/androidSelectAll.do")
 	@ResponseBody
 	public JSONObject androidSelectAll() {
+		System.out.println("androidSelectAll()");
 		List<Parking> list = pdao.selectAll();
 		JSONArray jArray = new JSONArray();
 		for(int i = 0; i < list.size(); i++) {
@@ -108,10 +116,22 @@ public class ParkingController {
 			j.put("parking_pay_type", p.getParking_pay_type());
 			j.put("parking_capacity", p.getParking_capacity());
 			j.put("parking_cur_seat", p.getParking_cur_seat());
+			
+			if(p.getParking_rates_time() / 60 >= 1) {
+				p.setParking_rates(p.getParking_rates() * p.getParking_rates_time() / 60);
+				//System.out.println("기본 요금 : " + p.getParking_rates());
+			}
+			else {
+				if(p.getParking_rates_time() != 0)
+					p.setParking_rates(p.getParking_rates() * 60 / p.getParking_rates_time());
+				//System.out.println("기본 요금 : " + p.getParking_rates());
+			}
 			j.put("parking_rates", p.getParking_rates());
 			j.put("parking_rates_time", p.getParking_rates_time());
+			
 			j.put("parking_add_rates", p.getParking_add_rates());
 			j.put("parking_add_rates_time", p.getParking_add_rates_time());
+			
 			j.put("parking_day_rates", p.getParking_day_rates());
 			j.put("parking_month_rates", p.getParking_month_rates());
 			j.put("parking_weekdays_begin_time", p.getParking_weekdays_begin_time());
@@ -121,10 +141,11 @@ public class ParkingController {
 			j.put("parking_holidays_begin_time", p.getParking_holidays_begin_time());
 			j.put("parking_holidays_end_time", p.getParking_holidays_end_time());
 			jArray.add(i, j);
+			//System.out.println("기본 요금 시간 : " + p.getParking_rates_time());
 		}		
 		
 		JSONObject json = new JSONObject();
 		json.put("list", jArray);
 		return json;
-	} // end of androidSelectAll.do
+	} // end of androidSelectAll
 }

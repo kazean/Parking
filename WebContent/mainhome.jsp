@@ -73,10 +73,6 @@ $(function(){
 
 	});
 	
-	 /* <input type="text" id="palceName"  placeholder = "주차하려는 지역명"/>
-    <input type="text" id="reserveEntranceTime" placeholder="입차일자"/>
-    <input type="text"  id="reserveExitTime" placeholder="출차일자"/>
-    <input type="submit" id ="smReserve" value="주차장 선택하러 가기"/> */
     var $form = $('.selectschedule').find('form');
     $form.find('input[id=btReserve]').click(function(){
     	var location = $('#location').val();
@@ -86,6 +82,7 @@ $(function(){
     	
     	$.ajax({
     		url : 'selectByLocation.do',
+    		method : 'GET',
     		data : {
     			'location':  location ,
     			'reserveEntranceTime' :  reserveEntranceTime,

@@ -349,6 +349,14 @@ public class Parking implements Serializable{
 	public void setParking_search_code(String parking_search_code) {
 		this.parking_search_code = parking_search_code;
 	}
+	
+	public Date getParking_update_time() {
+		return parking_update_time;
+	}
+
+	public void setParking_update_time(Date parking_update_time) {
+		this.parking_update_time = parking_update_time;
+	}
 
 	// override
 	@Override

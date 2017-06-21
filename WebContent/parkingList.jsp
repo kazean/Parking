@@ -11,8 +11,9 @@
   
 <style>
 #map {    width: 100%;    height: 400px;    background-color: grey;  }
-.mapDetailList{border : 1px solid; width : 200x; height:500px; inline-block;float :left; margin : 10px}
-#map{border : 1px solid; width : 800px ;height:500px;display: inline-block;float :left;  margin : 10px}
+.mapDetailList {border : 1px solid; width : 200x; height:500px; inline-block;float :left; margin : 10px}
+#map {border : 1px solid; width : 800px ;height:500px;display: inline-block;float :left;  margin : 10px}
+.seletTime {border : 1px solid; width : 200x; height:500px; margin : 10px ; width : auto;height: 80px}
 </style>
   
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -44,7 +45,16 @@ $(function(){
 
 <body>
 
+<div class="seletTime">
+ <form>
+    <input type="text" id="location" placeholder = "주차하려는 지역명"/>
+    <input type="text" id="reserveEntranceTime" placeholder="입차일자"/>
+    <input type="text"  id="reserveExitTime" placeholder="출차일자"/>
+    <input type="button" id ="btReserve" value="주차장 선택하러 가기"/>
+  </form> 
+</div>
 
+ 
 
 <div class ="mapDetailList">
 
@@ -53,10 +63,16 @@ $(function(){
 <ol>
 
 <c:forEach var ="parking"   items="${list}">
-  <li> 위도 : ${parking.parking_latitude} //  경도 : ${parking.parking_longitude}  </li>
+ <hr>
+  <li> 주차장이름     <br>
+            즐겨찾기 스위치,<br>
+            평점,<br>
+            위도 : ${parking.parking_latitude} //  경도 : ${parking.parking_longitude} //  </li>
 </c:forEach>
 </ol>
 </div>
+
+
 <div id="map">
 
 지도출력을 위한 페이지 입니다.
