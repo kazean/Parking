@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,13 +31,20 @@ import ch.qos.logback.core.Context;
 
 @Controller
 public class ParkingController {
+	
+	// --건들지 마시오--
+	@Autowired
+	ParkingDAOMySQL pDao;
+	
 	private final Logger log = (Logger) LoggerFactory.getLogger(ParkingController.class);
 
-	@Autowired
-	ParkingDAOMySQL pdao;
-	
+	/**
+	 * @author yeahni
+	 * @param model 임시 결과
+	 * @return String url
+	 */
 	@RequestMapping(value = "/insert.do")
-	public String http(Model model){
+	public String add(Model model){
 		Public_parking_RestTemplateServiceImpl rest = new Public_parking_RestTemplateServiceImpl();
 		Public_parking_coordinate_RestTemplateServiceImpl coordRest = new Public_parking_coordinate_RestTemplateServiceImpl();
 		
@@ -54,7 +62,7 @@ public class ParkingController {
 				}
 			}
 			
-			pdao.insert(public_parking);
+			pDao.insert(public_parking);
 			
 			model.addAttribute("result", public_parking);
 		} catch (Exception e) {
@@ -63,15 +71,28 @@ public class ParkingController {
 		return "/test.jsp";
 	}
 	
+	/**
+	 * @author yeahni
+	 * @comment 전체 주차장 리스트 반환
+	 * @param model 결과 값 담는 공간
+	 * @return String url
+	 */
 	@RequestMapping(value = "/selectAll.do")
-	public String httpPost(Model model){
-		List<Parking> list = pdao.selectAll();
+	public String readList(Model model){
+		List<Parking> list = pDao.selectAll();
 		model.addAttribute("result", list);
+		
 		return "/test.jsp";
 	}
-		
+	
+	/**
+	 * @author hawstrike
+	 * @comment 메인페이지에서 검색시 지역명으로 주차장 불러옴
+	 * @param location
+	 * @param model
+	 * @return String url
+	 */
 	//selectByLocation 시작
-	//메인페이지에서 검색시 지역명으로 주차장 불러옴
 	@RequestMapping(value = "/selectByLocation.do")
 	public String selectByLocation(String location, /*Date reserveEntranceTime, Date reserveExitTime,*/ Model model) {
 		
@@ -85,20 +106,23 @@ public class ParkingController {
 			location = "강남";
 		}
 		
-		List<Parking> list = pdao.selectByLocation(location);
+		List<Parking> list = pDao.selectByLocation(location);
 		model.addAttribute("list", list);
 		return "/parkingList.jsp";
 	}
 	//selectByLocation 끝
 	
-	
+	/**
+	 * @author hawstrike
+	 * @comment 안드로이드에서 DB를 요청하면 오는 메소드
+	 * @return JSONObject
+	 */
 	// start of androidSelectAll
-	// 안드로이드에서 DB를 요청하면 오는 메소드
 	@RequestMapping(value = "/androidSelectAll.do")
 	@ResponseBody
 	public JSONObject androidSelectAll() {
 		System.out.println("androidSelectAll()");
-		List<Parking> list = pdao.selectAll();
+		List<Parking> list = pDao.selectAll();
 		JSONArray jArray = new JSONArray();
 		for(int i = 0; i < list.size(); i++) {
 			Parking p = list.get(i);
@@ -148,4 +172,5 @@ public class ParkingController {
 		json.put("list", jArray);
 		return json;
 	} // end of androidSelectAll
+	
 }

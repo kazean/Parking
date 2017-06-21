@@ -4,12 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ReservationMapper">
 
-
-
+<!-- 해당 고객의 예약 확인 @author yunmeheo -->
 <select id="selectById" parameterType="String" resultType="WishList">
-SELECT * FROM Reservation WHERE id = #{c_id}
+	SELECT * 
+	FROM Reservation 
+	WHERE id = #{c_id}
 </select>
-
-
 
 </mapper>

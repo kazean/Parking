@@ -5,10 +5,10 @@
 <mapper namespace="AdminMapper">
 
 <!-- 관리자 로그인 확인 @author yeahni  -->
-<select id="selectAll" resultType="Admin">
+<select id="selectByIdANDPwd"  parameterType="Admin" resultType="Admin">
 	SELECT * 
 	FROM admin 
-	WHERE a_id=#{a_id} AND a_password=#{a_password};
+	WHERE a_id = #{a_id} AND a_password = #{a_password};
 </select>
 
 </mapper>

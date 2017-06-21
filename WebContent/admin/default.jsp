@@ -4,59 +4,16 @@
 <html>
 <head>
 <meta content="text/html; charset=UTF-8">
-<title>default</title>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script>
-
-	$(function() {
-		$("form").submit(function() {
-			var a_id = $("input[name=a_id]").val();
-			var a_password = $("input[name=a_password]").val();
-
-			// obj
-			var admin = {
-				'a_id' : a_id,
-				'a_password' : a_password
-			};
-
-			$.ajax({
-				url : 'admin.do',
-				method : 'POST',
-				contentType : 'application/json; charset=UTF-8',
-				data : JSON.stringify(admin),
-				success : function(responseData) {
-					$("body").empty();
-					$("body").html(responseData.trim());
-				},
-				error : function(xhr, status, error) {
-					console.log(xhr, status, error);
-				}
-			});
-			return false;
-		});
-
-	});
-</script>
+<title></title>
 </head>
 
 <body>
 	<header></header>
 	
 	<article>
-		<h3>관리자 로그인</h3>
-	
-		<div id="adminLogin" value="adminLogin">
-			<form>
-				아이디: <input type="text" name="a_id">
-				<br>
-				비밀번호: <input type="password" name="a_password">
-				<input type="submit" value="로그인">
-			</form>
-		</div>
+		<jsp:include page="login.jsp"></jsp:include>
 	</article>
 	
 	<footer></footer>
-	
 </body>
 </html>

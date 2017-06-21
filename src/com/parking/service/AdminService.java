@@ -9,10 +9,18 @@ import com.parking.vo.Admin;
 @Service
 public class AdminService {
 	
+	// --건들지 마시오--
 	@Autowired
-	AdminDAOMySQL dao;
+	AdminDAOMySQL aDao;
 	
+	/**
+	 * @author yeahni
+	 * @comment 로그인 정보 확인
+	 * @param admin 받아온 로그인 정보
+	 * @return Admin 실제 로그인 정보
+	 */
 	public Admin login(Admin admin){
-		return dao.selectAll(admin);
+		return aDao.selectByIdANDPwd(admin);
 	}
+	
 }

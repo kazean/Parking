@@ -4,24 +4,31 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CustomerMapper">
 
+<!-- 고객 회원가입 @author yunmeheo -->
 <insert id="insert" parameterType="Customer" >
-INSERT INTO customer(c_id, c_password, c_name, c_phone_number, c_car_number,
-			c_card_number, c_date, c_status)
-VALUES (#{c_id}, #{c_password}, #{c_name}, #{c_phone_number}, #{c_car_number},
-			#{c_card_number},  now(), #{c_status})
+	INSERT 
+	INTO customer
+	(c_id, c_password, c_name, c_phone_number, c_car_number, 
+	c_card_number, c_date, c_status)
+	VALUES 
+	(#{c_id}, #{c_password}, #{c_name}, #{c_phone_number}, #{c_car_number},
+	#{c_card_number},  now(), #{c_status})
 </insert>
 
+<!-- 고객 로그인 @author yunmeheo -->
 <select id="selectById" parameterType="String" resultType="Customer">
-SELECT * FROM customer WHERE c_id = #{c_id}
+	SELECT * 
+	FROM customer 
+	WHERE c_id = #{c_id}
 </select>
 
-
-<!-- 해당 아이디에 대한 예약내역  -->
+<!-- 해당 아이디에 대한 예약내역 @author yunmeheo -->
 <select id="reservation" parameterType="String" resultType="Reservation">
-select reserve_number,reserve_parking_code,reserve_entrance_time,reserve_exit_time,reserve_status,
-	   reserve_time,refund_time
-from reservation
-where reserve_c_id = #{c_id}
+	SELECT 
+	reserve_number,reserve_parking_code,reserve_entrance_time,reserve_exit_time,
+	reserve_status,reserve_time,refund_time
+	FROM reservation
+	WHERE reserve_c_id = #{c_id}
 </select>
 
 </mapper>

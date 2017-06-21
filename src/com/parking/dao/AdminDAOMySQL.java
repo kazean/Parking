@@ -9,11 +9,18 @@ import com.parking.vo.Admin;
 @Repository
 public class AdminDAOMySQL {
 
+	// --건들지 마시오--
 	@Autowired
 	SqlSession session;
 	
-	public Admin selectAll(Admin admin){
-		return session.selectOne("AdminMapper.selectAll", admin);
+	/**
+	 * @author yeahni
+	 * @comment 관리자 정보 반환
+	 * @param admin 받아온 로그인 정보
+	 * @return Admin 관리자 정보
+	 */
+	public Admin selectByIdANDPwd(Admin admin){
+		return session.selectOne("AdminMapper.selectByIdANDPwd", admin);
 	}
 	
 }
