@@ -50,24 +50,51 @@ function initMap() {
     }
     
     /* 마커 찍을 인자 생성 */
-    var features = [];
-    <%for(int i=0; i< parking.size() ; i++) {%>
-        var latitude = '<%=parking.get(i).getParking_latitude()%>';
-        var longitude = '<%=parking.get(i).getParking_longitude()%>';
-        console.log("latitude :"+latitude+"latitude :"+latitude);
-        console.log("<%=parking.get(i).getParking_rates()%>");
-        console.log("<%=parking.get(i).getParking_name()%>");
-        features[<%=i%>] = {position: new google.maps.LatLng(latitude, longitude), 
-                  info: '<%=parking.get(i).getParking_rates()*parking.get(i).getParking_rates_time()%>',
-                  title:'<%=parking.get(i).getParking_name()%>' 
-        }
-        addMarker(features[<%=i%>]);
-    <%}%>
+   function viewMarker(){
+      var features = [];
+      <%for(int i=0; i< parking.size() ; i++) {%>
+          var latitude = '<%=parking.get(i).getParking_latitude()%>';
+          var longitude = '<%=parking.get(i).getParking_longitude()%>';
+          console.log("latitude :"+latitude+"latitude :"+latitude);
+          console.log("<%=parking.get(i).getParking_rates()%>");
+          console.log("<%=parking.get(i).getParking_name()%>");
+          features[<%=i%>] = {position: new google.maps.LatLng(latitude, longitude), 
+                    info: '<%=parking.get(i).getParking_rates()*parking.get(i).getParking_rates_time()%>',
+                    title:'<%=parking.get(i).getParking_name()%>' 
+          }
+          addMarker(features[<%=i%>]);
+      <%}%>
+    };
     
-    
+    /* 보이는곳만 마커찍기 - 구현중 */
+	google.maps.event.addListener(map, 'zoom_changed', function() {
+		startLat = map.getBounds().getSouthWest().lat();
+		startLng = map.getBounds().getSouthWest().lng();
+		endLat = map.getBounds().getNorthEast().lat();
+		endLng = map.getBounds().getNorthEast().lng();
+		viewMarker();
+	});
 
-
-    
+	google.maps.event.addListener(map, 'dragend', function(){
+		startLat = map.getBounds().getSouthWest().lat();
+		startLng = map.getBounds().getSouthWest().lng();
+		endLat = map.getBounds().getNorthEast().lat();
+		endLng = map.getBounds().getNorthEast().lng();
+		viewMarker();
+	});
+	
+	// 기준 원 그리기 - 구현줃
+	var populationOptions = {
+		strokeColor: '#000000',
+		strokeOpacity: 0.8,
+		strokeWeight: 2,
+		fillColor: '#808080',
+		fillOpacity: 0.5,
+		map: map,
+		center: new google.maps.LatLng(latitude,longitude) ,
+		radius: 10000
+	};
+	cityCircle = new google.maps.Circle(populationOptions);
     
   }
 
