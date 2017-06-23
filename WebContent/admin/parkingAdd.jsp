@@ -54,8 +54,8 @@
 			var parking_p_id =  $("input[name=parking_p_id]").val();
 			
 			/* $.ajax({
-				url: 'partnerCheck.do',
-				data: {'parking_p_id': parking_p_id},
+				url: 'partnerCheck' + parking_p_id,
+				method: 'GET',
 				success: function(responseData){
 					var result = responseData.trim();
 					
@@ -167,7 +167,8 @@
 			
 			if(resultConfirm){
 				$.ajax({
-					url: 'parkingList.do',
+					url: 'parkingList',
+					method: 'GET',
 					success: function(responseData){
 						$parentObj.empty();
 						$parentObj.html(responseData.trim());

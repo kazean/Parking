@@ -14,7 +14,7 @@ public class ParkingDAOMySQL {
 	
 	// --건들지 마시오--
 	@Autowired
-	public SqlSession session;
+	SqlSession session;
 	
 	/**
 	 * @author yeahni

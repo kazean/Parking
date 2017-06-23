@@ -9,13 +9,13 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-  <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-	<property name="driverClass" value="com.mysql.jdbc.Driver"/>
-	<property name="url" value="jdbc:mysql://192.168.12.43:3306/parking?characterEncoding=utf-8"/>
-	<!--<property name="url" value="jdbc:mysql://localhost:8082/parking"/>-->
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	<!--<property name="url" value="jdbc:mysql://192.168.12.43:3306/parking?characterEncoding=utf-8?useSSL=false"/>-->
+	<property name="url" value="jdbc:mysql://localhost:8082/parking?useSSL=false"/>
    	<property name="username" value="root"/>
-   	<property name="password" value="1234"/>
-   	<!--<property name="password" value="parking"/>-->
+   	<!--<property name="password" value="1234"/>-->
+   	<property name="password" value="parking"/>
   </bean>
   
   <bean id="transactionManager"

@@ -1,4 +1,4 @@
-package com.parking.control;
+ package com.parking.control;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,7 +36,6 @@ public class ParkingController {
 	@Autowired
 	ParkingDAOMySQL pDao;
 	
-	private final Logger log = (Logger) LoggerFactory.getLogger(ParkingController.class);
 
 	/**
 	 * @author yeahni
