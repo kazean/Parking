@@ -122,7 +122,7 @@ public class ParkingController {
 	// start of androidSelectAll
 	
 	//@RequestMapping(value ="androidSelectAll", headers="Accept=application/json")
-	@GetMapping("androidSelectAll")
+	@GetMapping("aselectall")
 	public List<Parking> androidSelectAll() {
 		System.out.println("androidSelectAll()");
 		List<Parking> list = pDao.selectAll();

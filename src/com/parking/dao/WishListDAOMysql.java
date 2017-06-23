@@ -1,4 +1,7 @@
 package com.parking.dao;
+
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,8 +20,20 @@ public class WishListDAOMysql {
 	 * @param c_id 고객 아이디
 	 * @return WishList 고객이 위시한 리스트
 	 */
-	public WishList selectById(String c_id){
-		return session.selectOne("WishListMapper.selectById",c_id);
+	public List<WishList> selectById(String c_id){
+		return session.selectList("WishListMapper.selectById", c_id);
+	}
+	
+	public List<WishList> selectAll() {
+		return session.selectList("WishListMapper.selectAll");
+	}
+	
+	public int insert(WishList w) {
+		return session.insert("WishListMapper.insert", w);
+	}
+	
+	public int delete(WishList w) {
+		return session.delete("WishListMapper.delete", w);
 	}
 	
 }
