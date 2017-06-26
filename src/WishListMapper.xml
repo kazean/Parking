@@ -6,9 +6,7 @@
 
 <!-- 해당 고객의 위시리스트 @author yunmeheo -->
 <select id="selectById" parameterType="String" resultType="WishList">
-	SELECT * 
-	FROM WISHLIST 
-	WHERE id = #{c_id}
+	SELECT * FROM WISHLIST WHERE wish_c_id = #{c_id}
 </select>
 
 <select id="selectAll" resultType="WishList">
