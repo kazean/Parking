@@ -30,12 +30,14 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.core.Context;
 
 @Controller
+@RequestMapping("/")
 public class ParkingController {
 	
 	// --건들지 마시오--
 	@Autowired
 	ParkingDAOMySQL pDao;
-	
+
+	//private final Logger log = (Logger) LoggerFactory.getLogger(ParkingController.class);
 
 	/**
 	 * @author yeahni
@@ -93,12 +95,12 @@ public class ParkingController {
 	 */
 	//selectByLocation 시작
 	@RequestMapping(value = "/selectByLocation.do")
-	public String selectByLocation(String location, /*Date reserveEntranceTime, Date reserveExitTime,*/ Model model) {
+	public String selectByLocation(String location, Date reserveEntranceTime, Date reserveExitTime, Model model) {
 		
-		/*SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 		String in = sdf.format(reserveEntranceTime);
 		String out = sdf.format(reserveExitTime);
-		System.out.println("location :"+location+"reserveEntranceTime :"+in+"reserveExitTime :"+out);*/
+		System.out.println("location :"+location+"reserveEntranceTime :"+in+"reserveExitTime :"+out);
 		
 		//디폴트 지정 param으로 수정예정
 		if("".equals(location)){
@@ -117,12 +119,14 @@ public class ParkingController {
 	 * @return JSONObject
 	 */
 	// start of androidSelectAll
-	@RequestMapping(value = "/androidSelectAll.do")
+	
+	//@RequestMapping(value ="androidSelectAll", headers="Accept=application/json")
+	@GetMapping("aselectall")
 	@ResponseBody
-	public JSONObject androidSelectAll() {
+	public List<Parking> androidSelectAll() {
 		System.out.println("androidSelectAll()");
 		List<Parking> list = pDao.selectAll();
-		JSONArray jArray = new JSONArray();
+		/*JSONArray jArray = new JSONArray();
 		for(int i = 0; i < list.size(); i++) {
 			Parking p = list.get(i);
 			JSONObject j = new JSONObject();
@@ -169,7 +173,8 @@ public class ParkingController {
 		
 		JSONObject json = new JSONObject();
 		json.put("list", jArray);
-		return json;
+		*/
+		return list;
 	} // end of androidSelectAll
 	
 }

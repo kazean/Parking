@@ -35,7 +35,7 @@ public class Parking implements Serializable{
 	private String parking_impossible_car_type;	// VARCHAR(3) NULL DEFAULT 'ooo' COMMENT '주차장 반입 제한 여부  (대형수입소형 허용될경우 o, 허용안될 경우x)'
 	private int parking_pay_type;		// INT          NULL DEFAULT 1 		COMMENT '주차장 결제 방법 (1:모두 / 2:현금 / 3:카드 / 4: 무료)'
 	
-	private String parking_capacity; 	// INT          NULL DEFAULT 0 		COMMENT '주차장 전체 좌석(0일 경우 좌석 정보 제공x)'
+	private int parking_capacity; 	// INT          NULL DEFAULT 0 		COMMENT '주차장 전체 좌석(0일 경우 좌석 정보 제공x)'
 	private int parking_cur_seat;		// INT          NULL DEFAULT -1 	COMMENT '주차장 현재 주차중인 대수 (-1일 경우 실시간 정보 제공x)'
 	
 	private int parking_rates;			// INT          NULL DEFAULT 0 		COMMENT '주차장 기본 요금 (원 단위 기준)'
@@ -61,7 +61,7 @@ public class Parking implements Serializable{
 			double parking_latitude, double parking_longitude,
 			int parking_status, int parking_operation, int parking_type, 
 			boolean parking_is_mechan, String parking_impossible_car_type, int parking_pay_type,
-			String parking_capacity, int parking_cur_seat, 
+			int parking_capacity, int parking_cur_seat, 
 			int parking_rates, int parking_rates_time,
 			int parking_add_rates, int parking_add_rates_time, 
 			int parking_day_rates, int parking_month_rates,
@@ -100,7 +100,7 @@ public class Parking implements Serializable{
 			double parking_latitude, double parking_longitude,
 			int parking_status, int parking_operation, int parking_type, 
 			boolean parking_is_mechan, String parking_impossible_car_type, int parking_pay_type,
-			String parking_capacity, int parking_cur_seat, 
+			int parking_capacity, int parking_cur_seat, 
 			int parking_rates, int parking_rates_time,
 			int parking_add_rates, int parking_add_rates_time, 
 			int parking_day_rates, int parking_month_rates,
@@ -127,7 +127,7 @@ public class Parking implements Serializable{
 			double parking_latitude, double parking_longitude, 
 			int parking_status, int parking_operation, int parking_type, 
 			boolean parking_is_mechan, String parking_impossible_car_type, int parking_pay_type,
-			String parking_capacity, int parking_cur_seat, 
+			int parking_capacity, int parking_cur_seat, 
 			int parking_rates, int parking_rates_time,
 			int parking_add_rates, int parking_add_rates_time, 
 			int parking_day_rates, int parking_month_rates,
@@ -242,10 +242,10 @@ public class Parking implements Serializable{
 		this.parking_pay_type = parking_pay_type;
 	}
 
-	public String getParking_capacity() {
+	public int getParking_capacity() {
 		return parking_capacity;
 	}
-	public void setParking_capacity(String parking_capacity) {
+	public void setParking_capacity(int parking_capacity) {
 		this.parking_capacity = parking_capacity;
 	}
 

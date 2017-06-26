@@ -11,4 +11,16 @@
 	WHERE id = #{c_id}
 </select>
 
+<select id="selectAll" resultType="WishList">
+	select * from wishlist
+</select>
+
+<insert id="insert" parameterType="WishList">
+	insert into wishlist values (#{wish_c_id}, #{wish_parking_code}, #{wish_data})
+</insert>
+
+<delete id="delete" parameterType="WishList">
+	delete from wishlist where wish_c_id = #{wish_c_id} and wish_parking_code = #{wish_parking_code}
+</delete>
+
 </mapper>

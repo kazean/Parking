@@ -80,7 +80,8 @@
 <select id="selectByLocation"  parameterType="String"   resultType="Parking">
 	SELECT 
 		parking_name, parking_address, parking_phone_number, parking_pay_type, parking_capacity,
-		parking_cur_seat, parking_latitude, parking_longitude, parking_weekdays_begin_time, parking_weekdays_end_time
+		parking_cur_seat, parking_latitude, parking_longitude, parking_weekdays_begin_time, parking_weekdays_end_time,
+		parking_rates, parking_rates_time
 	FROM parking
 	WHERE parking_address LIKE #{value}
 </select>

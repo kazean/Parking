@@ -125,7 +125,7 @@ public class Public_parking_RestTemplateServiceImpl {
 	                    }
 	                    
 	                    //주차 자리
-	                    parking.setParking_capacity(addrMap.get("CAPACITY"));
+	                    parking.setParking_capacity(Integer.parseInt(addrMap.get("CAPACITY")));
 	                    
 	                    // 현재 좌석 제공 될 경우
 	                    if("미연계중".equals(addrMap.get("QUE_STATUS_NM"))){
