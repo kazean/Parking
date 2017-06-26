@@ -1,4 +1,4 @@
-package com.parking.control;
+ package com.parking.control;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,21 +29,21 @@ import com.parking.vo.Parking;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.core.Context;
 
-@RestController
+@Controller
 @RequestMapping("/")
 public class ParkingController {
 	
 	// --건들지 마시오--
 	@Autowired
 	ParkingDAOMySQL pDao;
-	/*
+
 	//private final Logger log = (Logger) LoggerFactory.getLogger(ParkingController.class);
 
-	*//**
+	/**
 	 * @author yeahni
 	 * @param model 임시 결과
 	 * @return String url
-	 *//*
+	 */
 	@RequestMapping(value = "/insert.do")
 	public String add(Model model){
 		Public_parking_RestTemplateServiceImpl rest = new Public_parking_RestTemplateServiceImpl();
@@ -72,12 +72,12 @@ public class ParkingController {
 		return "/test.jsp";
 	}
 	
-	*//**
+	/**
 	 * @author yeahni
 	 * @comment 전체 주차장 리스트 반환
 	 * @param model 결과 값 담는 공간
 	 * @return String url
-	 *//*
+	 */
 	@RequestMapping(value = "/selectAll.do")
 	public String readList(Model model){
 		List<Parking> list = pDao.selectAll();
@@ -86,13 +86,13 @@ public class ParkingController {
 		return "/test.jsp";
 	}
 	
-	*//**
+	/**
 	 * @author hawstrike
 	 * @comment 메인페이지에서 검색시 지역명으로 주차장 불러옴
 	 * @param location
 	 * @param model
 	 * @return String url
-	 *//*
+	 */
 	//selectByLocation 시작
 	@RequestMapping(value = "/selectByLocation.do")
 	public String selectByLocation(String location, Date reserveEntranceTime, Date reserveExitTime, Model model) {
@@ -111,7 +111,6 @@ public class ParkingController {
 		model.addAttribute("list", list);
 		return "/parkingList.jsp";
 	}
-	*/
 	//selectByLocation 끝
 	
 	/**
@@ -123,6 +122,7 @@ public class ParkingController {
 	
 	//@RequestMapping(value ="androidSelectAll", headers="Accept=application/json")
 	@GetMapping("aselectall")
+	@ResponseBody
 	public List<Parking> androidSelectAll() {
 		System.out.println("androidSelectAll()");
 		List<Parking> list = pDao.selectAll();
