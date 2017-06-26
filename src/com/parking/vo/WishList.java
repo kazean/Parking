@@ -1,5 +1,6 @@
 package com.parking.vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Date;
  * @update yeahni
  * @comment 필드 접근제한자를 private로 변경했습니다.
  */
-public class WishList {
+public class WishList implements Serializable {
 
 	// 필드
 	/* 

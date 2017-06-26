@@ -1,7 +1,8 @@
-package com.parking.control;
+ package com.parking.control;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,21 +30,21 @@ import com.parking.vo.Parking;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.core.Context;
 
-@RestController
+@Controller
 @RequestMapping("/")
 public class ParkingController {
 	
 	// --건들지 마시오--
 	@Autowired
 	ParkingDAOMySQL pDao;
-	/*
+
 	//private final Logger log = (Logger) LoggerFactory.getLogger(ParkingController.class);
 
-	*//**
+	/**
 	 * @author yeahni
 	 * @param model 임시 결과
 	 * @return String url
-	 *//*
+	 */
 	@RequestMapping(value = "/insert.do")
 	public String add(Model model){
 		Public_parking_RestTemplateServiceImpl rest = new Public_parking_RestTemplateServiceImpl();
@@ -72,12 +73,12 @@ public class ParkingController {
 		return "/test.jsp";
 	}
 	
-	*//**
+	/**
 	 * @author yeahni
 	 * @comment 전체 주차장 리스트 반환
 	 * @param model 결과 값 담는 공간
 	 * @return String url
-	 *//*
+	 */
 	@RequestMapping(value = "/selectAll.do")
 	public String readList(Model model){
 		List<Parking> list = pDao.selectAll();
@@ -86,13 +87,13 @@ public class ParkingController {
 		return "/test.jsp";
 	}
 	
-	*//**
+	/**
 	 * @author hawstrike
 	 * @comment 메인페이지에서 검색시 지역명으로 주차장 불러옴
 	 * @param location
 	 * @param model
 	 * @return String url
-	 *//*
+	 */
 	//selectByLocation 시작
 	@RequestMapping(value = "/selectByLocation.do")
 	public String selectByLocation(String location, Date reserveEntranceTime, Date reserveExitTime, Model model) {
@@ -111,7 +112,6 @@ public class ParkingController {
 		model.addAttribute("list", list);
 		return "/parkingList.jsp";
 	}
-	*/
 	//selectByLocation 끝
 	
 	/**
@@ -123,58 +123,22 @@ public class ParkingController {
 	
 	//@RequestMapping(value ="androidSelectAll", headers="Accept=application/json")
 	@GetMapping("aselectall")
+	@ResponseBody
 	public List<Parking> androidSelectAll() {
 		System.out.println("androidSelectAll()");
 		List<Parking> list = pDao.selectAll();
-		/*JSONArray jArray = new JSONArray();
-		for(int i = 0; i < list.size(); i++) {
-			Parking p = list.get(i);
-			JSONObject j = new JSONObject();
-			j.put("parking_code", p.getParking_code());
-			j.put("parking_p_id", p.getParking_p_id());
-			j.put("parking_name", p.getParking_name());
-			j.put("parking_phone_number", p.getParking_phone_number());
-			j.put("parking_latitude", p.getParking_latitude());
-			j.put("parking_longitude", p.getParking_longitude());
-			j.put("parking_status", p.getParking_status());
-			j.put("parking_operation", p.getParking_operation());
-			j.put("parking_type", p.getParking_type());
-			j.put("parking_is_mechan", p.isParking_is_mechan());
-			j.put("parking_pay_type", p.getParking_pay_type());
-			j.put("parking_capacity", p.getParking_capacity());
-			j.put("parking_cur_seat", p.getParking_cur_seat());
-			
-			if(p.getParking_rates_time() / 60 >= 1) {
+		List<Parking> plist = new LinkedList<Parking>();
+		
+		for(Parking p : list) {
+			if(p.getParking_rates_time() / 60 >= 1)
 				p.setParking_rates(p.getParking_rates() * p.getParking_rates_time() / 60);
-				//System.out.println("기본 요금 : " + p.getParking_rates());
-			}
-			else {
+			else
 				if(p.getParking_rates_time() != 0)
 					p.setParking_rates(p.getParking_rates() * 60 / p.getParking_rates_time());
-				//System.out.println("기본 요금 : " + p.getParking_rates());
-			}
-			j.put("parking_rates", p.getParking_rates());
-			j.put("parking_rates_time", p.getParking_rates_time());
-			
-			j.put("parking_add_rates", p.getParking_add_rates());
-			j.put("parking_add_rates_time", p.getParking_add_rates_time());
-			
-			j.put("parking_day_rates", p.getParking_day_rates());
-			j.put("parking_month_rates", p.getParking_month_rates());
-			j.put("parking_weekdays_begin_time", p.getParking_weekdays_begin_time());
-			j.put("parking_weekdays_end_time", p.getParking_weekdays_end_time());
-			j.put("parking_sat_begin_time", p.getParking_sat_begin_time());
-			j.put("parking_sat_end_time", p.getParking_sat_end_time());
-			j.put("parking_holidays_begin_time", p.getParking_holidays_begin_time());
-			j.put("parking_holidays_end_time", p.getParking_holidays_end_time());
-			jArray.add(i, j);
-			//System.out.println("기본 요금 시간 : " + p.getParking_rates_time());
-		}		
+			plist.add(p);
+		}
 		
-		JSONObject json = new JSONObject();
-		json.put("list", jArray);
-		*/
-		return list;
+		return plist;
 	} // end of androidSelectAll
 	
 }

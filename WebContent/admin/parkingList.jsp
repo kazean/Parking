@@ -49,8 +49,8 @@ $(function() {
 			
 			console.log("들어옴");
 			/* $.ajax({
-				url : 'parkingDelete.do',
-				method : 'POST',
+				url : 'parkingDelete',
+				method : 'DELETE',
 				data : {'data': data},
 				success : function(responseData) {
 					alert('삭제되었습니다.');
@@ -69,8 +69,8 @@ $(function() {
 	$("input[name=detail]").click(function(){
 		console.log($(this).attr("id"));
 		$.ajax({
-			url : 'parkingDetail.do',
-			method : 'POST',
+			url : 'parkingDetail',
+			method : 'GET',
 			data : {'parking_code': $(this).attr("id")},
 			success : function(responseData) {
 				$parentObj.empty();
