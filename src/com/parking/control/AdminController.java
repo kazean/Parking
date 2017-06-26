@@ -62,7 +62,7 @@ public class AdminController {
 	 * @param model 전체 주차장 리스트
 	 * @return String url 주소
 	 */
-	@GetMapping("parkingList.do")
+	@GetMapping("parkingList")
 	public String parkingList(HttpSession session, Model model){		
 		Admin admin = (Admin)session.getAttribute("responseAdmin");
 		
@@ -84,7 +84,7 @@ public class AdminController {
 	 * @param model 해당 주차장 정보
 	 * @return
 	 */
-	@GetMapping("parkingDetail.do")
+	@GetMapping("parkingDetail")
 	public String parkingDetail(@RequestParam(required = false, defaultValue = "0")int parking_code ,HttpSession session, Model model){
 		Admin admin = (Admin)session.getAttribute("responseAdmin");
 		
@@ -100,7 +100,7 @@ public class AdminController {
 		return "/admin/default.jsp";
 	}	
 	
-	@GetMapping("parkingEdit.do")
+	@GetMapping("parkingEdit")
 	public String parkingEdit(@RequestParam(required = false, defaultValue = "0")int parking_code, HttpSession session, Model model){
 		Admin admin = (Admin)session.getAttribute("responseAdmin");
 		

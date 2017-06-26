@@ -7,7 +7,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.parking.dao.CustomerDAOMysql;
 import com.parking.dao.ReservationDAOMysql;
@@ -31,7 +34,7 @@ public class CustomerController {
 	 * @param model
 	 * @return
 	 */ 
-	@RequestMapping(value="checkId.do")
+	@RequestMapping(value="/checkId")
 	public String checkId(String c_id, Model model){
 		System.out.println("c_id : "+c_id);
 		String msg = "";
@@ -62,7 +65,7 @@ public class CustomerController {
 	 * @param session 
 	 * @return
 	 */
-	@RequestMapping(value = "/signup.do")
+	@RequestMapping(value = "/signup")
 	public String signup(String c_id,
 						String c_password,
 						String c_name,
@@ -94,7 +97,7 @@ public class CustomerController {
 	 * @param session 로그인 정보
 	 * @return String url 
 	 */
-	@RequestMapping(value="/login.do")
+	@RequestMapping(value="/login")
 	public String login(String c_id,String c_password,Model model,HttpSession session) {
 		
 		String msg="";
@@ -129,7 +132,7 @@ public class CustomerController {
 	 * @param session 
 	 * @return String url
 	 */
-	@RequestMapping(value="/logout.do")
+	@RequestMapping(value="/logout")
 	public String logout(HttpSession session) {
 		
 		session.removeAttribute("customer");
@@ -144,7 +147,7 @@ public class CustomerController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/checkpassword.do")
+	@RequestMapping(value="/checkpassword")
 	public String checkPassword(String c_password,Model model,HttpSession session) {
 		Customer c = (Customer) session.getAttribute("customer");
 		
@@ -157,4 +160,21 @@ public class CustomerController {
 		return null;
 	}
 	
+	// ----
+	
+	@GetMapping("/acheckid/{c_id}")
+	@ResponseBody
+	public boolean aCheckId(@PathVariable String c_id){
+		
+		boolean result = true;
+		
+		if(c_id != null){
+			Customer customer = cDao.selectById(c_id);
+			
+			if(customer == null){
+				result = false;
+			}
+		} 
+		return result;
+	}
 }

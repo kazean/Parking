@@ -19,9 +19,9 @@
 				'a_id' : a_id,
 				'a_password' : a_password
 			};
-
+			
 			$.ajax({
-				url : 'admin.do',
+				url : 'admin',
 				method : 'POST',
 				contentType : 'application/json; charset=UTF-8',
 				data : JSON.stringify(admin),
