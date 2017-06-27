@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -162,19 +164,55 @@ public class CustomerController {
 	
 	// ----
 	
+	@GetMapping("/alogin/{c_id}/{c_password}")
+	@ResponseBody
+	public boolean aLogin(@PathVariable String c_id, @PathVariable String c_password){
+		
+		boolean result = false;
+		
+		System.out.println("aCheckId() " + c_id + " " + c_password);
+		if(c_id != null && c_password != null){
+			System.out.println("if(c_id != null && c_password != null)");
+			Customer c = cDao.selectById(c_id);
+			
+			if(c == null){
+				System.out.println("if(c == null)");
+			} else {
+				System.out.println("else");
+				if(c_password.equals(c.getC_password())){
+					System.out.println("if(c_password.equals(c.getC_password()))");
+					result = true;
+				}
+			}
+		}
+		
+		System.out.println(result);
+		return result;
+	}
+	
+	/**
+	 * @author yeahni
+	 * @comment 아이디 중복확인
+	 * @param c_id
+	 * @return
+	 */
 	@GetMapping("/acheckid/{c_id}")
 	@ResponseBody
 	public boolean aCheckId(@PathVariable String c_id){
 		
 		boolean result = true;
 		
+		System.out.println("aCheckId() " + c_id);
 		if(c_id != null){
+			System.out.println("if(c_id != null)");
 			Customer customer = cDao.selectById(c_id);
 			
 			if(customer == null){
+				System.out.println("if(customer == null)");
 				result = false;
 			}
 		} 
+		System.out.println(result);
 		return result;
 	}
 }
