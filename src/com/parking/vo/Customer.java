@@ -29,6 +29,11 @@ public class Customer {
 		
 	}
 	
+	public Customer(String c_id, String c_password){
+		this.c_id = c_id;
+		this.c_password = c_password;
+	}
+	
 	public Customer(String c_id, String c_password, String c_name, String c_phone_number, String c_car_number,
 			String c_card_number, Date c_date, char c_status) {
 		super();

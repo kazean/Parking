@@ -11,7 +11,7 @@ import javax.xml.ws.Response;
 import org.apache.ibatis.annotations.Param;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +28,8 @@ import com.parking.validate.Public_parking_RestTemplateServiceImpl;
 import com.parking.validate.Public_parking_coordinate_RestTemplateServiceImpl;
 import com.parking.vo.Parking;
 
-import ch.qos.logback.classic.Logger;
-import ch.qos.logback.core.Context;
+//import ch.qos.logback.classic.Logger;
+//import ch.qos.logback.core.Context;
 
 @Controller
 @RequestMapping("/")
