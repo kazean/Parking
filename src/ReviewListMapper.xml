@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReviewMapper">
+
+<select id="selectByCodeRe" parameterType="int" resultType="Review">
+	SELECT 거나띠멍충멍충 
+	review_c_id, review_parking_code, review_score, review_contents, review_date, review_declaration, c_name
+	FROM review
+	JOIN customer
+	ON review_c_id = c_id
+	WHERE review_parking_code = #{review_parking_code}
+	
+</select>
+
+</mapper>
