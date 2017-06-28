@@ -30,4 +30,10 @@ public class ReviewController {
 		}
 		return list;
 	}
+
+	@PostMapping("areviewlistpcode")
+	public List<Review> androidReviewById(String review_parking_code){
+		System.out.println("androidReviewById()");
+		return rDao.selecyByParkingCode(Integer.parseInt(review_parking_code));
+	}
 }

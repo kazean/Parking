@@ -1,5 +1,7 @@
 /target
 */pom.properties
 */MANIFEST.MF
+pom.xml
 WebContent/WEB-INF/lib/orgjson.jar
 WebContent/WEB-INF/lib/commons-logging-1.1.3.jar
+WebContent/WEB-INF/applicationContext.xml

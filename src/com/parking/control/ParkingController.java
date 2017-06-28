@@ -130,11 +130,13 @@ public class ParkingController {
 		List<Parking> plist = new LinkedList<Parking>();
 		
 		for(Parking p : list) {
-			if(p.getParking_rates_time() >= 60)
+			if(p.getParking_rates_time() >= 60) {
 				p.setParking_rates((int)(p.getParking_rates() / (double)(p.getParking_rates_time() / 60.0)));
+			}
 			else
-				if(p.getParking_rates_time() != 0)
+				if(p.getParking_rates_time() != 0) {
 					p.setParking_rates((int) ((double)(60.0 / p.getParking_rates_time()) * p.getParking_rates()));
+				}
 			plist.add(p);
 		}
 		
