@@ -21,8 +21,7 @@ public class ReviewController {
 	
 	@PostMapping("areviewlistpcode")
 	public List<Review> androidReviewById(String review_parking_code){
-		System.out.println("input");
-		System.out.println("pcode : " + review_parking_code);
+		System.out.println("androidReviewById()");
 		return rDao.selecyByParkingCode(Integer.parseInt(review_parking_code));
 	}
 }
