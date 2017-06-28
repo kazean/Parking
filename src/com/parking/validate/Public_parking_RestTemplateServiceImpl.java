@@ -23,11 +23,11 @@ import org.xml.sax.InputSource;
 
 import com.parking.vo.Parking;
 
-import ch.qos.logback.classic.Logger;
+//import ch.qos.logback.classic.Logger;
 
 public class Public_parking_RestTemplateServiceImpl {
 	
-	 private final Logger log = (Logger) org.slf4j.LoggerFactory.getLogger(Public_parking_RestTemplateServiceImpl.class);    
+	 //private final Logger log = (Logger) org.slf4j.LoggerFactory.getLogger(Public_parking_RestTemplateServiceImpl.class);    
 	    
 	    public String restTemplate(int start, int end) throws Exception{
 	    	String serviceKey = "414b50776b6b617a313030574a5a4244";
