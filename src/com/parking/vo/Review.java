@@ -1,7 +1,7 @@
 package com.parking.vo;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 public class Review implements Serializable{
 	private String review_c_id;				// 리뷰 작성한 고객 아이디

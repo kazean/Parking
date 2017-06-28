@@ -221,7 +221,7 @@ public class Parking implements Serializable{
 		this.parking_type = parking_type;
 	}
 
-	public boolean isParking_is_mechan() {
+	public boolean isParking_is_machine() {
 		return parking_is_machine;
 	}
 	public void setParking_is_machine(boolean parking_is_machine) {

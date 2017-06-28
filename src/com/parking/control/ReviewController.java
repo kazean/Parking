@@ -22,11 +22,10 @@ public class ReviewController {
 	
 	@PostMapping(value="areviewlistpcode", consumes="application/json; charset=UTF-8")
 	public List<Review> androidReviewById(@RequestBody Review review){
-		System.out.println("input");
+		System.out.println("areviewlistpcode");
 		System.out.println("pcode : " + review.getReview_parking_code());
 		List<Review> list = rDao.selecyByParkingCode(review.getReview_parking_code());
-	
-		for(Review r: list){
+		for(Review r : list){
 			System.out.println(r.toString());
 		}
 		return list;

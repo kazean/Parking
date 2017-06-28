@@ -138,6 +138,7 @@ public class ParkingController {
 			plist.add(p);
 		}
 		
+		
 		return plist;
 	} // end of androidSelectAll
 	
