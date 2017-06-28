@@ -14,12 +14,13 @@ import com.parking.dao.ReviewListDAOMysql;
 import com.parking.vo.Review;
 
 @RestController
+@RequestMapping("/")
 public class ReviewController {
 	
 	@Autowired
 	ReviewListDAOMysql rDao;
 	
-	@PostMapping(value="/areviewlistpcode", consumes="application/json; charset=UTF-8")
+	@PostMapping(value="areviewlistpcode", consumes="application/json; charset=UTF-8")
 	public List<Review> androidReviewById(@RequestBody Review review){
 		System.out.println("input");
 		System.out.println("pcode : " + review.getReview_parking_code());

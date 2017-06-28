@@ -11,7 +11,7 @@ import javax.xml.ws.Response;
 import org.apache.ibatis.annotations.Param;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,10 +28,11 @@ import com.parking.validate.Public_parking_RestTemplateServiceImpl;
 import com.parking.validate.Public_parking_coordinate_RestTemplateServiceImpl;
 import com.parking.vo.Parking;
 
-import ch.qos.logback.classic.Logger;
-import ch.qos.logback.core.Context;
+//import ch.qos.logback.classic.Logger;
+//import ch.qos.logback.core.Context;
 
 @RestController
+@RequestMapping("/")
 public class ParkingController {
 	
 	// --건들지 마시오--
@@ -120,20 +121,20 @@ public class ParkingController {
 	 * @return JSONObject
 	 */
 	// start of androidSelectAll
-	
 	//@RequestMapping(value ="androidSelectAll", headers="Accept=application/json")
-	@GetMapping("/aselectall")
+	
+	@GetMapping("aselectall")
 	public List<Parking> androidSelectAll() {
 		System.out.println("androidSelectAll()");
 		List<Parking> list = pDao.selectAll();
 		List<Parking> plist = new LinkedList<Parking>();
 		
 		for(Parking p : list) {
-			if(p.getParking_rates_time() / 60 >= 1)
-				p.setParking_rates(p.getParking_rates() * p.getParking_rates_time() / 60);
+			if(p.getParking_rates_time() >= 60)
+				p.setParking_rates((int)(p.getParking_rates() / (double)(p.getParking_rates_time() / 60.0)));
 			else
 				if(p.getParking_rates_time() != 0)
-					p.setParking_rates(p.getParking_rates() * 60 / p.getParking_rates_time());
+					p.setParking_rates((int) ((double)(60.0 / p.getParking_rates_time()) * p.getParking_rates()));
 			plist.add(p);
 		}
 		
