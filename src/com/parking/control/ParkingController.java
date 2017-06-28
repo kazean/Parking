@@ -31,8 +31,7 @@ import com.parking.vo.Parking;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.core.Context;
 
-@Controller
-@RequestMapping("/")
+@RestController
 public class ParkingController {
 	
 	// --건들지 마시오--
@@ -123,8 +122,7 @@ public class ParkingController {
 	// start of androidSelectAll
 	
 	//@RequestMapping(value ="androidSelectAll", headers="Accept=application/json")
-	@GetMapping("aselectall")
-	@ResponseBody
+	@GetMapping("/aselectall")
 	public List<Parking> androidSelectAll() {
 		System.out.println("androidSelectAll()");
 		List<Parking> list = pDao.selectAll();

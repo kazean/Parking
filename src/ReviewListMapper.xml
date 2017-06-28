@@ -5,7 +5,7 @@
 <mapper namespace="ReviewMapper">
 
 <select id="selectByCodeRe" parameterType="int" resultType="Review">
-	SELECT 거나띠멍충멍충 
+	SELECT
 	review_c_id, review_parking_code, review_score, review_contents, review_date, review_declaration, c_name
 	FROM review
 	JOIN customer
