@@ -122,6 +122,7 @@ public class ParkingController {
 	 */
 	// start of androidSelectAll
 	//@RequestMapping(value ="androidSelectAll", headers="Accept=application/json")
+	
 	@GetMapping("aselectall")
 	public List<Parking> androidSelectAll() {
 		System.out.println("androidSelectAll()");
@@ -138,6 +139,7 @@ public class ParkingController {
 				}
 			plist.add(p);
 		}
+		
 		
 		return plist;
 	} // end of androidSelectAll
