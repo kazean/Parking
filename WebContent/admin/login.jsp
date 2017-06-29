@@ -25,6 +25,7 @@
 				method : 'POST',
 				contentType : 'application/json; charset=UTF-8',
 				data : JSON.stringify(admin),
+				dataType: 'json',
 				success : function(responseData) {
 					$("article").empty();
 					$("header").html(responseData.trim());
