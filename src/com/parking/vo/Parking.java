@@ -31,7 +31,7 @@ public class Parking implements Serializable{
 	private int parking_status;			// TINYINT(2)   NOT NULL DEFAULT 1  COMMENT '주차장 영업 상태 (1:영업 / 2:공사 / 3:폐업)'
 	private int parking_operation;		// TINYINT(2)   NOT NULL     		COMMENT '주차장 구분 (1:공영 / 2:민영 / 3:개인)'
 	private int parking_type;			// TINYINT(2)   NOT NULL     		COMMENT '주차장 유형 (1:노상 / 2:노외)'
-	private boolean parking_is_mechan;	// BOOLEAN      NULL DEFAULT false 	COMMENT '주차장 기계식 여부 (true&1:기계식o / false&0: 기계식x)'
+	private boolean parking_is_machine;	// BOOLEAN      NULL DEFAULT false 	COMMENT '주차장 기계식 여부 (true&1:기계식o / false&0: 기계식x)'
 	private String parking_impossible_car_type;	// VARCHAR(3) NULL DEFAULT 'ooo' COMMENT '주차장 반입 제한 여부  (대형수입소형 허용될경우 o, 허용안될 경우x)'
 	private int parking_pay_type;		// INT          NULL DEFAULT 1 		COMMENT '주차장 결제 방법 (1:모두 / 2:현금 / 3:카드 / 4: 무료)'
 	
@@ -60,7 +60,7 @@ public class Parking implements Serializable{
 	public Parking(String parking_name, String parking_address, String parking_phone_number,
 			double parking_latitude, double parking_longitude,
 			int parking_status, int parking_operation, int parking_type, 
-			boolean parking_is_mechan, String parking_impossible_car_type, int parking_pay_type,
+			boolean parking_is_machine, String parking_impossible_car_type, int parking_pay_type,
 			int parking_capacity, int parking_cur_seat, 
 			int parking_rates, int parking_rates_time,
 			int parking_add_rates, int parking_add_rates_time, 
@@ -76,7 +76,7 @@ public class Parking implements Serializable{
 		this.parking_status = parking_status;
 		this.parking_operation = parking_operation;
 		this.parking_type = parking_type;
-		this.parking_is_mechan = parking_is_mechan;
+		this.parking_is_machine = parking_is_machine;
 		this.parking_impossible_car_type = parking_impossible_car_type;
 		this.parking_pay_type = parking_pay_type;
 		this.parking_capacity = parking_capacity;
@@ -99,7 +99,7 @@ public class Parking implements Serializable{
 			String parking_name, String parking_address, String parking_phone_number,
 			double parking_latitude, double parking_longitude,
 			int parking_status, int parking_operation, int parking_type, 
-			boolean parking_is_mechan, String parking_impossible_car_type, int parking_pay_type,
+			boolean parking_is_machine, String parking_impossible_car_type, int parking_pay_type,
 			int parking_capacity, int parking_cur_seat, 
 			int parking_rates, int parking_rates_time,
 			int parking_add_rates, int parking_add_rates_time, 
@@ -110,7 +110,7 @@ public class Parking implements Serializable{
 		this(parking_name, parking_address, parking_phone_number,
 				parking_latitude, parking_longitude, 
 				parking_status, parking_operation, parking_type,
-				parking_is_mechan, parking_impossible_car_type, parking_pay_type,
+				parking_is_machine, parking_impossible_car_type, parking_pay_type,
 				parking_capacity, parking_cur_seat,
 				parking_rates, parking_rates_time,
 				parking_add_rates, parking_add_rates_time,
@@ -126,7 +126,7 @@ public class Parking implements Serializable{
 			String parking_name, String parking_address, String parking_phone_number,
 			double parking_latitude, double parking_longitude, 
 			int parking_status, int parking_operation, int parking_type, 
-			boolean parking_is_mechan, String parking_impossible_car_type, int parking_pay_type,
+			boolean parking_is_machine, String parking_impossible_car_type, int parking_pay_type,
 			int parking_capacity, int parking_cur_seat, 
 			int parking_rates, int parking_rates_time,
 			int parking_add_rates, int parking_add_rates_time, 
@@ -138,7 +138,7 @@ public class Parking implements Serializable{
 		this(parking_p_id, parking_name, parking_address, parking_phone_number,
 				parking_latitude, parking_longitude, 
 				parking_status, parking_operation, parking_type,
-				parking_is_mechan, parking_impossible_car_type, parking_pay_type,
+				parking_is_machine, parking_impossible_car_type, parking_pay_type,
 				parking_capacity, parking_cur_seat,
 				parking_rates, parking_rates_time,
 				parking_add_rates, parking_add_rates_time,
@@ -221,11 +221,11 @@ public class Parking implements Serializable{
 		this.parking_type = parking_type;
 	}
 
-	public boolean isParking_is_mechan() {
-		return parking_is_mechan;
+	public boolean isParking_is_machine() {
+		return parking_is_machine;
 	}
-	public void setParking_is_mechan(boolean parking_is_mechan) {
-		this.parking_is_mechan = parking_is_mechan;
+	public void setParking_is_machine(boolean parking_is_machine) {
+		this.parking_is_machine = parking_is_machine;
 	}
 
 	public String getParking_impossible_car_type() {

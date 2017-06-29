@@ -39,7 +39,7 @@ public class AdminController {
 	 * @param session 로그인 확인 여부
 	 * @return String url 주소
 	 */
-	@PostMapping("admin.do")
+	@PostMapping("admin")
 	public String check(@RequestBody Admin admin, HttpSession session){
 		if(admin != null){
 			Admin responseAdmin = aService.login(admin);
