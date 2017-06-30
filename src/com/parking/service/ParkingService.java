@@ -34,4 +34,8 @@ public class ParkingService {
 		return pDao.selectByCode(parking_code);
 	}
 	
+	public int parkingAdd(Parking p) {
+		return pDao.parkingAdd(p);
+	}
+	
 }
