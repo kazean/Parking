@@ -37,6 +37,11 @@ public class ParkingDAOMySQL {
 		System.out.println("ParkingDAOMysql selectAll()");		
 		return session.selectList("ParkingMapper.selectAll");
 	}
+	
+	public int parkingAdd(Parking p) {
+		System.out.println("ParkingDAOMysql parkingInsert()");
+		return session.selectOne("ParkingMapper.parkingAdd", p);
+	}
 
 	/**
 	 * @author yeahni
