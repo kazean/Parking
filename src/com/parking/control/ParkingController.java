@@ -71,6 +71,7 @@ public class ParkingController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return "/test.jsp";
 	}
 	
@@ -111,6 +112,7 @@ public class ParkingController {
 		
 		List<Parking> list = pDao.selectByLocation(location);
 		model.addAttribute("list", list);
+		
 		return "/parkingList.jsp";
 	}
 	//selectByLocation 끝
@@ -138,8 +140,7 @@ public class ParkingController {
 					p.setParking_rates((int) ((double)(60.0 / p.getParking_rates_time()) * p.getParking_rates()));
 				}
 			plist.add(p);
-		}
-		
+		}		
 		
 		return plist;
 	} // end of androidSelectAll
