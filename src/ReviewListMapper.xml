@@ -14,7 +14,7 @@
 </select>
 
 <update id="updateDeclaration" parameterType="Review">
-	UPDATE review
+	UPDATE review SET
 	  review_declaration = true
 	WHERE
 	  review_c_id = #{review_c_id} AND review_parking_code = #{review_parking_code} 
