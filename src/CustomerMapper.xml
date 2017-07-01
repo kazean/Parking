@@ -8,11 +8,9 @@
 <insert id="insert" parameterType="Customer" >
 	INSERT 
 	INTO customer
-	(c_id, c_password, c_name, c_phone_number, c_car_number, 
-	c_card_number, c_date, c_status)
+	(c_id, c_password, c_name, c_phone_number, c_car_number, c_card_number, c_sign_path)
 	VALUES 
-	(#{c_id}, #{c_password}, #{c_name}, #{c_phone_number}, #{c_car_number},
-	#{c_card_number},  now(), #{c_status})
+	(#{c_id}, #{c_password}, #{c_name}, #{c_phone_number}, #{c_car_number}, #{c_card_number}, #{c_sing_path})
 </insert>
 
 <select id="selectAll" resultType="Customer">

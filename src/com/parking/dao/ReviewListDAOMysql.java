@@ -17,4 +17,14 @@ public class ReviewListDAOMysql {
 	public List<Review> selecyByParkingCode(int review_parking_code){
 		return session.selectList("ReviewMapper.selectByCodeRe", review_parking_code);
 	}
+	
+	public boolean updateReviewDeclaration(Review r){
+		int result = session.update("ReviewMapper.updateDeclaration", r);
+		if(result ==1 ){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 }
