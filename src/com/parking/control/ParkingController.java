@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.parking.dao.ParkingDAOMySQL;
+import com.parking.dao.ParkingDAOMysql;
 import com.parking.validate.Public_parking_RestTemplateServiceImpl;
 import com.parking.validate.Public_parking_coordinate_RestTemplateServiceImpl;
 import com.parking.vo.Parking;
@@ -37,7 +37,7 @@ public class ParkingController {
 	
 	// --건들지 마시오--
 	@Autowired
-	ParkingDAOMySQL pDao;
+	ParkingDAOMysql pDao;
 
 	//private final Logger log = (Logger) LoggerFactory.getLogger(ParkingController.class);
 
@@ -81,13 +81,13 @@ public class ParkingController {
 	 * @param model 결과 값 담는 공간
 	 * @return String url
 	 */
-	@RequestMapping(value = "/selectAll.do")
+	/*@RequestMapping(value = "/selectAll.do")
 	public String readList(Model model){
 		List<Parking> list = pDao.selectAll();
 		model.addAttribute("result", list);
 		
 		return "/test.jsp";
-	}
+	}*/
 	
 	/**
 	 * @author hawstrike
@@ -128,7 +128,7 @@ public class ParkingController {
 	@GetMapping("aselectall")
 	public List<Parking> androidSelectAll() {
 		System.out.println("androidSelectAll()");
-		List<Parking> list = pDao.selectAll();
+		List<Parking> list = pDao.selectAll("parking_code");
 		List<Parking> plist = new LinkedList<Parking>();
 		
 		for(Parking p : list) {

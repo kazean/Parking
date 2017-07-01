@@ -15,6 +15,10 @@
 	#{c_card_number},  now(), #{c_status})
 </insert>
 
+<select id="selectAll" resultType="Customer">
+	select * from customer order by c_date desc
+</select>
+
 <!-- 고객 로그인 @author yunmeheo -->
 <select id="selectById" parameterType="String" resultType="Customer">
 	SELECT * 
