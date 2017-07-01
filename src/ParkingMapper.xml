@@ -65,9 +65,12 @@
 
 <!-- 전체 주차장 정보 가져오기 @author yeahni -->
 <select id="selectAll" resultType="Parking">
-	SELECT *
-	FROM parking;
+	SELECT * FROM parking order by parking_code desc
 </select>
+
+<insert id="parkingAdd" parameterType="Parking">
+	insert into parking values ;
+</insert>
 
 <!-- 주차장 코드로 정보 가져오기 @author yeahni -->
 <select id="selectByCode" parameterType="Parking" resultType="Parking">

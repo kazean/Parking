@@ -14,7 +14,6 @@
 	<!-- <property name="url" value="jdbc:mysql://192.168.12.43:3306/parking?characterEncoding=utf-8&amp;useSSL=false"/> -->
 	<!-- <property name="url" value="jdbc:mysql://localhost:8082/parking?useSSL=false"/> -->
 	<property name="url" value="jdbc:mysql://localhost/parkingtest?useSSL=false"></property>
-
     <property name="username" value="root"/>
     <property name="password" value="parking"/>
    	<!-- <property name="password" value="1234"/> -->

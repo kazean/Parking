@@ -5,14 +5,18 @@
 <mapper namespace="ReviewMapper">
 
 <select id="selectByCodeRe" parameterType="int" resultType="Review">
-
 	SELECT 
 	review_c_id, review_parking_code, review_score, review_contents, review_date, review_declaration, c_name
 	FROM review
 	JOIN customer
 	ON review_c_id = c_id
 	WHERE review_parking_code = #{review_parking_code}
-	
 </select>
 
+<update id="updateDeclaration" parameterType="Review">
+	UPDATE review SET
+	  review_declaration = true
+	WHERE
+	  review_c_id = #{review_c_id} AND review_parking_code = #{review_parking_code} 
+</update>
 </mapper>
