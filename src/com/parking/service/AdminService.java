@@ -3,7 +3,7 @@ package com.parking.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.parking.dao.AdminDAOMySQL;
+import com.parking.dao.AdminDAOMySql;
 import com.parking.vo.Admin;
 
 @Service
@@ -11,7 +11,7 @@ public class AdminService {
 	
 	// --건들지 마시오--
 	@Autowired
-	AdminDAOMySQL aDao;
+	AdminDAOMySql aDao;
 	
 	/**
 	 * @author yeahni

@@ -10,7 +10,7 @@ import com.parking.vo.Parking;
 import com.parking.vo.Reservation;
 
 @Repository
-public class ParkingDAOMySQL {
+public class ParkingDAOMysql {
 	
 	// --건들지 마시오--
 	@Autowired
