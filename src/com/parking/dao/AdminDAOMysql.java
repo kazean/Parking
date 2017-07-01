@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.parking.vo.Admin;
 
 @Repository
-public class AdminDAOMySql {
+public class AdminDAOMysql {
 
 	// --건들지 마시오--
 	@Autowired
