@@ -162,18 +162,27 @@ public class CustomerController {
 		return null;
 	}
 	
-	// ----
-	
+	// ---
+
+	/**
+	 * @author yeahni
+	 * @comment 로그인 
+	 * @param c_id 
+	 * @param c_password
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/alogin/{c_id}/{c_password}")
 	@ResponseBody
-	public boolean aLogin(@PathVariable String c_id, @PathVariable String c_password){
+	public boolean aLogin(@PathVariable String c_id, @PathVariable String c_password, HttpSession session){
 		
+		Customer c = null;
 		boolean result = false;
 		
 		System.out.println("aCheckId() " + c_id + " " + c_password);
 		if(c_id != null && c_password != null){
 			System.out.println("if(c_id != null && c_password != null)");
-			Customer c = cDao.selectById(c_id);
+			c = cDao.selectById(c_id);
 			
 			if(c == null){
 				System.out.println("if(c == null)");
@@ -186,6 +195,7 @@ public class CustomerController {
 			}
 		}
 		
+		session.setAttribute("customer", c.getC_id());
 		System.out.println(result);
 		return result;
 	}
@@ -194,24 +204,51 @@ public class CustomerController {
 	 * @author yeahni
 	 * @comment 아이디 중복확인
 	 * @param c_id
-	 * @return
+	 * @return boolean (true: 중복 / false: 중복x)
 	 */
 	@GetMapping("/acheckid/{c_id}")
 	@ResponseBody
-	public boolean aCheckId(@PathVariable String c_id){
+	public boolean aCheckId(@PathVariable String c_id, HttpSession session){
 		
+		Customer customer = null;
 		boolean result = true;
 		
 		System.out.println("aCheckId() " + c_id);
 		if(c_id != null){
 			System.out.println("if(c_id != null)");
-			Customer customer = cDao.selectById(c_id);
+			customer = cDao.selectById(c_id);
 			
 			if(customer == null){
 				System.out.println("if(customer == null)");
 				result = false;
 			}
 		} 
+		
+		session.setAttribute("customer", customer);
+		
+		System.out.println(result);
+		return result;
+	}
+	
+	/**
+	 * @author yeahni
+	 * @comment 회원가입 
+	 * @para customer
+	 * @return boolean 
+	 */
+	@PostMapping(value= "/asignup", consumes="application/json; charset=UTF-8")
+	@ResponseBody
+	public boolean aSignup(@RequestBody Customer customer){
+		
+		boolean result = false;
+		
+		System.out.println("aSignup()");
+		if(customer != null){
+			System.out.println("if(customer != null)");
+			cDao.signup(customer);
+			result = true;
+		} 
+		
 		System.out.println(result);
 		return result;
 	}

@@ -8,11 +8,17 @@
 <insert id="insert" parameterType="Customer" >
 	INSERT 
 	INTO customer
-	(c_id, c_password, c_name, c_phone_number, c_car_number, 
-	c_card_number, c_date, c_status)
+	(c_id, c_password, c_name, c_phone_number, c_car_number, c_card_number, c_sign_path)
 	VALUES 
-	(#{c_id}, #{c_password}, #{c_name}, #{c_phone_number}, #{c_car_number},
-	#{c_card_number},  now(), #{c_status})
+	<choose>
+		<when test="c_card_number == null">
+			(#{c_id}, #{c_password}, #{c_name}, #{c_phone_number}, #{c_car_number}, null, #{c_sign_path})
+		</when>
+		
+		<otherwise>
+		(#{c_id}, #{c_password}, #{c_name}, #{c_phone_number}, #{c_car_number}, #{c_card_number}, #{c_sign_path})
+		</otherwise>
+	</choose>
 </insert>
 
 <!-- 고객 로그인 @author yunmeheo -->
