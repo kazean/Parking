@@ -7,8 +7,18 @@
 <!-- 해당 고객의 예약 확인 @author yunmeheo -->
 <select id="selectById" parameterType="String" resultType="WishList">
 	SELECT * 
-	FROM Reservation 
+	FROM reservation 
 	WHERE id = #{c_id}
 </select>
 
+<insert id="insertByR" parameterType="Reservation">
+	INSERT INTO reservation(reserve_c_id, reserve_parking_code, reserve_entrance_time, reserve_exit_time, reserve_time)
+	VALUES ( #{reserve_c_id}, #{reserve_parking_code}, #{reserve_entrance_time}, #{reserve_exit_time}, now() );
+</insert>
+
+<select id="selectByPossible" parameterType="Reservation" resultType="Reservation">
+	SELECT * 
+	FROM reservation
+	JOIN parking
+</select>
 </mapper>
