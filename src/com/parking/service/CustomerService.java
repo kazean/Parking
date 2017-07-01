@@ -12,7 +12,7 @@ import com.parking.vo.Customer;
 public class CustomerService {
 	@Autowired
 	CustomerDAOMysql cDao;
-	
+
 	public List<Customer> selectAll() {
 		return cDao.selectAll();
 	}
