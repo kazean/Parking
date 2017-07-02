@@ -65,7 +65,7 @@
 
 <!-- 전체 주차장 정보 가져오기 @author yeahni -->
 <select id="selectAll" parameterType="string" resultType="Parking">
-	SELECT * FROM parking order by ${sort} desc
+	SELECT * FROM parking order by ${value} desc
 </select>
 
 <select id="selectItem" parameterType="hashmap" resultType="Parking">
