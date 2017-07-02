@@ -1,5 +1,6 @@
 package com.parking.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -33,14 +34,27 @@ public class ParkingDAOMysql {
 	 * @comment 전체 주차장 리스트 반환
 	 * @return List<Parking> 전체 주차장 리스트
 	 */
-	public List<Parking> selectAll(){
+	public List<Parking> selectAll(String sort){
 		System.out.println("ParkingDAOMysql selectAll()");		
-		return session.selectList("ParkingMapper.selectAll");
+		return session.selectList("ParkingMapper.selectAll", sort);
+	}
+	
+	public List<Parking> selectItem(String searchItem, String searchValue) {
+		System.out.println("ParkingDAOMysql selectItem()");
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("searchItem", searchItem);
+		map.put("searchValue", searchValue);
+		return session.selectList("ParkingMapper.selectItem", map);
 	}
 	
 	public int parkingAdd(Parking p) {
 		System.out.println("ParkingDAOMysql parkingInsert()");
 		return session.selectOne("ParkingMapper.parkingAdd", p);
+	}
+	
+	public int parkingDelete(String s) {
+		System.out.println("ParkingDAOMysql parkingDelete()");
+		return session.delete("ParkingMapper.parkingDelete", s);
 	}
 
 	/**

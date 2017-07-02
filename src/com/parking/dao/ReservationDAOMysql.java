@@ -1,5 +1,6 @@
 package com.parking.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -23,6 +24,30 @@ public class ReservationDAOMysql {
 	 */
 	public List<Reservation> selectById(String c_id){
 		return session.selectList("ReservationMapper.selectById",c_id);
+	}
+	
+	public boolean insertByR(Reservation r){
+		if(selectBypossible(r)){
+			int result = session.insert("ReservationMapper.insertByR", r);
+			if(result>0){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+		
+	}
+	
+	public boolean selectBypossible(Reservation r){
+		List<Reservation> result = new ArrayList<>();
+		result = session.selectList("ReservationMapper.selectByPossible", r);
+		if(result.size()>0){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 }

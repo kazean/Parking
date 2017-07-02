@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -53,3 +54,60 @@
   <tx:annotation-driven transaction-manager="transactionManager"/>
   
 </beans>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	<property name="url" value="jdbc:mysql://192.168.10.6:3306/parking?characterEncoding=utf-8&amp;useSSL=false"/>
+	<!-- <property name="url" value="jdbc:mysql://localhost:8082/parking?useSSL=false"/> -->
+	<!-- <property name="url" value="jdbc:mysql://localhost/parkingtest?useSSL=false"/> -->
+    <property name="username" value="root"/>
+    <!-- <property name="password" value="parking"/> -->
+   	<property name="password" value="1234"/> 
+  </bean>
+  
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+  	<property name="dataSource" ref="dataSource"/>
+  </bean>
+  <tx:annotation-driven transaction-manager="transactionManager"/>
+  
+  <bean id="sqlSessionFactory" 
+      class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" /> 
+        <property name="configLocation" 
+             value="classpath:mybatis-config.xml" />
+  </bean>
+  
+  <bean id="sqlSession" 
+      class="org.mybatis.spring.SqlSessionTemplate">
+    <constructor-arg name="sqlSessionFactory" 
+                     ref="sqlSessionFactory" />
+ </bean>
+  
+  <bean id="messageSource"
+  		class="org.springframework.context.support.ResourceBundleMessageSource">
+  	<property name="basenames">
+  		<list>
+  			<value>message</value>
+  			<value>error</value>
+  		</list>
+  	</property>
+  </bean>
+  
+  <context:annotation-config></context:annotation-config>
+  <context:component-scan base-package="com.parking.dao"></context:component-scan>
+  <context:component-scan base-package="com.parking.service"></context:component-scan>
+  <tx:annotation-driven transaction-manager="transactionManager"/>
+  
+</beans>
+>>>>>>> fbcfe91e4d507f876cbc0de7b92f0943829fec82
