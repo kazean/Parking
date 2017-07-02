@@ -10,6 +10,8 @@
 	<typeAlias alias="Reservation" type="com.parking.vo.Reservation"/>
  	<typeAlias alias="WishList" type="com.parking.vo.WishList"/>
  	<typeAlias alias="Review" type="com.parking.vo.Review"/>
+ 	<typeAlias alias="Parking" type="com.parking.vo.Parking"/>
+ 	<typeAlias alias="Partner" type="com.parking.vo.Partner"/>
  </typeAliases>
  
   <mappers>
@@ -19,6 +21,8 @@
  	<mapper resource="ReservationMapper.xml"/>
  	<mapper resource="WishListMapper.xml"/>
  	<mapper resource="ReviewListMapper.xml"/>
+ 	<mapper resource="PartnerMapper.xml"/>
+ 	
   </mappers>
   
 </configuration>

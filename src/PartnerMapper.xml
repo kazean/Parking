@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PartnerMapper">
+
+<!-- 관리자 로그인 확인 @author yeahni  -->
+<select id="selectAll" resultType="Partner">
+	SELECT * 
+	FROM partner ORDER BY p_id
+</select>
+
+
+<insert id="insert" parameterType="Partner" >
+
+INSERT INTO partner 
+
+(
+
+p_id,
+p_password,
+p_name,
+p_phone_number,
+p_license,
+p_bank,
+p_account,
+p_status,
+p_register_admin_id
+
+)
+
+
+
+
+VALUES (  
+
+
+#{p_id},
+#{p_password},
+#{p_name},
+#{p_phone_number},
+#{p_license},
+#{p_bank},
+#{p_account},
+'N',
+#{p_register_admin_id}
+
+
+  );
+
+</insert>
+
+
+</mapper>

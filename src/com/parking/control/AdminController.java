@@ -1,5 +1,6 @@
 package com.parking.control;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,17 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.parking.service.AdminService;
 import com.parking.service.ParkingService;
+import com.parking.service.PartnerService;
 import com.parking.vo.Admin;
 import com.parking.vo.Parking;
+import com.parking.vo.Partner;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -33,7 +32,8 @@ public class AdminController {
 	AdminService aService;
 	@Autowired
 	ParkingService pService;
-	
+	@Autowired
+	PartnerService ptnService;
 	/**
 	 * @author yeahni
 	 * @comment 로그인 정보 체크
@@ -168,6 +168,41 @@ public class AdminController {
 		}
 		
 		return "/admin/default.jsp";
+	}
+	
+	
+	//파트너 모든리스트 불러오기
+	@GetMapping("partnerList.do")
+	public String partnerList(Model model) {
+		System.out.println("partnerList()");
+
+		List<Partner> list = ptnService.selectAll();
+		model.addAttribute("list",list);
+		return "/admin/partnerList.jsp";
+	}
+	
+	//파트너 추가하기
+	@GetMapping("addPartner.do")
+	public String addPartner(
+
+			@RequestParam(required = false, defaultValue = "0") String p_id,
+			String p_password,
+			String p_name,
+			String p_phone_number,
+			String p_license,
+			String p_bank,
+			String p_account,
+			String p_register_admin_id
+			
+			){
+		System.out.println("addPartner()");
+
+		Partner partner = new Partner( p_id,  p_password,  p_name,  p_phone_number,  p_license,
+				 p_bank,  p_account, null, 'n',p_register_admin_id);
+				
+				
+		ptnService.addPartner(partner);
+		return "result.jsp";
 	}
 	
 }
