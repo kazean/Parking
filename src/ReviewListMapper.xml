@@ -19,4 +19,9 @@
 	WHERE
 	  review_c_id = #{review_c_id} AND review_parking_code = #{review_parking_code} 
 </update>
+
+<insert id="insertByReview">
+	INSERT INTO review (review_c_id, review_parking_code, review_score, review_contents, review_date)
+	VALUES(#{review_c_id}, #{review_parking_code}, #{review_score}, #{review_contents}, now())	
+</insert>
 </mapper>
