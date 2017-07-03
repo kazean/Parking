@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.parking.dao.ParkingDAOMySQL;
+import com.parking.dao.ParkingDAOMysql;
 import com.parking.validate.Public_parking_RestTemplateServiceImpl;
 import com.parking.validate.Public_parking_coordinate_RestTemplateServiceImpl;
 import com.parking.vo.Parking;
@@ -37,7 +37,7 @@ public class ParkingController {
 	
 	// --건들지 마시오--
 	@Autowired
-	ParkingDAOMySQL pDao;
+	ParkingDAOMysql pDao;
 
 	//private final Logger log = (Logger) LoggerFactory.getLogger(ParkingController.class);
 
