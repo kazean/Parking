@@ -23,8 +23,8 @@ public class WishListController {
 	@Autowired
 	WishListDAOMysql wDao;
 	
-	@GetMapping("awishlistbyid/{c_id}")
-	public List<WishList> androidWishById(@PathVariable String c_id) {
+	@PostMapping("awishlistbyid")
+	public List<WishList> androidWishById(String c_id) {
 		System.out.println("androidWishListById()");
 		if(c_id != null){
 			System.out.println("c_id : " + c_id);
