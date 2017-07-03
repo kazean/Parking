@@ -81,13 +81,13 @@ public class ParkingController {
 	 * @param model 결과 값 담는 공간
 	 * @return String url
 	 */
-	@RequestMapping(value = "/selectAll.do")
+	/*@RequestMapping(value = "/selectAll.do")
 	public String readList(Model model){
 		List<Parking> list = pDao.selectAll();
 		model.addAttribute("result", list);
 		
 		return "/test.jsp";
-	}
+	}*/
 	
 	/**
 	 * @author hawstrike
@@ -128,7 +128,7 @@ public class ParkingController {
 	@GetMapping("aselectall")
 	public List<Parking> androidSelectAll() {
 		System.out.println("androidSelectAll()");
-		List<Parking> list = pDao.selectAll();
+		List<Parking> list = pDao.selectAll("parking_code");
 		List<Parking> plist = new LinkedList<Parking>();
 		
 		for(Parking p : list) {
