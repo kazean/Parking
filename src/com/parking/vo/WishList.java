@@ -18,18 +18,19 @@ public class WishList implements Serializable {
 	 */
 	private String wish_c_id;		// VARCHAR(40)  NOT NULL     COMMENT '위시를 선택한 고객 아이디'
 	private int wish_parking_code;	// INT          NOT NULL     COMMENT '위시한 주차장 코드'
-	private Date wish_date;			// DATETIME	    NOT NULL     COMMENT '위시한 일자'
+	//private Date wish_date;		// DATETIME	    NOT NULL     COMMENT '위시한 일자'
 	
 	// 생성자
 	 public WishList() {
 		super();
 	}
 	 
-	public WishList(String wish_c_id, int wish_parking_code, Date wish_date) {
+	public WishList(String wish_c_id, int wish_parking_code){
+	//	, Date wish_date) {
 		super();
 		this.wish_c_id = wish_c_id;
 		this.wish_parking_code = wish_parking_code;
-		this.wish_date = wish_date;
+		//this.wish_date = wish_date;
 	}
 	
 	public String getWish_c_id() {
@@ -46,17 +47,20 @@ public class WishList implements Serializable {
 		this.wish_parking_code = wish_parking_code;
 	}
 	
+	/*
 	public Date getWish_date() {
 		return wish_date;
 	}
 	public void setWish_date(Date wish_date) {
 		this.wish_date = wish_date;
 	}
+	*/
 
 	// override
 	@Override
 	public String toString() {
-		return "WishList [wish_c_id=" + wish_c_id + ", wish_parking_code=" + wish_parking_code + ", wish_date=" + wish_date + "]";
+		//return "WishList [wish_c_id=" + wish_c_id + ", wish_parking_code=" + wish_parking_code + ", wish_date=" + wish_date + "]";
+		return "WishList [wish_c_id=" + wish_c_id + ", wish_parking_code=" + wish_parking_code;
 	}
 	 
 }

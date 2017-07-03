@@ -2,7 +2,6 @@ package com.parking.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.parking.dao.AdminDAOMysql;
 import com.parking.vo.Admin;
 
