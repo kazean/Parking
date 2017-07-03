@@ -6,7 +6,7 @@
 
 <!-- 해당 고객의 위시리스트 @author yunmeheo -->
 <select id="selectById" parameterType="String" resultType="WishList">
-	SELECT * FROM WISHLIST WHERE wish_c_id = #{c_id}
+	SELECT * FROM WISHLIST WHERE wish_c_id = #{c_id} ORDER BY wish_date DESC
 </select>
 
 <select id="selectAll" resultType="WishList">
@@ -14,7 +14,7 @@
 </select>
 
 <insert id="insert" parameterType="WishList">
-	insert into wishlist values (#{wish_c_id}, #{wish_parking_code}, #{wish_data})
+	insert into wishlist values (#{wish_c_id}, #{wish_parking_code}, #{wish_date})
 </insert>
 
 <delete id="delete" parameterType="WishList">
