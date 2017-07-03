@@ -5,8 +5,8 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.parking.dao.AdminDAOMySQL;
-import com.parking.dao.ParkingDAOMySQL;
+import com.parking.dao.AdminDAOMysql;
+import com.parking.dao.ParkingDAOMysql;
 import com.parking.vo.Parking;
 
 @Service
@@ -14,7 +14,7 @@ public class ParkingService {
 	
 	// --건들지 마시오--
 	@Autowired
-	ParkingDAOMySQL pDao;
+	ParkingDAOMysql pDao;
 
 	/**
 	 * @author yeahni

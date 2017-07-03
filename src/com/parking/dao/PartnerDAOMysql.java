@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.parking.vo.Partner;
 
 @Repository
-public class PartnerDAOMySQL {
+public class PartnerDAOMysql {
 
 	
 	@Autowired
