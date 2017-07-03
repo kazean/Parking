@@ -13,7 +13,15 @@ public class CustomerService {
 	@Autowired
 	CustomerDAOMysql cDao;
 
-	public List<Customer> selectAll() {
-		return cDao.selectAll();
+	public List<Customer> selectAll(String sort) {
+		return cDao.selectAll(sort);
+	}
+	
+	public Customer selectById(String c_id) {
+		return cDao.selectById(c_id);
+	}
+	
+	public List<Customer> cSearch(String searchItem, String searchValue) {
+		return cDao.selectItem(searchItem, searchValue);
 	}
 }

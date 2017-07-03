@@ -21,11 +21,11 @@ public class ParkingService {
 	 * @comment 전체 주차장 정보 반환
 	 * @return Collection<Parking> 주차장 리스트
 	 */
-	public List<Parking> parkingList(String sort){
+	public List<Parking> selectAll(String sort){
 		return pDao.selectAll(sort);
 	}
 	
-	public List<Parking> parkingSearch(String searchItem, String searchValue) {
+	public List<Parking> pSearch(String searchItem, String searchValue) {
 		return pDao.selectItem(searchItem, searchValue);
 	}
 	

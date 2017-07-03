@@ -73,60 +73,25 @@ public class AdminController {
 	 */
 	// start of parkingList
 	@RequestMapping("parkingList.do")
-	public String parkingList(String num, String searchSort, Model model){
+	public String parkingList(String num, String sortValue, Model model){
 		System.out.println("parkingList()");
-		Admin admin = (Admin)session.getAttribute("admin");
-		String[] options = {"", "parking_code", "parking_name", "parking_address"};
-		String sort;
-		int flag = 1;
 		
-		if(searchSort != null)
-			flag = Integer.parseInt(searchSort);
-		sort = options[flag];
+		Admin admin = (Admin)session.getAttribute("admin");
+		String[] options = {"parking_code", "parking_name", "parking_address"};
+		String sort;
+		int sortFlag = 0;
+		
+		if(sortValue != null)
+			sortFlag = Integer.parseInt(sortValue);
+		sort = options[sortFlag];
 		
 		if(admin != null) {
-			List<Parking> pAll = pService.parkingList(sort);
-			model = parkingPaging(pAll, num, model);
-			/*List<Parking> pList = new LinkedList<Parking>();
+			List<Parking> pAll = pService.selectAll(sort);
 			
-			int startPaging = 0;
-			int endPaging = 15;
-			int startPage = 1;
-			int maxCount = 15;
-			int pagingBlocks = 10;
-			int n = 0;
-			int flag = 0;
-			
-			if(searchFlag != null)
-				flag = Integer.parseInt(searchFlag);
-			
-			searchSort = options[flag];
-			pAll = pService.parkingList(searchSort);
-			
-			if(num != null) {
-				n = Integer.parseInt(num);
-				if(n % 10 == 0)
-					n--;
-				
-				startPaging = Integer.parseInt(num) * maxCount - maxCount;
-				endPaging = Integer.parseInt(num) * maxCount;
-				startPage = n / pagingBlocks * pagingBlocks + 1;
-				
-			}
-			System.out.println("startPaging : " + startPaging + " | endPaging : " + endPaging);
-			
-			if(endPaging > pAll.size())
-				endPaging = pAll.size();
-			int parkingSize = (pAll.size() % maxCount == 0) ? pAll.size() / maxCount : (pAll.size() / maxCount) + 1;
-			
-			for(int i = startPaging; i < endPaging; i++)
-				pList.add(pAll.get(i));
-			
-			model.addAttribute("pageNum", (startPaging / maxCount) + 1);
-			model.addAttribute("pList", pList);
-			model.addAttribute("parkingSize", parkingSize);
-			model.addAttribute("startPage", startPage);*/
-			model.addAttribute("flag", flag);
+			model = pPaging(pAll, num, model);
+			model.addAttribute("pAllSize", pAll.size());
+			model.addAttribute("sortValue", sortFlag);
+			model.addAttribute("flag", 0);
 			return "/admin/parkingList.jsp";
 		}
 		return "/admin/admin.jsp";
@@ -137,59 +102,30 @@ public class AdminController {
 	@PostMapping("parkingSearch.do")
 	public String parkingSearch(String searchValue, int option, String num, Model model) {
 		System.out.println("parkingSearch()");
+		
 		Admin admin = (Admin)session.getAttribute("admin");
-		String[] options = {"", "parking_code", "parking_name"};
+		String[] options = {"parking_code", "parking_name"};
 		
 		if (admin != null) {
-			if (option != 0) {
 				String searchItem = options[option];
-				List<Parking> pAll = pService.parkingSearch(searchItem, searchValue);
-				model = parkingPaging(pAll, num, model);
-				/*List<Parking> pList = new LinkedList<Parking>();
-				int startPaging = 0;
-				int endPaging = 15;
-				int startPage = 1;
-				int maxCount = 15;
-				int pagingBlocks = 10;
-				int n = 0;
+				List<Parking> pAll = pService.pSearch(searchItem, searchValue);
 				
-				if(num != null) {
-					n = Integer.parseInt(num);
-					if(n % 10 == 0)
-						n--;
-					
-					startPaging = Integer.parseInt(num) * maxCount - maxCount;
-					endPaging = Integer.parseInt(num) * maxCount;
-					startPage = n / pagingBlocks * pagingBlocks + 1;
-					
-				}
-				System.out.println("startPaging : " + startPaging + " | endPaging : " + endPaging);
-				
-				if(endPaging > pAll.size())
-					endPaging = pAll.size();
-				int parkingSize = (pAll.size() % maxCount == 0) ? pAll.size() / maxCount : (pAll.size() / maxCount) + 1;
-				
-				for(int i = startPaging; i < endPaging; i++)
-					pList.add(pAll.get(i));
-				
-				model.addAttribute("pageNum", (startPaging / maxCount) + 1);
-				model.addAttribute("pList", pList);
-				model.addAttribute("parkingSize", parkingSize);
-				model.addAttribute("startPage", startPage);*/
-				model.addAttribute("flag", 1);
+				model = pPaging(pAll, num, model);
+				model.addAttribute("pAllSizeSearch", pAll.size());
 				model.addAttribute("searchValue", searchValue);
 				model.addAttribute("option", option);
+				model.addAttribute("flag", 1);
 				
 				return "/admin/parkingList.jsp";
-			}
 		}
 		
-		return null;
+		return "/admin/admin.jsp";
 	}
 	
 	// start of parkingPaging
-	public Model parkingPaging(List<Parking> pAll, String num, Model model) {
+	public Model pPaging(List<Parking> pAll, String num, Model model) {
 		System.out.println("parkingPaging()");
+		
 		List<Parking> pList = new LinkedList<Parking>();
 		
 		int startPaging = 0;
@@ -207,7 +143,6 @@ public class AdminController {
 			startPaging = Integer.parseInt(num) * maxCount - maxCount;
 			endPaging = Integer.parseInt(num) * maxCount;
 			startPage = n / pagingBlocks * pagingBlocks + 1;
-			
 		}
 		System.out.println("startPaging : " + startPaging + " | endPaging : " + endPaging);
 		
@@ -237,9 +172,10 @@ public class AdminController {
 			Object o = parse.parse(jsonStr);
 			JSONObject json = (JSONObject) o;
 			Parking p = new Parking();
+			
 			p.toParking(json);
-			System.out.println(p);
 			int n = pService.parkingAdd(p);
+			
 			System.out.println("n : " + n);
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -253,6 +189,7 @@ public class AdminController {
 	@PostMapping("parkingDelete.do")
 	public String parkingDelete(String[] chklist, Model model) {
 		System.out.println("parkingDelete()");
+		
 		int count = 0;
 		
 		for(String s : chklist)
@@ -277,7 +214,7 @@ public class AdminController {
 	 */
 	@GetMapping("parkingDetail.do")
 	public String parkingDetail(@RequestParam(required = false, defaultValue = "0")int parking_code, Model model){
-		Admin admin = (Admin)session.getAttribute("responseAdmin");
+		Admin admin = (Admin)session.getAttribute("admin");
 		
 		if(admin != null){
 			if(parking_code != 0){
@@ -288,13 +225,13 @@ public class AdminController {
 			}
 		}
 		
-		return "/admin/default.jsp";
+		return "/admin/admin.jsp";
 	}
 	
 	// start of parkingEdit
 	@GetMapping("parkingEdit.do")
 	public String parkingEdit(@RequestParam(required = false, defaultValue = "0")int parking_code, Model model){
-		Admin admin = (Admin)session.getAttribute("responseAdmin");
+		Admin admin = (Admin)session.getAttribute("admin");
 		
 		if(admin != null){
 			if(parking_code != 0){
@@ -308,49 +245,117 @@ public class AdminController {
 			}
 		}
 		
-		return "/admin/default.jsp";
+		return "/admin/admin.jsp";
 	}
 	// end of parkingEdit
 	
 	// start of customerList
 	@RequestMapping("customerList.do")
-	public String customerList(String num, Model model) {
+	public String customerList(String num, String sortValue, Model model) {
 		System.out.println("customerList()");
+		
 		Admin admin = (Admin)session.getAttribute("admin");
+		String[] options = {"c_id", "c_name", "c_date", "c_status_n", "c_status_d"};
+		String sort;
+		int sortFlag = 0;
+		
+		if(sortValue != null)
+			sortFlag = Integer.parseInt(sortValue);
+		sort = options[sortFlag];
 		
 		if(admin != null){
-			List<Customer> cAll = cService.selectAll();
-			List<Customer> cList = new LinkedList<Customer>();
-			int startPaging = 0;
-			int endPaging = 15;
-			int startPage = 1;
-			int n = 0;
+			List<Customer> cAll = cService.selectAll(sort);
 			
-			if(num != null) {
-				n = Integer.parseInt(num);
-				if(n % 10 == 0)
-					n--;
-				startPaging = Integer.parseInt(num) * 15 - 15;
-				endPaging = Integer.parseInt(num) * 15;
-				startPage = n / 10 * 10 + 1;
-				
-			}
-			System.out.println("startPaging : " + startPaging + " | endPaging : " + endPaging);
+			model = cPaging(cAll, num, model);
+			model.addAttribute("cAllSize", cAll.size());
+			model.addAttribute("sortValue", sortFlag);
+			model.addAttribute("flag", 0);
 			
-			if(endPaging > cAll.size())
-				endPaging = cAll.size();
-			int customerSize = (cAll.size() % 15 == 0) ? cAll.size() / 15 : (cAll.size() / 15) + 1;
-			
-			for(int i = startPaging; i < endPaging; i++)
-				cList.add(cAll.get(i));
-			
-			model.addAttribute("pageNum", (startPaging / 15) + 1);
-			model.addAttribute("cList", cList);
-			model.addAttribute("customerSize", customerSize);
-			model.addAttribute("startPage", startPage);
+			return "/admin/customerList.jsp";
 		}
 		
-		return "/admin/customerList.jsp";
+		return "/admin/admin.jsp";
+		
+	}
+	// end of customerList
+	
+	// start of customerSearch.do
+	@RequestMapping("customerSearch.do")
+	public String customerSearch(String searchValue, int option, String num, Model model) {
+		System.out.println("customerSearch()");
+		
+		Admin admin = (Admin)session.getAttribute("admin");
+		String[] options = {"c_id", "c_name"};
+		
+		if(admin != null) {
+			String searchItem = options[option];
+			List<Customer> cAll = cService.cSearch(searchItem, searchValue);
+			
+			model = cPaging(cAll, num, model);
+			model.addAttribute("cAllSizeSearch", cAll.size());
+			model.addAttribute("searchValue", searchValue);
+			model.addAttribute("option", option);
+			model.addAttribute("flag", 1);
+			
+			return "admin/customerList.jsp";
+		}
+		
+		return "/admin/admin.jsp";
+	}
+	
+	// start of customerPaging
+	public Model cPaging(List<Customer> cAll, String num, Model model) {
+		System.out.println("customerpaging()");
+		
+		List<Customer> cList = new LinkedList<Customer>();
+		int startPaging = 0;
+		int endPaging = 15;
+		int startPage = 1;
+		int maxCount = 15;
+		int pagingBlocks = 10;
+		int n = 0;
+		
+		if(num != null) {
+			n = Integer.parseInt(num);
+			if(n % 10 == 0)
+				n--;
+			
+			startPaging = Integer.parseInt(num) * maxCount - maxCount;
+			endPaging = Integer.parseInt(num) * maxCount;
+			startPage = n / pagingBlocks * pagingBlocks + 1;
+		}
+		System.out.println("startPaging : " + startPaging + " | endPaging : " + endPaging);
+		
+		if(endPaging > cAll.size())
+			endPaging = cAll.size();
+		int customerSize = (cAll.size() % maxCount == 0) ? cAll.size() / maxCount : (cAll.size() / maxCount) + 1;
+		
+		for(int i = startPaging; i < endPaging; i++)
+			cList.add(cAll.get(i));
+		
+		model.addAttribute("pageNum", (startPaging / 15) + 1);
+		model.addAttribute("cList", cList);
+		model.addAttribute("customerSize", customerSize);
+		model.addAttribute("startPage", startPage);
+		
+		return model;
+	}
+	
+	// start of customerDetail
+	@PostMapping("customerDetail.do")
+	public String customerDetail(String c_id, Model model) {
+		System.out.println("customerDetail()");
+		Admin admin = (Admin)session.getAttribute("admin");
+		
+		if(admin != null) {
+			Customer c = cService.selectById(c_id);
+			
+			model.addAttribute("customer", c);
+			
+			return "/admin/customerDetail.jsp";
+		}
+		return "/admin/admin.jsp";
+		
 	}
 	
 }

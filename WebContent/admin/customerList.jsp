@@ -1,20 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<c:set var="pageNum" value="${pageNum}"/>
-<c:if test="${pageNum == null}">
-	<c:set var="pageNum" value="1"/>
-</c:if>
+
 <c:set var="customerSize" value="${customerSize}"/>
 <c:set var="startPage" value="${startPage}"/>
 <c:set var="endPage" value="${startPage + 9}"/>
-<c:if test="${endpage > customerSize}">
+<c:if test="${endPage > customerSize}">
 	<c:set var="endPage" value="${customerSize}"/>
 </c:if>
-<c:set var="searchFlag" value="${searchFlag}"/>
-<c:if test="${searchFlag == null}">
-	<c:set var="searchFlag" value="0"/>
+
+<c:set var="flag" value="${flag}"/>
+<c:if test="${flag == null}">
+	<c:set var="flag" value="0"/>
 </c:if>
+
+<c:set var="sortValue" value="${sortValue}"/>
+<c:if test="${sortValue == null}">
+	<c:set var="sortValue" value="0"/>
+</c:if>
+
+<c:set var="searchValue" value="${searchValue}"/>
+<c:if test="${searchValue == null}">
+	<c:set var="searchValue" value="0"/>
+</c:if>
+
+<c:set var="option" value="${option}"/>
+<c:if test="${option == null}">
+	<c:set var="option" value="0"/>
+</c:if>
+
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -42,17 +56,28 @@
 		// start of .page click
 		$(".page").click(function() {
 			var num = $(this).html().trim();
-			if(num == null)
-				num = 1;
-			$.ajax({url:'customerList.do',
-					method:'post',
-					data:{'num':num, 'searchFlag':searchFlag},
-					success:function(responseData) {
-						$parentObj.empty();
-						$parentObj.html(responseData.trim());
-					}
-			});
-			return false;
+			if(${flag} == 0) {
+				$.ajax({url:'customerList.do',
+						method:'post',
+						data:{'num':num, 'sortValue':${sortValue}},
+						success:function(responseData) {
+							$parentObj.empty();
+							$parentObj.html(responseData.trim());
+						}
+				});
+				return false;
+			}
+			else if(${flag} == 1) {
+				$.ajax({url:'customerSearch.do',
+						method:'post',
+						data:{'searchValue':${searchValue}, 'option':${option}, 'num':num},
+						success:function(responseData) {
+							$parentObj.empty();
+							$parentObj.html(responseData.trim());
+						}
+				});
+				return false;
+			}
 		}); // end of .page click
 		
 		// start of .prevPage click
@@ -87,6 +112,33 @@
 				});
 				return false;
 		});	// end of .nextPage click
+		
+		// start of add click 
+		$("input[name=add]").click(function() {
+			$.ajax({url:'customerAdd.jsp',
+					method:'post',
+					success:function(responseData) {
+						$parentObj.empty();
+						$parentObj.html(responseData.trim());
+					}
+			});
+			return false;
+		}); // end of add click
+		
+		// start of detail click
+		$("input[name=detail]").click(function() {
+			var id = $(this).attr("id");
+			$.ajax({url:'customerDetail.do',
+					method:'post',
+					data:{'c_id': id},
+					success:function(responseData) {
+						$parentObj.empty();
+						$parentObj.html(responseData.trim());
+					}
+			});
+			return false;
+		}); // end of detail click
+		
 	}); // end of function
 </script>
 </head>
@@ -95,8 +147,15 @@
 <br>
 <table style="border-collapse:collapse;">
 	<tr style="border:0px;">
-		<td colspan="4" style="text-align:left; border:0px;">총 ${(customerSize * 15) + 1}명</td>
-		<td colspan="3" style="text-align:right; border:0px;">
+		<td colspan="4" style="text-align:left; border:0px;">
+			<c:if test="${cAllSizeSearch == null}">
+				총 ${cAllSize}명의 고객이 있습니다.
+			</c:if>
+			<c:if test="${cAllSizeSearch != null}">
+				 총 ${cAllSizeSearch}명의 검색결과가 있습니다.
+			</c:if>
+		</td>
+		<td colspan="5" style="text-align:right; border:0px;">
 			<input type="button" name="add" value="추가">
 			<input type="button" name="delete" value="삭제">
 		</td>
@@ -110,10 +169,11 @@
 		<td style="width:150px;">카드 번호</td>
 		<td style="width:150px;">가입날짜</td>
 		<td style="width:50px;">상태</td>
+		<td style="width:70px;">상세보기</td>
 	</tr>
 	<c:forEach var="c" items="${cList}">
 	<tr>
-		<td><input type="checkbox" class="chkselect" value="${c.id}"></td>
+		<td><input type="checkbox" class="chkselect" value="${c.c_id}"></td>
 		<td>${c.c_id}</td>
 		<td>${c.c_name}</td>
 		<td>${c.c_phone_number}</td>
@@ -121,6 +181,7 @@
 		<td>${c.c_card_number}</td>
 		<td>${c.c_date}</td>
 		<td>${c.c_status}</td>
+		<td><input type="button" id="${c.c_id}" name="detail" value="설정"></td>
 	</tr>
 	</c:forEach>
 </table>
