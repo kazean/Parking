@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%String contextPath = request.getContextPath();%>
 
 <c:set var="parkingSize" value="${parkingSize}"/>
 <c:set var="startPage" value="${startPage}"/>
@@ -60,11 +61,18 @@ $(function() {
 		console.log($(this).attr("id"));
 		$.ajax({
 			url : 'parkingDetail',
-			method : 'GET',
+			method : 'post',
 			data : {'parking_code': $(this).attr("id")},
 			success : function(responseData) {
-				$parentObj.empty();
-				$parentObj.html(responseData.trim());
+				var data = responseData.trim();
+				if(data != "-1") {
+					$parentObj.empty();
+					$parentObj.html(data);
+				}
+				else {
+					alert('로그인을 먼저 해주세요.');
+					location.href='<%=contextPath%>';
+				}
 			}
 		});
 		return false;
@@ -78,8 +86,15 @@ $(function() {
 					method:'post',
 					data:{'num': num, 'sortValue':${sortValue}},
 					success:function(responseData) {
-						$parentObj.empty();
-						$parentObj.html(responseData.trim());
+						var data = responseData.trim();
+						if(data != "-1") {
+							$parentObj.empty();
+							$parentObj.html(data);
+						}
+						else {
+							alert('로그인을 먼저 해주세요.');
+							location.href='<%=contextPath%>';
+						}
 					}
 			});
 			return false;
@@ -89,8 +104,15 @@ $(function() {
 					method:'post',
 					data:{'searchValue':${searchValue}, 'option':${option}, 'num':num},
 					success:function(responseData) {
-						$parentObj.empty();
-						$parentObj.html(responseData.trim());
+						var data = responseData.trim();
+						if(data != "-1") {
+							$parentObj.empty();
+							$parentObj.html(data);
+						}
+						else {
+							alert('로그인을 먼저 해주세요.');
+							location.href='<%=contextPath%>';
+						}
 					}
 			});
 			return false;
@@ -106,8 +128,15 @@ $(function() {
 				method:'post',
 				data:{'num': pNum},
 				success:function(responseData) {
-					$parentObj.empty();
-					$parentObj.html(responseData.trim());
+					var data = responseData.trim();
+					if(data != "-1") {
+						$parentObj.empty();
+						$parentObj.html(data);
+					}
+					else {
+						alert('로그인을 먼저 해주세요.');
+						location.href='<%=contextPath%>';
+					}
 				}
 		
 		});
@@ -123,8 +152,15 @@ $(function() {
 					method:'post',
 					data:{'num':nNum},
 					success:function(responseData) {
-						$parentObj.empty();
-						$parentObj.html(responseData.trim());
+						var data = responseData.trim();
+						if(data != "-1") {
+							$parentObj.empty();
+							$parentObj.html(data);
+						}
+						else {
+							alert('로그인을 먼저 해주세요.');
+							location.href='<%=contextPath%>';
+						}
 					}
 			});
 			return false;

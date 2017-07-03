@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%String contextPath = request.getContextPath();%>
 
 <c:set var="customerSize" value="${customerSize}"/>
 <c:set var="startPage" value="${startPage}"/>
@@ -61,8 +62,15 @@
 						method:'post',
 						data:{'num':num, 'sortValue':${sortValue}},
 						success:function(responseData) {
-							$parentObj.empty();
-							$parentObj.html(responseData.trim());
+							var data = responseData.trim();
+							if(data != "-1") {
+								$parentObj.empty();
+								$parentObj.html(data);
+							}
+							else {
+								alert('로그인을 먼저 해주세요.');
+								location.href='<%=contextPath%>';
+							}
 						}
 				});
 				return false;
@@ -72,8 +80,15 @@
 						method:'post',
 						data:{'searchValue':${searchValue}, 'option':${option}, 'num':num},
 						success:function(responseData) {
-							$parentObj.empty();
-							$parentObj.html(responseData.trim());
+							var data = responseData.trim();
+							if(data != "-1") {
+								$parentObj.empty();
+								$parentObj.html(data);
+							}
+							else {
+								alert('로그인을 먼저 해주세요.');
+								location.href='<%=contextPath%>';
+							}
 						}
 				});
 				return false;
@@ -89,8 +104,15 @@
 					method:'post',
 					data:{'num': pNum},
 					success:function(responseData) {
-						$parentObj.empty();
-						$parentObj.html(responseData.trim());
+						var data = responseData.trim();
+						if(data != "-1") {
+							$parentObj.empty();
+							$parentObj.html(data);
+						}
+						else {
+							alert('로그인을 먼저 해주세요.');
+							location.href='<%=contextPath%>';
+						}
 					}
 			
 			});
@@ -106,8 +128,15 @@
 						method:'post',
 						data:{'num':nNum},
 						success:function(responseData) {
-							$parentObj.empty();
-							$parentObj.html(responseData.trim());
+							var data = responseData.trim();
+							if(data != "-1") {
+								$parentObj.empty();
+								$parentObj.html(data);
+							}
+							else {
+								alert('로그인을 먼저 해주세요.');
+								location.href='<%=contextPath%>';
+							}
 						}
 				});
 				return false;

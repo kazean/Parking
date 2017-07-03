@@ -94,7 +94,8 @@ public class AdminController {
 			model.addAttribute("flag", 0);
 			return "/admin/parkingList.jsp";
 		}
-		return "/admin/admin.jsp";
+		model.addAttribute("msg","-1");
+		return "/result.jsp";
 	}
 	// end of parkingList
 	
@@ -118,8 +119,8 @@ public class AdminController {
 				
 				return "/admin/parkingList.jsp";
 		}
-		
-		return "/admin/admin.jsp";
+		model.addAttribute("msg","-1");
+		return "/result.jsp";
 	}
 	
 	// start of parkingPaging
@@ -166,21 +167,21 @@ public class AdminController {
 	@PostMapping("parkingAdd.do")
 	public String parkingAdd(String jsonStr) {
 		System.out.println("parkingAdd()");
-		
+			
 		try {
 			JSONParser parse = new JSONParser();
 			Object o = parse.parse(jsonStr);
 			JSONObject json = (JSONObject) o;
 			Parking p = new Parking();
-			
+
 			p.toParking(json);
 			int n = pService.parkingAdd(p);
-			
+
 			System.out.println("n : " + n);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		return "parkingList.do";
 	}
 	// end of parkingAdd
@@ -219,13 +220,14 @@ public class AdminController {
 		if(admin != null){
 			if(parking_code != 0){
 				Parking parking = pService.parkingDetail(parking_code);
-				model.addAttribute(parking);
+				model.addAttribute("parking", parking);
 				
 				return "/admin/parkingDetail.jsp";
 			}
 		}
 		
-		return "/admin/admin.jsp";
+		model.addAttribute("msg", "-1");
+		return "/result.jsp";
 	}
 	
 	// start of parkingEdit
@@ -245,7 +247,8 @@ public class AdminController {
 			}
 		}
 		
-		return "/admin/admin.jsp";
+		model.addAttribute("msg", "-1");
+		return "/result.jsp";
 	}
 	// end of parkingEdit
 	
@@ -273,8 +276,8 @@ public class AdminController {
 			
 			return "/admin/customerList.jsp";
 		}
-		
-		return "/admin/admin.jsp";
+		model.addAttribute("msg", "-1");
+		return "/result.jsp";
 		
 	}
 	// end of customerList
@@ -299,8 +302,8 @@ public class AdminController {
 			
 			return "admin/customerList.jsp";
 		}
-		
-		return "/admin/admin.jsp";
+		model.addAttribute("msg", "-1");
+		return "/result.jsp";
 	}
 	
 	// start of customerPaging
@@ -354,7 +357,8 @@ public class AdminController {
 			
 			return "/admin/customerDetail.jsp";
 		}
-		return "/admin/admin.jsp";
+		model.addAttribute("msg", "-1");
+		return "/result.jsp";
 		
 	}
 	
