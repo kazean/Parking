@@ -1,22 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="pageNum" value="${pageNum}"/>
-<c:if test="${pageNum == null}">
-	<c:set var="pageNum" value="1"/>
-</c:if>
+
 <c:set var="parkingSize" value="${parkingSize}"/>
 <c:set var="startPage" value="${startPage}"/>
 <c:set var="endPage" value="${startPage + 9}"/>
 <c:if test="${endPage > parkingSize}">
 	<c:set var="endPage" value="${parkingSize}"/>
 </c:if>
+
 <c:set var="flag" value="${flag}"/>
 <c:if test="${flag == null}">
 	<c:set var="flag" value="0"/>
 </c:if>
+
+<c:set var="sortValue" value="${sortValue}"/>
+<c:if test="${sortValue == null}">
+	<c:set var="sortValue" value="0"/>
+</c:if>
+
 <c:set var="searchValue" value="${searchValue}"/>
+<c:if test="${searchValue == null}">
+	<c:set var="searchValue" value="0"/>
+</c:if>
+
 <c:set var="option" value="${option}"/>
+<c:if test="${option == null}">
+	<c:set var="option" value="0"/>
+</c:if>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,11 +73,10 @@ $(function() {
 	// start of .page click
 	$(".page").click(function() {
 		var num = $(this).html().trim();
-		
 		if(${flag} == 0) {
 			$.ajax({url:'parkingList.do',
 					method:'post',
-					data:{'num': num},
+					data:{'num': num, 'sortValue':${sortValue}},
 					success:function(responseData) {
 						$parentObj.empty();
 						$parentObj.html(responseData.trim());
@@ -74,11 +85,9 @@ $(function() {
 			return false;
 		}
 		else if(${flag} == 1) {
-			var searchValue = ${searchValue};
-			var option = ${option};
 			$.ajax({url:'parkingSearch.do',
 					method:'post',
-					data:{'searchValue':searchValue, 'num':num, 'option':option},
+					data:{'searchValue':${searchValue}, 'option':${option}, 'num':num},
 					success:function(responseData) {
 						$parentObj.empty();
 						$parentObj.html(responseData.trim());
@@ -179,7 +188,14 @@ $(function() {
 	<br>
 	<table style="border-collapse:collapse;">
 		<tr style="border:0px;">
-			<td colspan="6" style="text-align:left; border:0px;">총 ${(parkingSize * 15) + 1}개의 주차장내역이 존재합니다.</td>
+			<td colspan="6" style="text-align:left; border:0px;">
+				<c:if test="${pAllSizeSearch == null}">
+					총 ${pAllSize}개의 주차장 내역이 존재합니다.
+				</c:if>
+				<c:if test="${pAllSizeSearch != null}">
+					총 ${pAllSizeSearch}개의 검색결과가 있습니다.
+				</c:if>
+			</td>
 			<td colspan="3" style="text-align:right; border:0px;">
 				<input type="button" name="add" value="추가">
 				<input type="button" name="delete" value="삭제"></td>

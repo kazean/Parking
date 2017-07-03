@@ -5,7 +5,6 @@
 <head>
 <meta content="text/html; charset=UTF-8">
 <title>parkingAdd</title>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
 	$(function() {
@@ -69,11 +68,6 @@
 					}
 				}
 			}); */
-		});
-		
-		var parking_is_resident = 'false';
-		$("input[name=parking_is_resident]").click(function() {
-			parking_is_resident = $(this).val();
 		});
 		
 		var parking_is_manager = 'true';
@@ -149,7 +143,6 @@
 					p["parking_longitude"] = $("input[name=parking_latitude]").val();
 					p["parking_operation"] = $("select[name=parking_operation]").val();
 					p["parking_type"] = $("select[name=parking_type]").val();
-					p["parking_is_resident"] = parking_is_resident;
 					p["parking_is_manager"] = parking_is_manager;
 					p["parking_is_machine"] = parking_is_machine;
 					p["parking_is_valet"] = parking_is_valet;
@@ -268,12 +261,6 @@
     				<option value = "1">노상</option>
 					<option value = "2">노외</option>
   				</select>
-			</td>
-		</tr>
-		<tr>
-			<td>거주자 우선</td>
-			<td>
-  				<input type="radio" name="parking_is_resident" value="true">O <input type="radio" name="parking_is_resident" value="false">X
 			</td>
 		</tr>
 		<tr>

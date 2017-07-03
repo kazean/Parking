@@ -36,7 +36,6 @@ public class Parking implements Serializable{
 	private int parking_operation;		// TINYINT(2)   NOT NULL     		COMMENT '주차장 구분 (1:공영 / 2:민영 / 3:개인)'
 	private int parking_type;			// TINYINT(2)   NOT NULL     		COMMENT '주차장 유형 (1:노상 / 2:노외)'
 	
-	private boolean parking_is_resident; // 주차장 거주자 우선여부 (true&1: 거주자o / false&0: 거주자x)
 	private boolean parking_is_manager; // 주차장 관리자여부 (true&1: 관리자o / false&0: 관리자x => *default true)
 	private boolean parking_is_machine;	// 주차장 기계식 여부 (true:기계식 / false: 기계식아님 => *default false)
 	private boolean parking_is_valet; // 주차장 발렛여부 (true&1: 발렛o / false&0: 발렛x => *default false)
@@ -78,8 +77,7 @@ public class Parking implements Serializable{
 	// start of Parking Full Constructor
 	public Parking(int parking_code, String parking_p_id, String parking_name,
 			String parking_address, String parking_phone_number, double parking_latitude, double parking_longitude,
-			int parking_status, int parking_operation, int parking_type, boolean parking_is_resident,
-			boolean parking_is_manager, boolean parking_is_machine, boolean parking_is_valet, boolean parking_is_cctv,
+			int parking_status, int parking_operation, int parking_type, boolean parking_is_manager, boolean parking_is_machine, boolean parking_is_valet, boolean parking_is_cctv,
 			boolean parking_is_motorcycle, String parking_impossible_car_type, int parking_pay_type, int parking_floor,
 			int parking_basement_floor, int parking_capacity, int parking_cur_seat, int parking_rates,
 			int parking_rates_time, int parking_add_rates, int parking_add_rates_time, int parking_day_rates,
@@ -98,7 +96,6 @@ public class Parking implements Serializable{
 		this.parking_status = parking_status;
 		this.parking_operation = parking_operation;
 		this.parking_type = parking_type;
-		this.parking_is_resident = parking_is_resident;
 		this.parking_is_manager = parking_is_manager;
 		this.parking_is_machine = parking_is_machine;
 		this.parking_is_valet = parking_is_valet;
@@ -132,8 +129,7 @@ public class Parking implements Serializable{
 	// start of Parking Constructor
 	public Parking(int parking_code, String parking_p_id, String parking_name,
 			String parking_address, String parking_phone_number, double parking_latitude, double parking_longitude,
-			int parking_status, int parking_operation, int parking_type, boolean parking_is_resident,
-			boolean parking_is_manager, boolean parking_is_machine, boolean parking_is_valet, boolean parking_is_cctv,
+			int parking_status, int parking_operation, int parking_type, boolean parking_is_manager, boolean parking_is_machine, boolean parking_is_valet, boolean parking_is_cctv,
 			boolean parking_is_motorcycle, String parking_impossible_car_type, int parking_pay_type, int parking_floor,
 			int parking_basement_floor, int parking_capacity, int parking_cur_seat, int parking_rates,
 			int parking_rates_time, int parking_add_rates, int parking_add_rates_time, int parking_day_rates,
@@ -151,7 +147,6 @@ public class Parking implements Serializable{
 		this.parking_status = parking_status;
 		this.parking_operation = parking_operation;
 		this.parking_type = parking_type;
-		this.parking_is_resident = parking_is_resident;
 		this.parking_is_manager = parking_is_manager;
 		this.parking_is_machine = parking_is_machine;
 		this.parking_is_valet = parking_is_valet;
@@ -181,7 +176,7 @@ public class Parking implements Serializable{
 	// start of ParkingConstructor
 	public Parking(String parking_name, String parking_address, String parking_phone_number, double parking_latitude,
 			double parking_longitude, int parking_status, int parking_operation, int parking_type,
-			boolean parking_is_resident, boolean parking_is_manager, boolean parking_is_machine,
+			boolean parking_is_manager, boolean parking_is_machine,
 			boolean parking_is_valet, boolean parking_is_cctv, boolean parking_is_motorcycle,
 			String parking_impossible_car_type, int parking_pay_type, int parking_floor, int parking_basement_floor,
 			int parking_capacity, int parking_rates, int parking_rates_time,
@@ -197,7 +192,6 @@ public class Parking implements Serializable{
 		this.parking_status = parking_status;
 		this.parking_operation = parking_operation;
 		this.parking_type = parking_type;
-		this.parking_is_resident = parking_is_resident;
 		this.parking_is_manager = parking_is_manager;
 		this.parking_is_machine = parking_is_machine;
 		this.parking_is_valet = parking_is_valet;
@@ -292,14 +286,6 @@ public class Parking implements Serializable{
 	}
 	public void setParking_type(int parking_type) {
 		this.parking_type = parking_type;
-	}
-	
-	public boolean isParking_is_resident() {
-		return parking_is_resident;
-	}
-
-	public void setParking_is_resident(boolean parking_is_resident) {
-		this.parking_is_resident = parking_is_resident;
 	}
 
 	public boolean isParking_is_manager() {
@@ -523,7 +509,6 @@ public class Parking implements Serializable{
 			setParking_longitude(Double.parseDouble(j.get("parking_longitude").toString()));
 			setParking_operation(Integer.parseInt(j.get("parking_operation").toString()));
 			setParking_type(Integer.parseInt(j.get("parking_type").toString()));
-			setParking_is_resident(Boolean.parseBoolean(j.get("parking_is_resident").toString()));
 			setParking_is_manager(Boolean.parseBoolean(j.get("parking_is_manager").toString()));
 			setParking_is_machine(Boolean.parseBoolean(j.get("parking_is_machine").toString()));
 			setParking_is_valet(Boolean.parseBoolean(j.get("parking_is_valet").toString()));
@@ -563,7 +548,7 @@ public class Parking implements Serializable{
 		return "Parking [parking_p_id=" + parking_p_id + ", parking_name=" + parking_name + ", parking_address="
 				+ parking_address + ", parking_phone_number=" + parking_phone_number + ", parking_latitude="
 				+ parking_latitude + ", parking_longitude=" + parking_longitude + ", parking_operation="
-				+ parking_operation + ", parking_type=" + parking_type + ", parking_is_resident=" + parking_is_resident
+				+ parking_operation + ", parking_type=" + parking_type
 				+ ", parking_is_manager=" + parking_is_manager + ", parking_is_machine=" + parking_is_machine
 				+ ", parking_is_valet=" + parking_is_valet + ", parking_is_cctv=" + parking_is_cctv
 				+ ", parking_is_motorcycle=" + parking_is_motorcycle + ", parking_impossible_car_type="

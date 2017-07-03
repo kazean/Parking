@@ -35,15 +35,22 @@ public class ParkingDAOMysql {
 	 * @return List<Parking> 전체 주차장 리스트
 	 */
 	public List<Parking> selectAll(String sort){
-		System.out.println("ParkingDAOMysql selectAll()");		
-		return session.selectList("ParkingMapper.selectAll", sort);
+		System.out.println("ParkingDAOMysql selectAll()");
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("sort", sort);
+		return session.selectList("ParkingMapper.selectAll", map);
 	}
 	
 	public List<Parking> selectItem(String searchItem, String searchValue) {
 		System.out.println("ParkingDAOMysql selectItem()");
+		
 		HashMap<String, String> map = new HashMap<String, String>();
+		System.out.println("searchItem : " + searchItem + " | searchValue : " + searchValue);
+		
 		map.put("searchItem", searchItem);
 		map.put("searchValue", searchValue);
+		
 		return session.selectList("ParkingMapper.selectItem", map);
 	}
 	
