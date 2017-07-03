@@ -17,7 +17,6 @@
     <property name="username" value="root"/>
     <!-- <property name="password" value="parking"/> -->
    	<property name="password" value="1234"/>
-
   </bean>
   
   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
