@@ -34,7 +34,6 @@ public class BreakdownController {
 			}
 			mData.add(b);
 		}
-		
 		return mData;
 	}
 	

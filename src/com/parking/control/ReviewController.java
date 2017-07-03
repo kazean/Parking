@@ -1,5 +1,7 @@
 package com.parking.control;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +25,22 @@ public class ReviewController {
 	@PostMapping(value="areviewlistpcode", consumes="application/json; charset=UTF-8")
 	public List<Review> androidReviewById(@RequestBody Review review){
 		System.out.println("areviewlistpcode");
-		System.out.println("pcode : " + review.getReview_parking_code());
 		List<Review> list = rDao.selecyByParkingCode(review.getReview_parking_code());
-		for(Review r : list){
-			System.out.println(r.toString());
-		}
 		return list;
 	}
 
 	@PostMapping("areviewdeclaration")
 	public boolean androidReviewDeclaration(@RequestBody Review r ){
 		System.out.println("areviewdeclaration()");
-		System.out.println("rc_id : "  + r.getReview_c_id());
-		System.out.println("r_parking_code : " + r.getReview_parking_code());
+
 		return rDao.updateReviewDeclaration(r);
 	}
+	
+	@PostMapping("areviewinsert")
+	public boolean androidReviewInsert(@RequestBody Review r){
+		System.out.println(r.toString());
+		return rDao.insertByReview(r);
+	}
+	
+
 }
