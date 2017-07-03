@@ -22,6 +22,7 @@ public class BreakdownController {
 	BreakDownListDAOMysql bDao;
 
 	@PostMapping("abreakdownlist")
+	//public List<Breakdown> breakdownList(@RequestBody Reservation r){
 	public List<Breakdown> breakdownList(@RequestBody Reservation r){
 		List<Breakdown> list =  bDao.selectById(r);
 		List<Breakdown> mData = new ArrayList<>();
