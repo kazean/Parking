@@ -60,17 +60,91 @@
 		#{parking_sat_end_time},
 		#{parking_holidays_begin_time},
 		#{parking_holidays_end_time}
-	);
+	)
 </insert>
 
 <!-- 전체 주차장 정보 가져오기 @author yeahni -->
-<select id="selectAll" resultType="Parking">
-	SELECT * FROM parking order by parking_code desc
+<select id="selectAll" parameterType="string" resultType="Parking">
+	SELECT * FROM parking order by ${value} desc
+</select>
+
+<select id="selectItem" parameterType="hashmap" resultType="Parking">
+	select * from parking where ${searchItem} like '%${searchValue}%' 
 </select>
 
 <insert id="parkingAdd" parameterType="Parking">
-	insert into parking values ;
+	insert into parking(
+		parking_p_id,
+		parking_name,
+		parking_address,
+		parking_phone_number,
+		parking_latitude,
+		parking_longitude,
+		parking_operation,
+		parking_type,
+		parking_is_resident,
+		parking_is_manager,
+		parking_is_machine,
+		parking_is_valet,
+		parking_is_cctv,
+		parking_is_motorcycle,
+		parking_impossible_car_type,
+		parking_pay_type,
+		parking_floor,
+		parking_basement_floor,
+		parking_capacity,
+		parking_rates,
+		parking_rates_time,
+		parking_add_rates,
+		parking_add_rates_time,
+		parking_day_rates,
+		parking_month_rates,
+		parking_weekdays_begin_time,
+		parking_weekdays_end_time,
+		parking_sat_begin_time,
+		parking_sat_end_time,
+		parking_holidays_begin_time,
+		parking_holidays_end_time
+	)
+	
+	values (
+		#{parking_p_id},
+		#{parking_name},
+		#{parking_address},
+		#{parking_phone_number},
+		#{parking_latitude},
+		#{parking_longitude},
+		#{parking_operation},
+		#{parking_type},
+		#{parking_is_resident},
+		#{parking_is_manager},
+		#{parking_is_machine},
+		#{parking_is_valet},
+		#{parking_is_cctv},
+		#{parking_is_motorcycle},
+		#{parking_impossible_car_type},
+		#{parking_pay_type},
+		#{parking_floor},
+		#{parking_basement_floor},
+		#{parking_capacity},
+		#{parking_rates},
+		#{parking_rates_time},
+		#{parking_add_rates},
+		#{parking_add_rates_time},
+		#{parking_day_rates},
+		#{parking_month_rates},
+		#{parking_weekdays_begin_time},
+		#{parking_weekdays_end_time},
+		#{parking_sat_begin_time},
+		#{parking_sat_end_time},
+		#{parking_holidays_begin_time},
+		#{parking_holidays_end_time}
+		)
 </insert>
+
+<delete id="parkingDelete" parameterType="string">
+	delete from parking where parking_code = #{parking_code}
+</delete>
 
 <!-- 주차장 코드로 정보 가져오기 @author yeahni -->
 <select id="selectByCode" parameterType="Parking" resultType="Parking">

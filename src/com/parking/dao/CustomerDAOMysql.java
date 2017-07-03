@@ -1,6 +1,8 @@
 package com.parking.dao;
 
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,6 +33,10 @@ public class CustomerDAOMysql {
 	 */
 	public Customer selectById(String c_id){
 		return session.selectOne("CustomerMapper.selectById",c_id);
+	}
+	
+	public List<Customer> selectAll() {
+		return session.selectList("CustomerMapper.selectAll");
 	}
 	
 }
