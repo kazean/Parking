@@ -206,7 +206,7 @@
 <body>
 <br>
 <h3>주차장 추가</h3>
-	<table border="1px solid">
+	<table style="border:1px solid;">
 		<tr>
 			<td colspan="2">주차장의 기본정보</td> 
 		</tr>

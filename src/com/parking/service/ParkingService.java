@@ -4,10 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-<<<<<<< HEAD
 
-=======
->>>>>>> 52c8c8254eed9c3b2027870f354d66ab8a41c19f
 import com.parking.dao.AdminDAOMysql;
 import com.parking.dao.ParkingDAOMysql;
 import com.parking.vo.Parking;
