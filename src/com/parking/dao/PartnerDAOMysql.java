@@ -1,6 +1,8 @@
 package com.parking.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +17,14 @@ public class PartnerDAOMysql {
 	@Autowired
 	SqlSession session;
 	
-	public List<Partner> selectAll(){
+	public List<Partner> selectAll(int startPage, int endPage, String searchItem, String searchValue){
 		
-		return session.selectList("PartnerMapper.selectAll");
+		Map<String,Object> map = new HashMap<>();
+		map.put("startPage", startPage);
+		map.put("endPage",endPage);
+		map.put("searchItem", searchItem);
+		map.put("searchValue",searchValue);
+		return session.selectList("PartnerMapper.selectAll",map);
 		
 	}
 	
@@ -25,6 +32,23 @@ public class PartnerDAOMysql {
 		
 		session.insert("PartnerMapper.insert",p);
 		
+	}
+
+	public List<Partner> selectForListSize(String searchItem, String searchValue) {
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("searchItem", searchItem);
+		map.put("searchValue",searchValue);
+		return session.selectList("PartnerMapper.selectForListSize",map);
+		
+	}
+
+	public Partner selectByP_id(String p_id) {
+		return session.selectOne("PartnerMapper.selectByP_id",p_id);
+	}
+
+	public void delete(String p_id) {
+		session.delete("PartnerMapper.delete",p_id);
 	}
 	
 	

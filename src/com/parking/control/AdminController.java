@@ -1,5 +1,7 @@
 package com.parking.control;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.parking.service.AdminService;
 import com.parking.service.CustomerService;
 import com.parking.service.ParkingService;
+import com.parking.service.PartnerService;
 import com.parking.vo.Admin;
 import com.parking.vo.Customer;
 import com.parking.vo.Parking;
+import com.parking.vo.Partner;
 
 @Controller
 @RequestMapping(value="/admin/")
@@ -36,6 +40,8 @@ public class AdminController {
 	ParkingService pService;
 	@Autowired
 	CustomerService cService;
+	@Autowired
+	PartnerService ptnService;
 	
 	/**
 	 * @author yeahni
@@ -361,5 +367,126 @@ public class AdminController {
 		return "/result.jsp";
 		
 	}
+	
+	
+	//start for partnerList.do
+	int listSize;
+	@RequestMapping("partnerList.do")
+	public String partnerList(Model model,
+			int pageno,
+			@RequestParam(required=false, defaultValue="all") String searchItem,
+			@RequestParam(required=false, defaultValue="") String searchValue,
+			String pageClick
+			){
+		
+		System.out.println("partnerList()");
+		
+		//초기값 셋팅
+		List <Partner> list = new ArrayList<>();
+		int startPage = pageno*5-4;
+		int endPage = pageno*5;
+		
+		//리스트사이즈 (검색시 한번만 불러올 것)
+		int cnt=0;
+		if(cnt == 0 && pageClick == null){
+			cnt ++;
+			listSize = ptnService.selectForListSize(searchItem,searchValue).size();
+		}
+		
+		//페이지클릭 하지않았을 경우의 검색
+		if(pageClick == null){
+			session.removeAttribute("searchItem");//(, searchItem);
+			session.removeAttribute("searchValue");//, searchValue);
+		}
+		
+		//실제리스트
+		if("".equals(searchValue)){
+			System.out.println("(String)session.getAttribute(searchValue) :"+(String)session.getAttribute("searchValue") );
+			if((String)session.getAttribute("searchValue") !=null){
+				System.out.println("if의 세션 유");
+				System.out.println("searchItem : "+(String)session.getAttribute("searchItem")+(String)session.getAttribute("searchValue"));
+				list = ptnService.selectAll(startPage,endPage,(String)session.getAttribute("searchItem"),(String)session.getAttribute("searchValue"));	
+				
+			}else{
+				System.out.println("if의 세션 무");
+				list = ptnService.selectAll(startPage,endPage,"",searchValue);
+			}
+			
+		}else if(!"".equals(searchValue)){
+			
+			System.out.println("if else 들어옴");
+			
+			session.setAttribute("searchItem", searchItem);
+			session.setAttribute("searchValue", searchValue);
+			
+			list = ptnService.selectAll(startPage,endPage,searchItem,searchValue);	
+			
+		}
+		
+		
+		model.addAttribute("list",list);
+		model.addAttribute("listSize",listSize);
+
+		return "/admin/partnerList.jsp";
+		
+	}
+	//end for partnerList.do
+	
+	
+	//start for addPartner.do
+	@PostMapping("addPartner.do")
+	public String addPartner(Model model,
+			String p_id,
+			String p_password,
+			String p_name,
+			String p_phone_number,
+			String p_license,
+			String p_bank,
+			String p_account,
+			String p_status,
+			String p_register_admin_id
+			){
+		
+		
+		String msg = "-1";
+		Partner partner = null;
+		
+		if(!"".equals(p_id)){
+			partner = new Partner( p_id,  p_password,  p_name,  p_phone_number,  p_license,
+					 p_bank,  p_account,  null,  'N', p_register_admin_id);
+			ptnService.addPartner(partner);
+			msg = "1";
+		}
+		model.addAttribute("msg",msg);
+		return "/result.jsp";
+	}
+	//end for addPartner.do
+	
+	
+	//start for selectByP_Id.do
+	@PostMapping("selectByP_id.do")
+	public String selectByP_Id(Model model,
+							String p_id) {
+		
+		System.out.println("selectByP_Id()");
+		Partner partner = ptnService.selectByP_id(p_id);
+		model.addAttribute("partner",partner);
+		return "/admin/partnerModify.jsp";
+	}
+	
+	//start for deletePartner
+	@PostMapping("deletePartner.do")
+	public String deletePartner(Model model,
+								String p_id) {
+		System.out.println("deletePartner()");
+		String msg = "-1";
+		if(p_id!=null){
+			ptnService.delete(p_id);
+			msg = "1";
+		}
+		model.addAttribute("msg",msg);
+		return "/result.jsp";
+	}
+	//end for deletePartner
 	
 }

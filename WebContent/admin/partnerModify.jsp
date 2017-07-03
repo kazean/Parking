@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,19 +9,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
 	$(function() {
-
-		/* <input type="text" name="p_id" >
-		<input type="text" name="p_password">
-		<input type="text" name="p_name">
-		<input type="text" name="p_phone_number">
-		<input type="text" name="p_license">
-		<input type="text" name="p_bank">
-		<input type="text" name="p_account">
-
-
-		<button name = "btInsert">  입력</button> */
-
-		
 
 		var $form = $(".insertForm");
 		$form.submit(function(){
@@ -69,7 +56,7 @@
 <body>
 
 
-<h3>파트너 추가</h3>
+<h3>파트너 수정</h3>
 
 
 
@@ -83,17 +70,19 @@
     sysdate,
     #{p_status} --%>
 
+<c:set  var="partner"   value="${requestScope.partner}" />
+
 
 <form class = "insertForm">
 
-<h5>아이디 : </h5> <input type="text" name="p_id" >   <br>
-<h5>비밀번호 :</h5>  <input type="text" name="p_password"><br>
-<h5>이름 :</h5>  <input type="text" name="p_name"><br>
-<h5>전화번호 : </h5> <input type="text" name="p_phone_number"><br>
-<h5>사업자번호 :</h5>  <input type="text" name="p_license"><br>
-<h5>계좌은행 :</h5>  <input type="text" name="p_bank"><br>
-<h5>계좌번호  :</h5> <input type="text" name="p_account"><br>
-<h5>관리자명 (어드민 계정 ) :</h5> <input type="text" name="p_register_admin_id"><br>
+<h5>아이디 : </h5> <input type="text" name="p_id"  value="${partner.p_id}">   <br>
+<h5>비밀번호 :</h5>  <input type="text" name="p_password" value="${partner.p_password}"><br>
+<h5>이름 :</h5>  <input type="text" name="p_name" value="${partner.p_name}"><br>
+<h5>전화번호 : </h5> <input type="text" name="p_phone_number" value="${partner.p_phone_number}"><br>
+<h5>사업자번호 :</h5>  <input type="text" name="p_license" value="${partner.p_license}"><br>
+<h5>계좌은행 :</h5>  <input type="text" name="p_bank" value="${partner.p_bank}"><br>
+<h5>계좌번호  :</h5> <input type="text" name="p_account" value="${partner.p_account}" ><br>
+<h5>관리자명 (어드민 계정 ) :</h5> <input type="text" name="p_register_admin_id" value="${partner.p_register_admin_id}"><br>
 
 <input type="submit" value="입력하기" name = "smInsert">
 <input type="submit" value="취소" id = "btCancel">
