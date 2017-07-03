@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BreakdownMapper">
+
+<select id="selectById" parameterType="Reservation" resultType="Breakdown">
+	SELECT 
+		reserve_c_id, reserve_parking_code, reserve_entrance_time, reserve_exit_time, reserve_time, 
+		parking_name, parking_address, parking_rates_time, parking_rates
+	FROM reservation
+	JOIN parking
+	ON reserve_parking_code = parking_code
+	WHERE reserve_c_id = #{reserve_c_id} AND reserve_status ="C"
+	ORDER BY reserve_time DESC;
+</select>
+
+<select id="selectByReview" parameterType="Breakdown" resultType="int">
+	SELECT count(*)
+	FROM review
+	WHERE review_parking_code = #{reserve_parking_code} AND review_c_id = #{reserve_c_id};
+</select>
+
+</mapper>

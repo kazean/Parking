@@ -30,7 +30,10 @@ package com.parking.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 94b24142d6c86f968cf1d83a87cc1fc3acd2fb4f
 import com.parking.dao.AdminDAOMysql;
 import com.parking.vo.Admin;
 
@@ -52,4 +55,8 @@ public class AdminService {
 	}
 	
 }
+<<<<<<< HEAD
 >>>>>>> fbcfe91e4d507f876cbc0de7b92f0943829fec82
+=======
+>>>>>>> 52c8c8254eed9c3b2027870f354d66ab8a41c19f
+>>>>>>> 94b24142d6c86f968cf1d83a87cc1fc3acd2fb4f

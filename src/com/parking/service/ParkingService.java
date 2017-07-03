@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 52c8c8254eed9c3b2027870f354d66ab8a41c19f
 import com.parking.dao.AdminDAOMysql;
 import com.parking.dao.ParkingDAOMysql;
 import com.parking.vo.Parking;
@@ -21,11 +24,11 @@ public class ParkingService {
 	 * @comment 전체 주차장 정보 반환
 	 * @return Collection<Parking> 주차장 리스트
 	 */
-	public List<Parking> parkingList(String sort){
+	public List<Parking> selectAll(String sort){
 		return pDao.selectAll(sort);
 	}
 	
-	public List<Parking> parkingSearch(String searchItem, String searchValue) {
+	public List<Parking> pSearch(String searchItem, String searchValue) {
 		return pDao.selectItem(searchItem, searchValue);
 	}
 	

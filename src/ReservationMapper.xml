@@ -21,4 +21,44 @@
 	FROM reservation
 	JOIN parking
 </select>
+
+<select id="selectByWeekDay" parameterType="Reservation" resultType="int">
+	SELECT count(*)
+	FROM parking
+	WHERE parking_code = #{reserve_parking_code}
+	AND <![CDATA[ time(parking_weekdays_begin_time) <= time(#{reserve_entrance_time}) ]]>
+	AND <![CDATA[ time(parking_weekdays_end_time) >= time(#{reserve_exit_time}) ]]>;
+</select>
+
+<select id="selectBySat" parameterType="Reservation" resultType="int">
+	SELECT count(*)
+	FROM parking
+	WHERE parking_code = #{reserve_parking_code}
+	AND <![CDATA[ time(parking_sat_begin_time) <= time(#{reserve_entrance_time}) ]]>
+	AND <![CDATA[ time(parking_sat_end_time) >= time(#{reserve_exit_time}) ]]>;
+</select>
+
+<select id="selectByHoliy" parameterType="Reservation" resultType="int">
+	SELECT count(*)
+	FROM parking
+	WHERE parking_code = #{reserve_parking_code}
+	AND <![CDATA[ time(parking_holiday_begin_time) <= time(#{reserve_entrance_time}) ]]>
+	AND <![CDATA[ time(parking_holiday_end_time) >= time(#{reserve_exit_time}) ]]>;
+</select>
+
+<select id="selectByDuplicate" parameterType="Reservation" resultType="int">
+	SELECT count(*)
+	FROM reservation
+	WHERE reserve_parking_code = #{reserve_parking_code}
+	AND <![CDATA[ time(reserve_entrance_time) >= time(#{reserve_entrance_time}) ]]>
+	AND <![CDATA[ time(reserve_exit_time) <= time(#{reserve_exit_time}) ]]>;
+</select>
+
+<select id="selectByCurseat" parameterType="Reservation" resultType="int">
+	SELECT count(*)
+	FROM parking
+	WHERE parking_cur_seat > 0 AND parking_code = #{parking_code}
+	
+</select>
+
 </mapper>

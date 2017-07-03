@@ -21,8 +21,18 @@
 	</choose>
 </insert>
 
-<select id="selectAll" resultType="Customer">
-	select * from customer order by c_date desc
+<select id="selectAll" parameterType="hashmap" resultType="Customer">
+	select * from customer
+	<if test="sort == 'c_id'">order by ${sort} asc</if>
+	<if test="sort != 'c_id'">order by ${sort} desc</if>
+</select>
+
+<select id="selectItem" parameterType="hashmap" resultType="Customer">
+	select * from customer ${searchItem} like '%${searchValue}%' order by c_id asc
+</select>
+
+<select id="selectByStatus" parameterType="string" resultType="Customer">
+	select * from customer where c_status = '${value}' order by c_id asc
 </select>
 
 <!-- 고객 로그인 @author yunmeheo -->

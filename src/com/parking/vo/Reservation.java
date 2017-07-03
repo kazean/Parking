@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * '예약' 테이블
  * @author yunmeheo
- * @update yeahni
+ * @update yeahni/gunna
  * @comment int가 String으로 되어있어서 변경, char가 String으로 되어있어서 변경했습니다.
  */
 public class Reservation implements Serializable{

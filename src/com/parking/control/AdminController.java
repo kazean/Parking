@@ -283,6 +283,7 @@ public class AdminController {
 	 */
 	// start of parkingList
 	@RequestMapping("parkingList.do")
+<<<<<<< HEAD
 	public String parkingList(String num, String searchSort, Model model){
 		System.out.println("parkingList()");
 		Admin admin = (Admin)session.getAttribute("admin");
@@ -337,6 +338,27 @@ public class AdminController {
 			model.addAttribute("parkingSize", parkingSize);
 			model.addAttribute("startPage", startPage);*/
 			model.addAttribute("flag", flag);
+=======
+	public String parkingList(String num, String sortValue, Model model){
+		System.out.println("parkingList()");
+		
+		Admin admin = (Admin)session.getAttribute("admin");
+		String[] options = {"parking_code", "parking_name", "parking_address"};
+		String sort;
+		int sortFlag = 0;
+		
+		if(sortValue != null)
+			sortFlag = Integer.parseInt(sortValue);
+		sort = options[sortFlag];
+		
+		if(admin != null) {
+			List<Parking> pAll = pService.selectAll(sort);
+			
+			model = pPaging(pAll, num, model);
+			model.addAttribute("pAllSize", pAll.size());
+			model.addAttribute("sortValue", sortFlag);
+			model.addAttribute("flag", 0);
+>>>>>>> 94b24142d6c86f968cf1d83a87cc1fc3acd2fb4f
 			return "/admin/parkingList.jsp";
 		}
 		return "/admin/admin.jsp";
@@ -347,6 +369,7 @@ public class AdminController {
 	@PostMapping("parkingSearch.do")
 	public String parkingSearch(String searchValue, int option, String num, Model model) {
 		System.out.println("parkingSearch()");
+<<<<<<< HEAD
 		Admin admin = (Admin)session.getAttribute("admin");
 		String[] options = {"", "parking_code", "parking_name"};
 		
@@ -400,6 +423,32 @@ public class AdminController {
 	// start of parkingPaging
 	public Model parkingPaging(List<Parking> pAll, String num, Model model) {
 		System.out.println("parkingPaging()");
+=======
+		
+		Admin admin = (Admin)session.getAttribute("admin");
+		String[] options = {"parking_code", "parking_name"};
+		
+		if (admin != null) {
+				String searchItem = options[option];
+				List<Parking> pAll = pService.pSearch(searchItem, searchValue);
+				
+				model = pPaging(pAll, num, model);
+				model.addAttribute("pAllSizeSearch", pAll.size());
+				model.addAttribute("searchValue", searchValue);
+				model.addAttribute("option", option);
+				model.addAttribute("flag", 1);
+				
+				return "/admin/parkingList.jsp";
+		}
+		
+		return "/admin/admin.jsp";
+	}
+	
+	// start of parkingPaging
+	public Model pPaging(List<Parking> pAll, String num, Model model) {
+		System.out.println("parkingPaging()");
+		
+>>>>>>> 94b24142d6c86f968cf1d83a87cc1fc3acd2fb4f
 		List<Parking> pList = new LinkedList<Parking>();
 		
 		int startPaging = 0;
@@ -417,7 +466,10 @@ public class AdminController {
 			startPaging = Integer.parseInt(num) * maxCount - maxCount;
 			endPaging = Integer.parseInt(num) * maxCount;
 			startPage = n / pagingBlocks * pagingBlocks + 1;
+<<<<<<< HEAD
 			
+=======
+>>>>>>> 94b24142d6c86f968cf1d83a87cc1fc3acd2fb4f
 		}
 		System.out.println("startPaging : " + startPaging + " | endPaging : " + endPaging);
 		
@@ -447,9 +499,16 @@ public class AdminController {
 			Object o = parse.parse(jsonStr);
 			JSONObject json = (JSONObject) o;
 			Parking p = new Parking();
+<<<<<<< HEAD
 			p.toParking(json);
 			System.out.println(p);
 			int n = pService.parkingAdd(p);
+=======
+			
+			p.toParking(json);
+			int n = pService.parkingAdd(p);
+			
+>>>>>>> 94b24142d6c86f968cf1d83a87cc1fc3acd2fb4f
 			System.out.println("n : " + n);
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -463,6 +522,10 @@ public class AdminController {
 	@PostMapping("parkingDelete.do")
 	public String parkingDelete(String[] chklist, Model model) {
 		System.out.println("parkingDelete()");
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 94b24142d6c86f968cf1d83a87cc1fc3acd2fb4f
 		int count = 0;
 		
 		for(String s : chklist)
@@ -487,7 +550,11 @@ public class AdminController {
 	 */
 	@GetMapping("parkingDetail.do")
 	public String parkingDetail(@RequestParam(required = false, defaultValue = "0")int parking_code, Model model){
+<<<<<<< HEAD
 		Admin admin = (Admin)session.getAttribute("responseAdmin");
+=======
+		Admin admin = (Admin)session.getAttribute("admin");
+>>>>>>> 94b24142d6c86f968cf1d83a87cc1fc3acd2fb4f
 		
 		if(admin != null){
 			if(parking_code != 0){
@@ -498,13 +565,21 @@ public class AdminController {
 			}
 		}
 		
+<<<<<<< HEAD
 		return "/admin/default.jsp";
+=======
+		return "/admin/admin.jsp";
+>>>>>>> 94b24142d6c86f968cf1d83a87cc1fc3acd2fb4f
 	}
 	
 	// start of parkingEdit
 	@GetMapping("parkingEdit.do")
 	public String parkingEdit(@RequestParam(required = false, defaultValue = "0")int parking_code, Model model){
+<<<<<<< HEAD
 		Admin admin = (Admin)session.getAttribute("responseAdmin");
+=======
+		Admin admin = (Admin)session.getAttribute("admin");
+>>>>>>> 94b24142d6c86f968cf1d83a87cc1fc3acd2fb4f
 		
 		if(admin != null){
 			if(parking_code != 0){
@@ -518,12 +593,17 @@ public class AdminController {
 			}
 		}
 		
+<<<<<<< HEAD
 		return "/admin/default.jsp";
+=======
+		return "/admin/admin.jsp";
+>>>>>>> 94b24142d6c86f968cf1d83a87cc1fc3acd2fb4f
 	}
 	// end of parkingEdit
 	
 	// start of customerList
 	@RequestMapping("customerList.do")
+<<<<<<< HEAD
 	public String customerList(String num, Model model) {
 		System.out.println("customerList()");
 		Admin admin = (Admin)session.getAttribute("admin");
@@ -565,3 +645,114 @@ public class AdminController {
 	
 }
 >>>>>>> fbcfe91e4d507f876cbc0de7b92f0943829fec82
+=======
+	public String customerList(String num, String sortValue, Model model) {
+		System.out.println("customerList()");
+		
+		Admin admin = (Admin)session.getAttribute("admin");
+		String[] options = {"c_id", "c_name", "c_date", "c_status_n", "c_status_d"};
+		String sort;
+		int sortFlag = 0;
+		
+		if(sortValue != null)
+			sortFlag = Integer.parseInt(sortValue);
+		sort = options[sortFlag];
+		
+		if(admin != null){
+			List<Customer> cAll = cService.selectAll(sort);
+			
+			model = cPaging(cAll, num, model);
+			model.addAttribute("cAllSize", cAll.size());
+			model.addAttribute("sortValue", sortFlag);
+			model.addAttribute("flag", 0);
+			
+			return "/admin/customerList.jsp";
+		}
+		
+		return "/admin/admin.jsp";
+		
+	}
+	// end of customerList
+	
+	// start of customerSearch.do
+	@RequestMapping("customerSearch.do")
+	public String customerSearch(String searchValue, int option, String num, Model model) {
+		System.out.println("customerSearch()");
+		
+		Admin admin = (Admin)session.getAttribute("admin");
+		String[] options = {"c_id", "c_name"};
+		
+		if(admin != null) {
+			String searchItem = options[option];
+			List<Customer> cAll = cService.cSearch(searchItem, searchValue);
+			
+			model = cPaging(cAll, num, model);
+			model.addAttribute("cAllSizeSearch", cAll.size());
+			model.addAttribute("searchValue", searchValue);
+			model.addAttribute("option", option);
+			model.addAttribute("flag", 1);
+			
+			return "admin/customerList.jsp";
+		}
+		
+		return "/admin/admin.jsp";
+	}
+	
+	// start of customerPaging
+	public Model cPaging(List<Customer> cAll, String num, Model model) {
+		System.out.println("customerpaging()");
+		
+		List<Customer> cList = new LinkedList<Customer>();
+		int startPaging = 0;
+		int endPaging = 15;
+		int startPage = 1;
+		int maxCount = 15;
+		int pagingBlocks = 10;
+		int n = 0;
+		
+		if(num != null) {
+			n = Integer.parseInt(num);
+			if(n % 10 == 0)
+				n--;
+			
+			startPaging = Integer.parseInt(num) * maxCount - maxCount;
+			endPaging = Integer.parseInt(num) * maxCount;
+			startPage = n / pagingBlocks * pagingBlocks + 1;
+		}
+		System.out.println("startPaging : " + startPaging + " | endPaging : " + endPaging);
+		
+		if(endPaging > cAll.size())
+			endPaging = cAll.size();
+		int customerSize = (cAll.size() % maxCount == 0) ? cAll.size() / maxCount : (cAll.size() / maxCount) + 1;
+		
+		for(int i = startPaging; i < endPaging; i++)
+			cList.add(cAll.get(i));
+		
+		model.addAttribute("pageNum", (startPaging / 15) + 1);
+		model.addAttribute("cList", cList);
+		model.addAttribute("customerSize", customerSize);
+		model.addAttribute("startPage", startPage);
+		
+		return model;
+	}
+	
+	// start of customerDetail
+	@PostMapping("customerDetail.do")
+	public String customerDetail(String c_id, Model model) {
+		System.out.println("customerDetail()");
+		Admin admin = (Admin)session.getAttribute("admin");
+		
+		if(admin != null) {
+			Customer c = cService.selectById(c_id);
+			
+			model.addAttribute("customer", c);
+			
+			return "/admin/customerDetail.jsp";
+		}
+		return "/admin/admin.jsp";
+		
+	}
+	
+}
+>>>>>>> 52c8c8254eed9c3b2027870f354d66ab8a41c19f
+>>>>>>> 94b24142d6c86f968cf1d83a87cc1fc3acd2fb4f

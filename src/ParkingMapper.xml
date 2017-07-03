@@ -64,12 +64,16 @@
 </insert>
 
 <!-- 전체 주차장 정보 가져오기 @author yeahni -->
-<select id="selectAll" parameterType="string" resultType="Parking">
-	SELECT * FROM parking order by ${sort} desc
+<select id="selectAll" parameterType="hashmap" resultType="Parking">
+	SELECT * FROM parking
+	<if test="sort == 'parking_code'">order by ${sort} desc</if>
+	<if test="sort != 'parking_code'">order by ${sort} asc</if>
 </select>
 
 <select id="selectItem" parameterType="hashmap" resultType="Parking">
-	select * from parking where ${searchItem} like '%${searchValue}%' 
+	select * from parking where ${searchItem} like '%${searchValue}%'
+	<if test="searchItem == 'parking_code'">order by ${searchItem} desc</if>
+	<if test="searchItem == 'parking_name'">order by ${searchItem} asc</if>
 </select>
 
 <insert id="parkingAdd" parameterType="Parking">
@@ -153,7 +157,7 @@
 	WHERE parking_code = #{parking_code};
 </select>
 
-<!-- @author hawstrike -->
+
 <select id="selectByLocation" parameterType="String" resultType="Parking">
 	SELECT 
 		parking_name, parking_address, parking_phone_number, parking_pay_type, parking_capacity,
