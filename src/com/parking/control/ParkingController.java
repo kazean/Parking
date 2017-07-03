@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -81,13 +82,13 @@ public class ParkingController {
 	 * @param model 결과 값 담는 공간
 	 * @return String url
 	 */
-	@RequestMapping(value = "/selectAll.do")
+	/*@RequestMapping(value = "/selectAll.do")
 	public String readList(Model model){
 		List<Parking> list = pDao.selectAll();
 		model.addAttribute("result", list);
 		
 		return "/test.jsp";
-	}
+	}*/
 	
 	/**
 	 * @author hawstrike
@@ -128,7 +129,7 @@ public class ParkingController {
 	@GetMapping("aselectall")
 	public List<Parking> androidSelectAll() {
 		System.out.println("androidSelectAll()");
-		List<Parking> list = pDao.selectAll();
+		List<Parking> list = pDao.selectAll("parking_code");
 		List<Parking> plist = new LinkedList<Parking>();
 		
 		for(Parking p : list) {
@@ -144,5 +145,16 @@ public class ParkingController {
 		
 		return plist;
 	} // end of androidSelectAll
+	
+	@GetMapping("aselectbycode/{parking_code}")
+	public Parking androidSelectById(@PathVariable int parking_code) {
+		Parking p = null;
+		
+		if(parking_code != 0){
+			p = pDao.selectByCode(parking_code);
+		}
+		
+		return p;
+	}
 	
 }

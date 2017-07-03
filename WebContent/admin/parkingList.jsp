@@ -1,26 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<c:set var="pageNum" value="${pageNum}"/>
-<c:if test="${pageNum == null}">
-	<c:set var="pageNum" value="1"/>
-</c:if>
+
 <c:set var="parkingSize" value="${parkingSize}"/>
-<c:set var="currPage" value="${pageNum}"/>
-
 <c:set var="startPage" value="${startPage}"/>
-<%-- <c:set var="startPage" value="${(currPage / 10) * 10}"/>
-<c:if test="${(currPage / 10) <= 1}">
-	<c:set var="startPage" value="1"/>
-</c:if>
-<c:if test="${startPage > parkingSize}">
-	<c:set var="startPage" value="${parkingSize / 10}"/>
-</c:if> --%>
-
 <c:set var="endPage" value="${startPage + 9}"/>
 <c:if test="${endPage > parkingSize}">
 	<c:set var="endPage" value="${parkingSize}"/>
 </c:if>
+
+<c:set var="flag" value="${flag}"/>
+<c:if test="${flag == null}">
+	<c:set var="flag" value="0"/>
+</c:if>
+
+<c:set var="sortValue" value="${sortValue}"/>
+<c:if test="${sortValue == null}">
+	<c:set var="sortValue" value="0"/>
+</c:if>
+
+<c:set var="searchValue" value="${searchValue}"/>
+<c:if test="${searchValue == null}">
+	<c:set var="searchValue" value="0"/>
+</c:if>
+
+<c:set var="option" value="${option}"/>
+<c:if test="${option == null}">
+	<c:set var="option" value="0"/>
+</c:if>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,49 +47,12 @@ $(function() {
 	}
 	
 	// 전체 체크 박스 - 클릭 이벤트
-	$("input[name=checkAll]").click(function(){
-		if($("input[name=checkAll]").is(":checked") == true){
-			$("input[name=check]").attr("checked", true);
-		} else {
-			$("input[name=check]").attr("checked", false);
-		}
-	});
-	
-	// 체크 박스 체크 - 이벤트
-	function countCheckBox(){
-		var data = [];
-		
-		$("input[name=check:checked").each(function(i){
-			data.push($(this).val());
-			console.log($(this).val());
-		});
-
-		jQuery.ajaxSettings.traditional = true;
-	};
-	
-	// 삭제 버튼 - 클릭 이벤트
-	$("input[name=delete]").click(function(){
-		var resultConfirm = confirm('삭제하시겠습니까?');
-		
-		if(resultConfirm){
-			countCheckBox();
-			
-			console.log("들어옴");
-			/* $.ajax({
-				url : 'parkingDelete',
-				method : 'DELETE',
-				data : {'data': data},
-				success : function(responseData) {
-					alert('삭제되었습니다.');
-					$parentObj.empty();
-					$parentObj.html(responseData.trim());
-				}
-			}); */
-			
-			return false;
-		} else {
-			return;			
-		}
+	var $all = $("input[name=checkAll]");
+	$all.change(function() {
+		if($all.prop("checked") == true)
+			$("input[name=check]").prop('checked', true);
+		else
+			$("input[name=check]").prop('checked', false);
 	});
 	
 	// 설정 버튼 - 클릭 이벤트
@@ -102,17 +73,28 @@ $(function() {
 	// start of .page click
 	$(".page").click(function() {
 		var num = $(this).html().trim();
-		if(num == null)
-			num = 1;
-		$.ajax({url:'parkingList.do',
-				method:'post',
-				data:{'num': num},
-				success:function(responseData) {
-					$parentObj.empty();
-					$parentObj.html(responseData.trim());
-				}
-		});
-		return false;
+		if(${flag} == 0) {
+			$.ajax({url:'parkingList.do',
+					method:'post',
+					data:{'num': num, 'sortValue':${sortValue}},
+					success:function(responseData) {
+						$parentObj.empty();
+						$parentObj.html(responseData.trim());
+					}
+			});
+			return false;
+		}
+		else if(${flag} == 1) {
+			$.ajax({url:'parkingSearch.do',
+					method:'post',
+					data:{'searchValue':${searchValue}, 'option':${option}, 'num':num},
+					success:function(responseData) {
+						$parentObj.empty();
+						$parentObj.html(responseData.trim());
+					}
+			});
+			return false;
+		}
 	}); // end of .page click
 	
 	// start of .prevPage click
@@ -148,14 +130,55 @@ $(function() {
 			return false;
 	});	// end of .nextPage click
 	
+	// 추가 버튼 - 클릭 이벤트
+	$("input[name=add]").click(function() {
+		$.ajax({url:'parkingAdd.jsp',
+				method:'post',
+				success:function(responseData) {
+					$parentObj.empty();
+					$parentObj.html(responseData.trim());
+				}
+		});
+		return false;
+	});
+	
+	// 삭제 버튼 - 클릭 이벤트
+	$("input[name=delete]").click(function(){
+		var flag = confirm('삭제하시겠습니까?');
+		if(flag == true) {
+			var chklist = new Array();
+			var count = 0;
+			var chkbox = $("input[name=check]");
+			for(var i = 0; i < chkbox.length; i++) {
+				if(chkbox[i].checked == true) {
+					chklist[count] = chkbox[i].value;
+					count++;
+				}
+			}
+			jQuery.ajaxSettings.traditional = true;
+			$.ajax({url:'parkingDelete.do',
+					method:'post',
+					data:{'chklist':chklist},
+					success:function(responseData) {
+						if(responseData.trim() != "-1") {
+							alert('삭제되었습니다!');
+							$parentObj.empty();
+							$parentObj.html(responseData.trim());
+						}
+						else {
+							alert("삭제하는데 실패했습니다!");
+						}
+					}
+			});
+			return false;
+		}
+	});
 });
 </script>
 </head>
-
 <body>
 <h3>주차장 관리</h3>
 	<div>
-		<a class="parkingAdd" href="">추가하기</a>&nbsp;&nbsp;
 		<a href="">내역보기</a>&nbsp;&nbsp;
 	</div>
 	<br>
@@ -165,14 +188,23 @@ $(function() {
 	<br>
 	<table style="border-collapse:collapse;">
 		<tr style="border:0px;">
-			<td colspan="4" style="border:0px;">총 ${(parkingSize * 15) + 1}개의 주차장내역이 존재합니다.</td>
-			<td colspan="5" style="text-align:right; border:0px;"><input type="button" name="delete" value="삭제"></td>
+			<td colspan="6" style="text-align:left; border:0px;">
+				<c:if test="${pAllSizeSearch == null}">
+					총 ${pAllSize}개의 주차장 내역이 존재합니다.
+				</c:if>
+				<c:if test="${pAllSizeSearch != null}">
+					총 ${pAllSizeSearch}개의 검색결과가 있습니다.
+				</c:if>
+			</td>
+			<td colspan="3" style="text-align:right; border:0px;">
+				<input type="button" name="add" value="추가">
+				<input type="button" name="delete" value="삭제"></td>
 		</tr>
 		<tr>
-			<td><input type="checkbox" name="checkAll"></td>
-			<td>코드</td>
-			<td>제휴</td>
-			<td>운영</td>
+			<td style="width:30px;"><input type="checkbox" name="checkAll"></td>
+			<td style="width:50px;">코드</td>
+			<td style="width:40px;">제휴</td>
+			<td style="width:40px;">운영</td>
 			<td style="width:200px;">이름</td>
 			<td style="width:300px;">주소</td>
 			<td style="width:150px;">전화번호</td>

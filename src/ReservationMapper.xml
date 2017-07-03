@@ -7,8 +7,58 @@
 <!-- 해당 고객의 예약 확인 @author yunmeheo -->
 <select id="selectById" parameterType="String" resultType="WishList">
 	SELECT * 
-	FROM Reservation 
+	FROM reservation 
 	WHERE id = #{c_id}
+</select>
+
+<insert id="insertByR" parameterType="Reservation">
+	INSERT INTO reservation(reserve_c_id, reserve_parking_code, reserve_entrance_time, reserve_exit_time, reserve_time)
+	VALUES ( #{reserve_c_id}, #{reserve_parking_code}, #{reserve_entrance_time}, #{reserve_exit_time}, now() );
+</insert>
+
+<select id="selectByPossible" parameterType="Reservation" resultType="Reservation">
+	SELECT * 
+	FROM reservation
+	JOIN parking
+</select>
+
+<select id="selectByWeekDay" parameterType="Reservation" resultType="int">
+	SELECT count(*)
+	FROM parking
+	WHERE parking_code = #{reserve_parking_code}
+	AND <![CDATA[ time(parking_weekdays_begin_time) <= time(#{reserve_entrance_time}) ]]>
+	AND <![CDATA[ time(parking_weekdays_end_time) >= time(#{reserve_exit_time}) ]]>;
+</select>
+
+<select id="selectBySat" parameterType="Reservation" resultType="int">
+	SELECT count(*)
+	FROM parking
+	WHERE parking_code = #{reserve_parking_code}
+	AND <![CDATA[ time(parking_sat_begin_time) <= time(#{reserve_entrance_time}) ]]>
+	AND <![CDATA[ time(parking_sat_end_time) >= time(#{reserve_exit_time}) ]]>;
+</select>
+
+<select id="selectByHoliy" parameterType="Reservation" resultType="int">
+	SELECT count(*)
+	FROM parking
+	WHERE parking_code = #{reserve_parking_code}
+	AND <![CDATA[ time(parking_holiday_begin_time) <= time(#{reserve_entrance_time}) ]]>
+	AND <![CDATA[ time(parking_holiday_end_time) >= time(#{reserve_exit_time}) ]]>;
+</select>
+
+<select id="selectByDuplicate" parameterType="Reservation" resultType="int">
+	SELECT count(*)
+	FROM reservation
+	WHERE reserve_parking_code = #{reserve_parking_code}
+	AND <![CDATA[ time(reserve_entrance_time) >= time(#{reserve_entrance_time}) ]]>
+	AND <![CDATA[ time(reserve_exit_time) <= time(#{reserve_exit_time}) ]]>;
+</select>
+
+<select id="selectByCurseat" parameterType="Reservation" resultType="int">
+	SELECT count(*)
+	FROM parking
+	WHERE parking_cur_seat > 0 AND parking_code = #{parking_code}
+	
 </select>
 
 </mapper>

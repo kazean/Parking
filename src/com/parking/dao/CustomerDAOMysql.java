@@ -1,6 +1,9 @@
 package com.parking.dao;
 
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,7 +33,34 @@ public class CustomerDAOMysql {
 	 * @return Customer 해당 고객정보
 	 */
 	public Customer selectById(String c_id){
-		return session.selectOne("CustomerMapper.selectById",c_id);
+		return session.selectOne("CustomerMapper.selectById", c_id);
+	}
+	
+	public List<Customer> selectAll(String sort) {
+		System.out.println("CustomerDAOMysql selectAll()");
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		if(sort.charAt(sort.length()-1) == 'n') {
+			return session.selectList("CustomerMapper.selectByStatus", "n");
+		}
+		else if(sort.charAt(sort.length()-1) == 'd') {
+			return session.selectList("CustomerMapper.selectByStatus", "d");
+		}
+		else {
+			map.put("sort", sort);
+			return session.selectList("CustomerMapper.selectAll", sort);
+		}
+	}
+	
+	public List<Customer> selectItem(String searchItem, String searchValue) {
+		System.out.println("CustomerDAOMysql selectItem()");
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("searchItem", searchItem);
+		map.put("searchValue", searchValue);
+		
+		return session.selectList("CustomerMapper.selectItem", map);
 	}
 	
 }

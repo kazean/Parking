@@ -26,5 +26,13 @@ public class ReviewListDAOMysql {
 			return false;
 		}
 	}
-
+	
+	public boolean insertByReview(Review r) {
+		int result = session.insert("ReviewMapper.insertByReview", r);
+		if(result>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
