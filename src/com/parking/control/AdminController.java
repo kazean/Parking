@@ -396,7 +396,7 @@ public class AdminController {
 			@RequestParam(required=false, defaultValue="all") String searchItem,
 			@RequestParam(required=false, defaultValue="") String searchValue,
 			String pageClick
-			){
+			) {
 		
 		System.out.println("partnerList()");
 		
@@ -420,32 +420,19 @@ public class AdminController {
 		
 		//실제리스트
 		if("".equals(searchValue)){
-			System.out.println("(String)session.getAttribute(searchValue) :"+(String)session.getAttribute("searchValue") );
 			if((String)session.getAttribute("searchValue") !=null){
-				System.out.println("if의 세션 유");
-				System.out.println("searchItem : "+(String)session.getAttribute("searchItem")+(String)session.getAttribute("searchValue"));
 				list = ptnService.selectAll(startPage,endPage,(String)session.getAttribute("searchItem"),(String)session.getAttribute("searchValue"));	
-				
 			}else{
-				System.out.println("if의 세션 무");
 				list = ptnService.selectAll(startPage,endPage,"",searchValue);
 			}
-			
 		}else if(!"".equals(searchValue)){
-			
-			System.out.println("if else 들어옴");
-			
 			session.setAttribute("searchItem", searchItem);
 			session.setAttribute("searchValue", searchValue);
-			
 			list = ptnService.selectAll(startPage,endPage,searchItem,searchValue);	
-			
 		}
-		
 		
 		model.addAttribute("list",list);
 		model.addAttribute("listSize",listSize);
-
 		return "/admin/partnerList.jsp";
 		
 	}
@@ -464,7 +451,7 @@ public class AdminController {
 			String p_account,
 			String p_status,
 			String p_register_admin_id
-			){
+			) {
 		
 		
 		String msg = "-1";
@@ -488,7 +475,12 @@ public class AdminController {
 							String p_id) {
 		
 		System.out.println("selectByP_Id()");
-		Partner partner = ptnService.selectByP_id(p_id);
+		Partner partner=null;
+		try {
+			partner = ptnService.selectByP_id(p_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("partner",partner);
 		return "/admin/partnerModify.jsp";
 	}
@@ -532,9 +524,8 @@ public class AdminController {
 		return new ResponseEntity<String>(uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.OK);
 	}
 
-	//파일 업로드 메서드
+	//파일 업로드 메서드 3
 		public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws Exception {
-			
 			System.out.println("IsMaterController , uploadFile");
 			UUID uuid = UUID.randomUUID();
 			String savedName = uuid.toString() + "_" + originalName;
@@ -563,8 +554,6 @@ public class AdminController {
 			String datePath = monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
 			System.out.println(datePath);
 			makeDir(uploadPath, yearPath, monthPath, datePath);
-			
-			
 			return datePath;
 		}
 	
