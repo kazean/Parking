@@ -190,7 +190,7 @@ public class AdminController {
 	
 	// start of parkingAdd
 	@PostMapping("parkingAdd.do")
-	public String parkingAdd(String jsonStr) {
+	public String parkingAdd(String jsonStr, Model model) {
 		System.out.println("parkingAdd()");
 			
 		try {
@@ -203,11 +203,14 @@ public class AdminController {
 			int n = pService.parkingAdd(p);
 
 			System.out.println("n : " + n);
+			if(n != 0)
+				return "parkingList.do";
+			else
+				model.addAttribute("msg", "-1");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
-		return "parkingList.do";
+		return "result.jsp";
 	}
 	// end of parkingAdd
 	
@@ -238,8 +241,9 @@ public class AdminController {
 	 * @param model 해당 주차장 정보
 	 * @return
 	 */
-	@GetMapping("parkingDetail.do")
+	@PostMapping("parkingDetail.do")
 	public String parkingDetail(@RequestParam(required = false, defaultValue = "0")int parking_code, Model model){
+		System.out.println("parkingDetail()");
 		Admin admin = (Admin)session.getAttribute("admin");
 		
 		if(admin != null){
@@ -250,28 +254,34 @@ public class AdminController {
 				return "/admin/parkingDetail.jsp";
 			}
 		}
-		
 		model.addAttribute("msg", "-1");
 		return "/result.jsp";
 	}
 	
-	// start of parkingEdit
-	@GetMapping("parkingEdit.do")
-	public String parkingEdit(@RequestParam(required = false, defaultValue = "0")int parking_code, Model model){
+	// start of parkingModify
+	@GetMapping("parkingModify.do")
+	public String parkingEdit(String jsonStr, Model model){
 		Admin admin = (Admin)session.getAttribute("admin");
 		
-		if(admin != null){
-			if(parking_code != 0){
-				Parking parking = pService.parkingDetail(parking_code);
+		if(admin != null) {
+			try{
+				JSONParser parse = new JSONParser();
+				Object o = parse.parse(jsonStr);
+				JSONObject json = (JSONObject) o;
+				Parking p = new Parking();
 				
-				if(parking != null){
-					model.addAttribute(parking);
+				p.toParking(json);
+				int n = pService.parkingModify(p);
+				
+				System.out.println("n : " + n);
+				if(n != 0) {
+					model.addAttribute("parking_code", p.getParking_code());
+					return "parkingDetail.do";
 				}
-				
-				return "/admin/parkingEdit.jsp";
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
 		}
-		
 		model.addAttribute("msg", "-1");
 		return "/result.jsp";
 	}
