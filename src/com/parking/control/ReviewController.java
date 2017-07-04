@@ -22,7 +22,7 @@ public class ReviewController {
 	@Autowired
 	ReviewListDAOMysql rDao;
 	
-	@PostMapping(value="areviewlistpcode", consumes="application/json; charset=UTF-8")
+	@PostMapping("areviewlistpcode")
 	public List<Review> androidReviewById(@RequestBody Review review){
 		System.out.println("areviewlistpcode");
 		List<Review> list = rDao.selecyByParkingCode(review.getReview_parking_code());
@@ -42,5 +42,11 @@ public class ReviewController {
 		return rDao.insertByReview(r);
 	}
 	
+	@PostMapping("areviewscoreavg")
+	public String androidReviewScoreAvg(@RequestBody Review r){
+		System.out.println("areview");
+		System.out.println(r.toString());
+		return rDao.selectAvg(r);
+	}
 
 }

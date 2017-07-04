@@ -28,12 +28,30 @@ public class WishListDAOMysql {
 		return session.selectList("WishListMapper.selectAll");
 	}
 	
-	public int insert(WishList w) {
-		return session.insert("WishListMapper.insert", w);
+	public boolean insert(WishList w) {
+		int result =  session.insert("WishListMapper.insert", w);
+		if(result ==1 ){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
-	public int delete(WishList w) {
-		return session.delete("WishListMapper.delete", w);
+	public boolean delete(WishList w) {
+		int result = session.delete("WishListMapper.delete", w);
+		if(result ==1 ){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
+	public boolean validation(WishList w){
+		int result = session.selectOne("WishListMapper.selectByCode", w);
+		if(result == 1 ){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

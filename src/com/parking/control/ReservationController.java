@@ -47,6 +47,7 @@ public class ReservationController {
 			if(enDayNum == exDayNum){
 				if(1<enDayNum && enDayNum<7){
 					flag = rDao.selectByWeekDay(r);
+					System.out.println(flag);
 				}else if (enDayNum==7){
 					flag = rDao.selectBySat(r);
 				}else if (enDayNum == 1){
@@ -82,12 +83,15 @@ public class ReservationController {
 			}else{
 				flag = false;
 			}
+			System.out.println("dupli : " + flag);
 			
 			if(flag== true && rDao.selectByCur(r)){
 				flag = true;
 			}else{
 				flag = false;
 			}
+			
+			System.out.println("cur : " + flag);
 			
 			return flag;
 		} catch (ParseException e) {

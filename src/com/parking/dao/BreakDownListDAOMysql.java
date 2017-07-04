@@ -28,4 +28,11 @@ public class BreakDownListDAOMysql {
 		}
 	}
 	
+	public List<Breakdown> selectByIdForTicket(Reservation r){
+		List<Breakdown> list = session.selectList("BreakdownMapper.selectByIdForTicket", r);
+		for(Breakdown b : list){
+			System.out.println(b.toString());
+		}
+		return list;
+	}
 }

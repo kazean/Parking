@@ -38,20 +38,29 @@ public class WishListController {
 	}
 	
 	@PostMapping("awishlistinsert")
-	public void androidWishListInsert(WishList w) {
+	public boolean androidWishListInsert(@RequestBody WishList w) {
 		// 리턴 형식을 void가 아닌 int나 string으로 해서 값이
 		// 정상적으로 들어갔다는 것을 표시 해야할듯
 		System.out.println("androidWishListAdd()");
 		System.out.println("w.c_id : " + w.getWish_c_id() + " | w.parking_code : " + w.getWish_parking_code());
 		//System.out.println("w.c_id : " + w.getWish_c_id() + " | w.parking_code : " + w.getWish_parking_code() + " | w.date : " + w.getWish_date());
-		wDao.insert(w);
+		return wDao.insert(w);
 	}
 	
 	@PostMapping("awishlistdelete")
-	public void androidWishListDelete(WishList w) {
+	public boolean androidWishListDelete(@RequestBody WishList w) {
 		System.out.println("androidWishListDelete()");
 		System.out.println("w.c_id : " + w.getWish_c_id() + " | w.parking_code : " + w.getWish_parking_code());
 		//System.out.println("w.c_id : " + w.getWish_c_id() + " | w.parking_code : " + w.getWish_parking_code() + " | w.date : " + w.getWish_date());
-		wDao.delete(w);
+		return wDao.delete(w);
+	}
+	
+	
+	//androidParkingDetailInfo Start Validation
+	@PostMapping("awishstarvalidation")
+	public boolean androidInfoStartValidation(@RequestBody WishList w){
+		System.out.println("awishstarvalidation");
+		System.out.println("w : " + w.toString());
+		return wDao.validation(w);
 	}
 }
