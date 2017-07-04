@@ -25,7 +25,7 @@ $(function(){
           success: function(responseData){
           var result = responseData.trim();
           	$("article").empty();
-             $("article").html(result);
+            $("article").html(result);
         }
       }); return false; // end ajax
     });   //end click
