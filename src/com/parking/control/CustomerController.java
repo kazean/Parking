@@ -163,7 +163,15 @@ public class CustomerController {
 	}
 	
 	// ---
-
+	@GetMapping("acupload/{c_id}")
+	@ResponseBody
+	public Customer acupload(@PathVariable String c_id){
+		Customer c = null;
+		
+		return c;
+	}
+	
+	
 	/**
 	 * @author yeahni
 	 * @comment 로그인 
