@@ -1,6 +1,7 @@
  package com.parking.control;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -146,15 +148,16 @@ public class ParkingController {
 		return plist;
 	} // end of androidSelectAll
 	
-	@GetMapping("aselectbycode/{parking_code}")
-	public Parking androidSelectById(@PathVariable int parking_code) {
-		Parking p = null;
-		
-		if(parking_code != 0){
-			p = pDao.selectByCode(parking_code);
-		}
-		
-		return p;
+	@PostMapping("aselectbycode")
+	public List<Parking> androidSelectById(@RequestBody Parking p) {
+		System.out.println("aselect");
+		Parking res;
+		ArrayList<Parking> list = new ArrayList<>();
+		if(p.getParking_code() != 0){
+			res = pDao.selectByCode(p.getParking_code());
+			list.add(res);
+		}		
+		return list;
 	}
 	
 }

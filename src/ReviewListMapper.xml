@@ -24,4 +24,10 @@
 	INSERT INTO review (review_c_id, review_parking_code, review_score, review_contents, review_date)
 	VALUES(#{review_c_id}, #{review_parking_code}, #{review_score}, #{review_contents}, now())	
 </insert>
+
+<select id="selectAvg" parameterType="Review" resultType="double">
+	select avg(review_score) from review
+	where review_parking_code = #{review_parking_code}
+	group by review_parking_code;
+</select>
 </mapper>

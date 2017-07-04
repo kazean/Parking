@@ -21,4 +21,16 @@
 	WHERE review_parking_code = #{reserve_parking_code} AND review_c_id = #{reserve_c_id};
 </select>
 
+<select id="selectByIdForTicket" parameterType="Reservation" resultType="Breakdown">
+	SELECT 
+		reserve_c_id, reserve_parking_code, reserve_entrance_time, reserve_exit_time, reserve_time, 
+		parking_name, parking_address, parking_rates_time, parking_rates
+	FROM reservation
+	JOIN parking
+	ON reserve_parking_code = parking_code
+	WHERE reserve_c_id = #{reserve_c_id} AND reserve_status ="C"
+	AND <![CDATA[ date(reserve_entrance_time) >= date( now() ) ]]>
+	ORDER BY reserve_entrance_time ASC;
+</select>
+
 </mapper>

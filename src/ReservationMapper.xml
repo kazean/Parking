@@ -22,6 +22,7 @@
 	JOIN parking
 </select>
 
+
 <select id="selectByWeekDay" parameterType="Reservation" resultType="int">
 	SELECT count(*)
 	FROM parking
@@ -57,7 +58,7 @@
 <select id="selectByCurseat" parameterType="Reservation" resultType="int">
 	SELECT count(*)
 	FROM parking
-	WHERE parking_cur_seat > 0 AND parking_code = #{parking_code}
+	WHERE parking_cur_seat > 0 AND parking_code = #{reserve_parking_code}
 	
 </select>
 
