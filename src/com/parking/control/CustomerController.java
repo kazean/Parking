@@ -167,10 +167,19 @@ public class CustomerController {
 	@ResponseBody
 	public Customer acupload(@PathVariable String c_id){
 		Customer c = null;
+		System.out.println("acupload() " + c_id);
+		
+		if(c_id != null){
+			c = cDao.selectById(c_id);
+			
+			if(c != null){
+				System.out.println(c);
+				return c;
+			}
+		}
 		
 		return c;
 	}
-	
 	
 	/**
 	 * @author yeahni
@@ -259,5 +268,20 @@ public class CustomerController {
 		
 		System.out.println(result);
 		return result;
+	}
+	
+	@GetMapping("/adelete/{c_id}")
+	@ResponseBody
+	public boolean aDelete(@PathVariable String c_id){
+		System.out.println("aDelete()");
+
+		if(c_id != null){
+			System.out.println(c_id);
+			
+			cDao.updateStatus(c_id);
+			return true;
+		}
+	
+		return false;
 	}
 }

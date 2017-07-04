@@ -51,4 +51,11 @@
 	WHERE reserve_c_id = #{c_id}
 </select>
 
+<update id="updateStatus" parameterType="String">
+	UPDATE 
+	customer
+	SET c_status = 'D'
+	WHERE c_id = #{c_id}
+</update>
+
 </mapper>
