@@ -84,6 +84,10 @@ border-radius: 5px;
     <td height="20"></td>
     <td><a href="dddddd.jsp">수익현황</a></td>
   </tr>
+   <tr> 
+    <td height="20"></td>
+    <td><a href="dddddd.jsp">나의정보</a></td>
+  </tr>
   <tr> 
     <td height="200"></td>
   </tr>
