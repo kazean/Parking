@@ -12,6 +12,8 @@
  	<typeAlias alias="Review" type="com.parking.vo.Review"/>
  	<typeAlias alias="Breakdown" type="com.parking.vo.Breakdown"/>	
  	<typeAlias alias="Car" type="com.parking.vo.Car"/>	
+ 	<typeAlias alias="Partner" type="com.parking.vo.Partner"/>
+
  </typeAliases>
 
   <mappers>
@@ -23,6 +25,7 @@
  	<mapper resource="ReviewListMapper.xml"/>
  	<mapper resource="BreakdownMapper.xml"/>
  	<mapper resource="CarMapper.xml"/>	
+ 	<mapper resource="PartnerMapper.xml"/>
   </mappers>
   
 </configuration>

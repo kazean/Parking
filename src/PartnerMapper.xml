@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PartnerMapper">
+
+
+<!-- 실제리스트를 위한 selectAll -->
+<select id="selectAll" resultType="Partner" parameterType="java.util.Map"  >
+	
+	select row.* from (SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM,  p. * 
+	from (SELECT * FROM partner 
+	<choose>
+		<when test="searchItem.equals('p_id')">
+		where p_id  = #{searchValue}
+		</when>
+		
+		<when test="searchItem.equals('p_name')">
+	    where p_name like '%${searchValue}%'	
+		</when>
+		
+		<when test="searchItem.equals('p_license')">
+		where p_license = #{searchValue}
+		</when>
+			
+		<otherwise>
+		</otherwise>
+		
+	</choose>	
+	ORDER BY p_id)p ,(SELECT @ROWNUM := 0) R ) row  where rownum BETWEEN #{startPage} AND #{endPage}
+	
+</select>
+
+
+
+<!-- 총리스트사이즈를 위한 selectForListSize -->
+<select id="selectForListSize" resultType="Partner"  parameterType="java.util.Map">
+	select row.* from (SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM,  p. * 
+	from (SELECT * FROM partner 
+	<choose>
+		<when test="searchItem.equals('p_id')">
+		where p_id  = #{searchValue}
+		</when>
+		
+		<when test="searchItem.equals('p_name')">
+	    where p_name like '%${searchValue}%'	
+		</when>
+		
+		<when test="searchItem.equals('p_license')">
+		where p_license = #{searchValue}
+		</when>
+			
+		<otherwise>
+		</otherwise>
+		
+	</choose>	
+	ORDER BY p_id)p ,(SELECT @ROWNUM := 0) R ) row <!--  where rownum BETWEEN #{startPage} AND #{endPage} -->
+</select>
+
+
+<!-- 추가하기-->
+<insert id="insert" parameterType="Partner" >
+
+INSERT INTO partner 
+
+(
+
+p_id,
+p_password,
+p_name,
+p_phone_number,
+p_license,
+p_bank,
+p_account,
+p_status,
+p_register_admin_id
+
+)
+
+VALUES (  
+
+#{p_id},
+#{p_password},
+#{p_name},
+#{p_phone_number},
+#{p_license},
+#{p_bank},
+#{p_account},
+'N',
+#{p_register_admin_id}
+
+
+  );
+
+</insert>
+<!-- 추가하기 끝 -->
+
+<!-- 아이디로검색 -->
+<select id="selectByP_id" parameterType="String" resultType="Partner">
+select * from partner where p_id = #{p_id}
+</select>
+
+<delete id="delete"  parameterType="String">
+
+update partner set p_status = 'Y' where p_id = #{p_id}
+
+</delete>
+
+</mapper>

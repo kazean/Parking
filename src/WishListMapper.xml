@@ -14,11 +14,17 @@
 </select>
 
 <insert id="insert" parameterType="WishList">
-	insert into wishlist values (#{wish_c_id}, #{wish_parking_code}, #{wish_date})
+	insert into wishlist values (#{wish_c_id}, #{wish_parking_code}, now())
 </insert>
 
 <delete id="delete" parameterType="WishList">
 	delete from wishlist where wish_c_id = #{wish_c_id} and wish_parking_code = #{wish_parking_code}
 </delete>
+
+<select id="selectByCode" parameterType="WishList" resultType="int">
+	select count(wish_parking_code)
+	from wishlist
+	where wish_c_id = #{wish_c_id} AND wish_parking_code = #{wish_parking_code} 
+</select>
 
 </mapper>

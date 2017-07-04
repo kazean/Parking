@@ -206,7 +206,7 @@
 <body>
 <br>
 <h3>주차장 추가</h3>
-	<table border="1px solid">
+	<table style="border:1px solid;">
 		<tr>
 			<td colspan="2">주차장의 기본정보</td> 
 		</tr>
@@ -267,9 +267,8 @@
 			<td>관리형태</td>
 			<td>
   				<select name = "parking_is_manager">
-  					<option value = "0">제공안됨</option>
-    				<option value = "1">관리인</option>
-					<option value = "2">무인</option>
+  					<option value = "0">관리인</option>
+    				<option value = "1">무인</option>
   				</select>
 			</td>
 		</tr>

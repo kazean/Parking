@@ -63,6 +63,11 @@ public class ParkingDAOMysql {
 		System.out.println("ParkingDAOMysql parkingDelete()");
 		return session.delete("ParkingMapper.parkingDelete", s);
 	}
+	
+	public int parkingModify(Parking p) {
+		System.out.println("ParkingDAOMysql parkingModify()");
+		return session.update("ParkingMapper.parkingModify", p);
+	}
 
 	/**
 	 * @author yeahni
