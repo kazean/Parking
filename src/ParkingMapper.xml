@@ -149,11 +149,48 @@
 </delete>
 
 <!-- 주차장 코드로 정보 가져오기 @author yeahni -->
-<select id="selectByCode" parameterType="Parking" resultType="Parking">
+<select id="selectByCode" parameterType="int" resultType="Parking">
 	SELECT * 
 	FROM parking
 	WHERE parking_code = #{parking_code};
 </select>
+
+<update id="parkingModify" parameterType="Parking">
+	update parking
+	<set>
+		<if test="parking_name != null">parking_name = #{parking_name},</if>
+		<if test="parking_address != null">parking_address = #{parking_address},</if>
+		<if test="parking_phone_number != null">parking_phone_number = #{parking_phone_number},</if>
+		<if test="parking_latitude != null">parking_latitude = #{parking_latitude},</if>
+		<if test="parking_longitude != null">parking_longitude = #{parking_longitude},</if>
+		<if test="parking_operation != null">parking_operation = #{parking_operation},</if>
+		<if test="parking_type != null">parking_type = #{parking_type},</if>
+		<if test="parking_is_manager != null">parking_is_manager = #{parking_is_manager},</if>
+		<if test="parking_is_machine != null">parking_is_machine = #{parking_is_machine},</if>
+		<if test="parking_is_valet != null">parking_is_valet = #{parking_is_valet},</if>
+		<if test="parking_is_cctv != null">parking_is_cctv = #{parking_is_cctv},</if>
+		<if test="parking_is_motorcycle != null">parking_is_motorcycle = #{parking_is_motorcycle},</if>
+		<if test="parking_impossible_car_type != null">parking_impossible_car_type = #{parking_impossible_car_type},</if>
+		<if test="parking_pay_type != null">parking_pay_type = #{parking_pay_type},</if>
+		<if test="parking_floor != null">parking_floor = #{parking_floor},</if>
+		<if test="parking_basement_floor != null">parking_basement_floor = #{parking_basement_floor},</if>
+		<if test="parking_capacity != null">parking_capacity = #{parking_capacity},</if>
+		<if test="parking_cur_seat != null">parking_cur_seat = #{parking_cur_seat},</if>
+		<if test="parking_rates != null">parking_rates = #{parking_rates},</if>
+		<if test="parking_rates_time != null">parking_rates_time = #{parking_rates_time},</if>
+		<if test="parking_add_rates != null">parking_add_rates = #{parking_add_rates},</if>
+		<if test="parking_add_rates_time != null">parking_add_rates_time = #{parking_add_rates_time},</if>
+		<if test="parking_day_rates != null">parking_day_rates = #{parking_day_rates},</if>
+		<if test="parking_month_rates != null">parking_month_rates = #{parking_month_rates},</if>
+		<if test="parking_weekdays_begin_time != null">parking_weekdays_begin_time = #{parking_weekdays_begin_time},</if>
+		<if test="parking_weekdays_end_time != null">parking_weekdays_end_time = #{parking_weekdays_end_time},</if>
+		<if test="parking_sat_begin_time != null">parking_sat_begin_time = #{parking_sat_begin_time},</if>
+		<if test="parking_sat_end_time != null">parking_sat_end_time = #{parking_sat_end_time},</if>
+		<if test="parking_holidays_begin_time != null">parking_holidays_begin_time = #{parking_holidays_begin_time},</if>
+		<if test="parking_holidays_end_time != null">parking_holidays_end_time = #{parking_holidays_end_time}</if>
+	</set>
+	where parking_code = #{parking_code}
+</update>
 
 
 <select id="selectByLocation" parameterType="String" resultType="Parking">

@@ -38,4 +38,12 @@ public class BreakdownController {
 		return mData;
 	}
 	
+	// ticketList
+	@PostMapping("aticketlist")
+	public List<Breakdown> ticketlist(@RequestBody Reservation r){
+		System.out.println("ticket");
+		System.out.println("R: " + r.toString());
+		return bDao.selectByIdForTicket(r);
+	}
+	
 }

@@ -60,7 +60,7 @@ $(function() {
 	$("input[name=detail]").click(function(){
 		console.log($(this).attr("id"));
 		$.ajax({
-			url : 'parkingDetail',
+			url : 'parkingDetail.do',
 			method : 'post',
 			data : {'parking_code': $(this).attr("id")},
 			success : function(responseData) {

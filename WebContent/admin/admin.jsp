@@ -47,6 +47,7 @@ $(function(){
 			var url = $(this).attr("href");
 			$.ajax({
 				url : url,
+	   		    data:{'pageno':1},
 				success : function(responseData) {
 					if (url == 'adminlogout.do')
 						location.href = responseData.trim();

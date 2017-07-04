@@ -267,9 +267,8 @@
 			<td>관리형태</td>
 			<td>
   				<select name = "parking_is_manager">
-  					<option value = "0">제공안됨</option>
-    				<option value = "1">관리인</option>
-					<option value = "2">무인</option>
+  					<option value = "0">관리인</option>
+    				<option value = "1">무인</option>
   				</select>
 			</td>
 		</tr>

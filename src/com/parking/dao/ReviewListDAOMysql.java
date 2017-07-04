@@ -1,5 +1,6 @@
 package com.parking.dao;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -33,6 +34,16 @@ public class ReviewListDAOMysql {
 			return true;
 		}else{
 			return false;
+		}
+	}
+	
+	public String selectAvg(Review r){
+		try{
+			double result = session.selectOne("ReviewMapper.selectAvg", r);
+			DecimalFormat df = new DecimalFormat("#.#");
+			return df.format(result);			
+		}catch (NullPointerException e) {
+			return "0.0";
 		}
 	}
 }

@@ -63,4 +63,10 @@ public class CustomerDAOMysql {
 		return session.selectList("CustomerMapper.selectItem", map);
 	}
 	
+	public void updateStatus(String c_id){
+		System.out.println("CustomerDAOMysql updateStatus()");
+		
+		session.update("CustomerMapper.updateStatus", c_id);
+	}
+	
 }
