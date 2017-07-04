@@ -46,4 +46,8 @@ public class ParkingService {
 		return pDao.parkingDelete(s);
 	}
 	
+	public int parkingModify(Parking p) {
+		return pDao.parkingModify(p);
+	}
+	
 }

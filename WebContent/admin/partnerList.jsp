@@ -207,7 +207,7 @@ $(function() {
   <table  class="allPartner">
     <tr>
       <td>
-      <input type="checkbox" name="cbAll">
+      <!-- <input type="checkbox" name="cbAll"> -->
       </td>
       <td>
       아이디
@@ -335,7 +335,6 @@ $(function() {
       if(next_pageno>total_page){
         next_pageno=total_page/group_per_page_cnt*group_per_page_cnt+1;
         next_pageno=total_page;
-        System.out.println(" 최대페이지보다 큰 next_pageno : " +next_pageno);
       }
     %>
     

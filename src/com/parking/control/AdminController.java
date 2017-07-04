@@ -190,7 +190,7 @@ public class AdminController {
 	
 	// start of parkingAdd
 	@PostMapping("parkingAdd.do")
-	public String parkingAdd(String jsonStr) {
+	public String parkingAdd(String jsonStr, Model model) {
 		System.out.println("parkingAdd()");
 			
 		try {
@@ -203,11 +203,14 @@ public class AdminController {
 			int n = pService.parkingAdd(p);
 
 			System.out.println("n : " + n);
+			if(n != 0)
+				return "parkingList.do";
+			else
+				model.addAttribute("msg", "-1");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
-		return "parkingList.do";
+		return "result.jsp";
 	}
 	// end of parkingAdd
 	
@@ -238,8 +241,9 @@ public class AdminController {
 	 * @param model 해당 주차장 정보
 	 * @return
 	 */
-	@GetMapping("parkingDetail.do")
+	@PostMapping("parkingDetail.do")
 	public String parkingDetail(@RequestParam(required = false, defaultValue = "0")int parking_code, Model model){
+		System.out.println("parkingDetail()");
 		Admin admin = (Admin)session.getAttribute("admin");
 		
 		if(admin != null){
@@ -250,28 +254,34 @@ public class AdminController {
 				return "/admin/parkingDetail.jsp";
 			}
 		}
-		
 		model.addAttribute("msg", "-1");
 		return "/result.jsp";
 	}
 	
-	// start of parkingEdit
-	@GetMapping("parkingEdit.do")
-	public String parkingEdit(@RequestParam(required = false, defaultValue = "0")int parking_code, Model model){
+	// start of parkingModify
+	@GetMapping("parkingModify.do")
+	public String parkingEdit(String jsonStr, Model model){
 		Admin admin = (Admin)session.getAttribute("admin");
 		
-		if(admin != null){
-			if(parking_code != 0){
-				Parking parking = pService.parkingDetail(parking_code);
+		if(admin != null) {
+			try{
+				JSONParser parse = new JSONParser();
+				Object o = parse.parse(jsonStr);
+				JSONObject json = (JSONObject) o;
+				Parking p = new Parking();
 				
-				if(parking != null){
-					model.addAttribute(parking);
+				p.toParking(json);
+				int n = pService.parkingModify(p);
+				
+				System.out.println("n : " + n);
+				if(n != 0) {
+					model.addAttribute("parking_code", p.getParking_code());
+					return "parkingDetail.do";
 				}
-				
-				return "/admin/parkingEdit.jsp";
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
 		}
-		
 		model.addAttribute("msg", "-1");
 		return "/result.jsp";
 	}
@@ -396,7 +406,7 @@ public class AdminController {
 			@RequestParam(required=false, defaultValue="all") String searchItem,
 			@RequestParam(required=false, defaultValue="") String searchValue,
 			String pageClick
-			){
+			) {
 		
 		System.out.println("partnerList()");
 		
@@ -420,32 +430,19 @@ public class AdminController {
 		
 		//실제리스트
 		if("".equals(searchValue)){
-			System.out.println("(String)session.getAttribute(searchValue) :"+(String)session.getAttribute("searchValue") );
 			if((String)session.getAttribute("searchValue") !=null){
-				System.out.println("if의 세션 유");
-				System.out.println("searchItem : "+(String)session.getAttribute("searchItem")+(String)session.getAttribute("searchValue"));
 				list = ptnService.selectAll(startPage,endPage,(String)session.getAttribute("searchItem"),(String)session.getAttribute("searchValue"));	
-				
 			}else{
-				System.out.println("if의 세션 무");
 				list = ptnService.selectAll(startPage,endPage,"",searchValue);
 			}
-			
 		}else if(!"".equals(searchValue)){
-			
-			System.out.println("if else 들어옴");
-			
 			session.setAttribute("searchItem", searchItem);
 			session.setAttribute("searchValue", searchValue);
-			
 			list = ptnService.selectAll(startPage,endPage,searchItem,searchValue);	
-			
 		}
-		
 		
 		model.addAttribute("list",list);
 		model.addAttribute("listSize",listSize);
-
 		return "/admin/partnerList.jsp";
 		
 	}
@@ -464,7 +461,7 @@ public class AdminController {
 			String p_account,
 			String p_status,
 			String p_register_admin_id
-			){
+			) {
 		
 		
 		String msg = "-1";
@@ -488,7 +485,12 @@ public class AdminController {
 							String p_id) {
 		
 		System.out.println("selectByP_Id()");
-		Partner partner = ptnService.selectByP_id(p_id);
+		Partner partner=null;
+		try {
+			partner = ptnService.selectByP_id(p_id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("partner",partner);
 		return "/admin/partnerModify.jsp";
 	}
@@ -532,9 +534,8 @@ public class AdminController {
 		return new ResponseEntity<String>(uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.OK);
 	}
 
-	//파일 업로드 메서드
+	//파일 업로드 메서드 3
 		public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws Exception {
-			
 			System.out.println("IsMaterController , uploadFile");
 			UUID uuid = UUID.randomUUID();
 			String savedName = uuid.toString() + "_" + originalName;
@@ -563,8 +564,6 @@ public class AdminController {
 			String datePath = monthPath + File.separator + new DecimalFormat("00").format(cal.get(Calendar.DATE));
 			System.out.println(datePath);
 			makeDir(uploadPath, yearPath, monthPath, datePath);
-			
-			
 			return datePath;
 		}
 	

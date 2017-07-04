@@ -1,6 +1,5 @@
 package com.parking.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +32,13 @@ public class PartnerService {
 		return ptnDao.selectForListSize( searchItem,  searchValue);
 	}
 
-	public Partner selectByP_id(String p_id) {
-		return ptnDao.selectByP_id(p_id);
+	public Partner selectByP_id(String p_id) throws Exception {
+		Partner partner = ptnDao.selectByP_id(p_id);
+		if(partner==null){
+			throw new Exception("없는 아이디");
+		}else{
+			return ptnDao.selectByP_id(p_id);
+		}
 	}
 
 	public void delete(String p_id) {

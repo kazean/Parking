@@ -69,14 +69,13 @@ font-size: large;
 <div class="menu">
 
 <a href="index.jsp" class="home">Home</a>
-<c:set var="customer" value="${sessionScope.customer}"/>
+<c:set var="partner" value="${sessionScope.partner}"/>
 <c:choose>
-  <c:when test="${empty customer}" >
+  <c:when test="${empty partner}" >
     <!-- <a href="signupcustomermain.jsp">Join</a> &nbsp;&nbsp; -->
     <a href="login.jsp">Login</a>
   </c:when>
   <c:otherwise>
-     <a href ="mypage.jsp"  id="mypage">MyPage</a>&nbsp;&nbsp;
     <a href ="logout.do">Logout</a>&nbsp;&nbsp;
   </c:otherwise>
 </c:choose>
