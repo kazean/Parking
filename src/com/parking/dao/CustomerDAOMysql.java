@@ -44,12 +44,12 @@ public class CustomerDAOMysql {
 		if(sort.charAt(sort.length()-1) == 'n') {
 			return session.selectList("CustomerMapper.selectByStatus", "n");
 		}
-		else if(sort.charAt(sort.length()-1) == 'd') {
+		else if(sort.charAt(sort.length()-1) == 'd' && !sort.equals("c_id")) {
 			return session.selectList("CustomerMapper.selectByStatus", "d");
 		}
 		else {
 			map.put("sort", sort);
-			return session.selectList("CustomerMapper.selectAll", sort);
+			return session.selectList("CustomerMapper.selectAll", map);
 		}
 	}
 	

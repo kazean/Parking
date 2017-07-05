@@ -275,17 +275,19 @@ $(function() {
 				<td><input type="button" id="${p.parking_code}" name="detail" value="설정"></td>
 			</tr>
 		</c:forEach>
+		<tr>
+			<td colspan="9" style="text-align:center; border:0px;">
+				<c:if test="${startPage > 10}">
+				<a class="prevPage" href="">[이전]</a>
+				</c:if>
+				<c:forEach var="i" begin="${startPage}" end="${endPage}">
+				[<a class="page" href="">${i}</a>]&nbsp;
+				</c:forEach>
+				<c:if test="${endPage < parkingSize}">
+				<a class="nextPage" href="">[다음]</a>
+				</c:if>
+			</td>
+		</tr>
 	</table>
-	<div style="text-align:center;">
-		<c:if test="${startPage > 10}">
-			<a class="prevPage" href="">[이전]</a>
-		</c:if>
-		<c:forEach var="i" begin="${startPage}" end="${endPage}">
-			[<a class="page" href="">${i}</a>]&nbsp;
-		</c:forEach>
-		<c:if test="${endPage < parkingSize}">
-			<a class="nextPage" href="">[다음]</a>
-		</c:if>
-	</div>
 </body>
 </html>

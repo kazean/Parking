@@ -66,8 +66,7 @@
 				selected
 			<%} %>><%=sortList[i]%></option>
 		<%} %>
-  	</select></h5> 
-	<br>
+  	</select></h5>
 	<select name = "searchItem">
 		<%String[] searchList = {"코드", "이름"};
 		  Object obj2 = request.getAttribute("option");
