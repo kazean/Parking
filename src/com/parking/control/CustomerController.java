@@ -191,7 +191,7 @@ public class CustomerController {
 	 */
 	@GetMapping("/alogin/{c_id}/{c_password}")
 	@ResponseBody
-	public String aLogin(@PathVariable String c_id, @PathVariable String c_password, HttpSession session){
+	public Customer aLogin(@PathVariable String c_id, @PathVariable String c_password, HttpSession session){
 		
 		Customer c = null;
 		String result = null;
@@ -208,13 +208,13 @@ public class CustomerController {
 				if(c_password.equals(c.getC_password())){
 					System.out.println("if(c_password.equals(c.getC_password()))");
 					result = c.getC_id();
+					
 				}
 			}
 		}
 		
 		session.setAttribute("customer", c.getC_id());
-		System.out.println(result);
-		return result;
+		return c;
 	}
 	
 	/**
