@@ -20,10 +20,10 @@
         	method : 'GET', 
             success: function(responseData){
             var result = responseData.trim();
-            	if(url =="logout.do"){
+            	if(url =="partnerLogout.do"){
             	alert("로그아웃 되었습니다.");
-            	location.href ="<%=contextPath%>";
-            }else if(url =="index.jsp"){
+            	location.href ="<%=contextPath%>"+'/partner';
+            	}else if(url =="index.jsp"){
             	location.href =url;
             	
             }else{
@@ -73,10 +73,10 @@ font-size: large;
 <c:choose>
   <c:when test="${empty partner}" >
     <!-- <a href="signupcustomermain.jsp">Join</a> &nbsp;&nbsp; -->
-    <a href="login.jsp">Login</a>
+    <a href="index.jsp">Login</a>
   </c:when>
   <c:otherwise>
-    <a href ="logout.do">Logout</a>&nbsp;&nbsp;
+    <a href ="partnerLogout.do">Logout</a>&nbsp;&nbsp;
   </c:otherwise>
 </c:choose>
     

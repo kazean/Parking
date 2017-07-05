@@ -53,6 +53,12 @@ height: 60px;
   <h1>${partner.p_name} 님 반갑습니다.</h1>
 
 
+
+현재상황 - 현재 주차장에 남아있는 총 남은좌석의 위치를 알 수 있습니다. <br>
+요청사항 - Parking에게 업데이트 해야하는 내용들을 요청 해 주세요. <br>
+예약현황 - 예약사항에 대한 상세내역을 볼 수 있습니다. <br>
+수익현황 - 정산내역을 알 수 있습니다.<br>
+
 <%-- <div class="content">
 
 <table>
@@ -68,9 +74,6 @@ height: 60px;
 </c:forEach>
 <tr style="height: 20px;"></tr>
 </table>
-
-
-
 
 </div> --%>
 </article>

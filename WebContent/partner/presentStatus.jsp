@@ -52,14 +52,14 @@ height: 60px;
 
 <article>
 <div class="content">
-
+<h1> 서비스 준비중 입니다.</h1>
 <table>
  <c:forEach var="hei" begin="1"  end="5">
  <tr style="height: 20px;"></tr>
 <tr>
   <c:forEach var="col" begin="1"  end="20">
     <td>
-     ${hei}-${col}
+    <a href=""> ${hei}-${col}</a>
     </td>
   </c:forEach>
 </tr>

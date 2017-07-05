@@ -43,6 +43,10 @@ public class PartnerController {
 		return "/result.jsp";
 	}
 	//end for partnerLogin
-	
+	@RequestMapping("/partnerLogout.do")
+  	public String partnerLogout(Model model, HttpSession session) {
+		session.removeAttribute("partner");
+		return "/result.jsp";
+	}
 	
 }
