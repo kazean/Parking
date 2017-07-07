@@ -174,6 +174,10 @@
 <body>
 <h3>고객 관리</h3>
 <br>
+<div>
+	<jsp:include page="customerSearch.jsp"></jsp:include>
+</div>
+<br>
 <table style="border-collapse:collapse;">
 	<tr style="border:0px;">
 		<td colspan="4" style="text-align:left; border:0px;">

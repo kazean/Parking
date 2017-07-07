@@ -13,12 +13,12 @@
 			$parentObj = $("body");
 		
 		// start of select click
-		$("select[name=searchSort]").click(function() {
-			var searchSort = $("select[name=searchSort]").val();
+		$("select[name=searchSort]").on("change", function() {
+			var sortValue = $("select[name=searchSort]").val();
 			
 			$.ajax({url:'customerList.do',
 					method:'post',
-					data:{'searchSort':searchSort},
+					data:{'sortValue':sortValue},
 					success:function(responseData) {
 						if(responseData.trim() != "-1") {
 							$parentObj.empty();
@@ -45,7 +45,7 @@
 					}
 			});
 			return false;
-		});
+		}); // end of search click
 	}); // end of function
 </script>
 </head>
