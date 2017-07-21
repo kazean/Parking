@@ -317,7 +317,7 @@ public class AdminController {
 	}
 	// end of customerList
 	
-	// start of customerSearch.do
+	// start of customerSearch
 	@RequestMapping("customerSearch.do")
 	public String customerSearch(String searchValue, int option, String num, Model model) {
 		System.out.println("customerSearch()");
@@ -340,8 +340,9 @@ public class AdminController {
 		model.addAttribute("msg", "-1");
 		return "/result.jsp";
 	}
+	// end of customerSearch
 	
-	// start of customerPaging
+	// start of cPaging
 	public Model cPaging(List<Customer> cAll, String num, Model model) {
 		System.out.println("customerpaging()");
 		
@@ -378,6 +379,7 @@ public class AdminController {
 		
 		return model;
 	}
+	// end of cPaging
 	
 	// start of customerDetail
 	@PostMapping("customerDetail.do")
@@ -396,58 +398,76 @@ public class AdminController {
 		return "/result.jsp";
 		
 	}
+	// end of customerDetail
 	
-	
-	//start for partnerList.do
-	int listSize;
+	//start for partnerList
 	@RequestMapping("partnerList.do")
-	public String partnerList(Model model,
-			int pageno,
-			@RequestParam(required=false, defaultValue="all") String searchItem,
-			@RequestParam(required=false, defaultValue="") String searchValue,
-			String pageClick
-			) {
-		
+	public String partnerList(String num, String sortValue, Model model) {
 		System.out.println("partnerList()");
 		
-		//초기값 셋팅
-		List <Partner> list = new ArrayList<>();
-		int startPage = pageno*5-4;
-		int endPage = pageno*5;
+		Admin admin = (Admin)session.getAttribute("admin");
+		String[] options = {"p_id", "p_name", "p_license"};
+		String sort;
+		int sortFlag = 0;
 		
-		//리스트사이즈 (검색시 한번만 불러올 것)
-		int cnt=0;
-		if(cnt == 0 && pageClick == null){
-			cnt ++;
-			listSize = ptnService.selectForListSize(searchItem,searchValue).size();
+		if(sortValue != null)
+			sortFlag = Integer.parseInt(sortValue);
+		sort = options[sortFlag];
+		
+		if(admin != null){
+			List<Partner> ptnAll = ptnService.selectAll(sort);
+			
+			model = ptnPaging(ptnAll, num, model);
+			model.addAttribute("ptnAllSize", ptnAll.size());
+			model.addAttribute("sortValue", sortFlag);
+			model.addAttribute("flag", 0);
+			
+			return "/admin/partnerList.jsp";
 		}
-		
-		//페이지클릭 하지않았을 경우의 검색
-		if(pageClick == null){
-			session.removeAttribute("searchItem");//(, searchItem);
-			session.removeAttribute("searchValue");//, searchValue);
-		}
-		
-		//실제리스트
-		if("".equals(searchValue)){
-			if((String)session.getAttribute("searchValue") !=null){
-				list = ptnService.selectAll(startPage,endPage,(String)session.getAttribute("searchItem"),(String)session.getAttribute("searchValue"));	
-			}else{
-				list = ptnService.selectAll(startPage,endPage,"",searchValue);
-			}
-		}else if(!"".equals(searchValue)){
-			session.setAttribute("searchItem", searchItem);
-			session.setAttribute("searchValue", searchValue);
-			list = ptnService.selectAll(startPage,endPage,searchItem,searchValue);	
-		}
-		
-		model.addAttribute("list",list);
-		model.addAttribute("listSize",listSize);
-		return "/admin/partnerList.jsp";
+		model.addAttribute("msg", "-1");
+		return "/result.jsp";
 		
 	}
-	//end for partnerList.do
+	//end for partnerList
 	
+	// start of ptnPaging
+		public Model ptnPaging(List<Partner> ptnAll, String num, Model model) {
+			System.out.println("customerpaging()");
+			
+			List<Partner> ptnList = new LinkedList<Partner>();
+			int startPaging = 0;
+			int endPaging = 15;
+			int startPage = 1;
+			int maxCount = 15;
+			int pagingBlocks = 10;
+			int n = 0;
+			
+			if(num != null) {
+				n = Integer.parseInt(num);
+				if(n % 10 == 0)
+					n--;
+				
+				startPaging = Integer.parseInt(num) * maxCount - maxCount;
+				endPaging = Integer.parseInt(num) * maxCount;
+				startPage = n / pagingBlocks * pagingBlocks + 1;
+			}
+			System.out.println("startPaging : " + startPaging + " | endPaging : " + endPaging);
+			
+			if(endPaging > ptnAll.size())
+				endPaging = ptnAll.size();
+			int partnerSize = (ptnAll.size() % maxCount == 0) ? ptnAll.size() / maxCount : (ptnAll.size() / maxCount) + 1;
+			
+			for(int i = startPaging; i < endPaging; i++)
+				ptnList.add(ptnAll.get(i));
+			
+			model.addAttribute("pageNum", (startPaging / 15) + 1);
+			model.addAttribute("ptnList", ptnList);
+			model.addAttribute("partnerSize", partnerSize);
+			model.addAttribute("startPage", startPage);
+			
+			return model;
+		}
+	// end of ptnPaging
 	
 	//start for addPartner.do
 	@PostMapping("addPartner.do")

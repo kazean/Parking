@@ -124,22 +124,22 @@
 			var nNum = ${endPage} + 1;
 			if(nNum > ${customerSize})
 				nNum = ${customerSize};
-				$.ajax({url:'customerList.do',
-						method:'post',
-						data:{'num':nNum},
-						success:function(responseData) {
-							var data = responseData.trim();
-							if(data != "-1") {
-								$parentObj.empty();
-								$parentObj.html(data);
-							}
-							else {
-								alert('로그인을 먼저 해주세요.');
-								location.href='<%=contextPath%>';
-							}
+			$.ajax({url:'customerList.do',
+					method:'post',
+					data:{'num':nNum},
+					success:function(responseData) {
+						var data = responseData.trim();
+						if(data != "-1") {
+							$parentObj.empty();
+							$parentObj.html(data);
 						}
-				});
-				return false;
+						else {
+							alert('로그인을 먼저 해주세요.');
+							location.href='<%=contextPath%>';
+						}
+					}
+			});
+			return false;
 		});	// end of .nextPage click
 		
 		// start of add click 
@@ -198,8 +198,8 @@
 		<td style="width:150px;">아이디</td>
 		<td style="width:80px;">이름</td>
 		<td style="width:150px;">전화번호</td>
-		<td style="width:100px;">차량 번호</td>
-		<td style="width:150px;">카드 번호</td>
+		<td style="width:100px;">차량번호</td>
+		<td style="width:150px;">카드번호</td>
 		<td style="width:150px;">가입날짜</td>
 		<td style="width:50px;">상태</td>
 		<td style="width:70px;">상세보기</td>
@@ -220,7 +220,7 @@
 	<tr>
 		<td colspan="9" style="text-align:center; border:0px;">
 			<c:if test="${startPage > 10}">
-			<a class="prevPage" href="">[이전]</a>
+				<a class="prevPage" href="">[이전]</a>
 			</c:if>
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
 				[<a class="page" href="">${i}</a>]&nbsp;

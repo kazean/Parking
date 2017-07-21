@@ -17,30 +17,23 @@ public class PartnerDAOMysql {
 	@Autowired
 	SqlSession session;
 	
-	public List<Partner> selectAll(int startPage, int endPage, String searchItem, String searchValue){
-		
-		Map<String,Object> map = new HashMap<>();
-		map.put("startPage", startPage);
-		map.put("endPage",endPage);
-		map.put("searchItem", searchItem);
-		map.put("searchValue",searchValue);
-		return session.selectList("PartnerMapper.selectAll",map);
+	public List<Partner> selectAll(String sort){
+		System.out.println("PartnerDAOMysql selectAll()");
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("sort", sort);
+		return session.selectList("PartnerMapper.selectAll", map);
 		
 	}
 	
-	public void insert(Partner p){
-		
+	public void insert(Partner p){		
 		session.insert("PartnerMapper.insert",p);
-		
 	}
 
 	public List<Partner> selectForListSize(String searchItem, String searchValue) {
-		
 		Map<String,Object> map = new HashMap<>();
 		map.put("searchItem", searchItem);
 		map.put("searchValue",searchValue);
 		return session.selectList("PartnerMapper.selectForListSize",map);
-		
 	}
 
 	public Partner selectByP_id(String p_id) {
