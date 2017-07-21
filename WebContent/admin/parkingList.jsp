@@ -234,7 +234,8 @@ $(function() {
 			</td>
 			<td colspan="3" style="text-align:right; border:0px;">
 				<input type="button" name="add" value="추가">
-				<input type="button" name="delete" value="삭제"></td>
+				<input type="button" name="delete" value="삭제">
+			</td>
 		</tr>
 		<tr>
 			<td style="width:30px;"><input type="checkbox" name="checkAll"></td>

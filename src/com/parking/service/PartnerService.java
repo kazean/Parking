@@ -23,8 +23,8 @@ public class PartnerService {
 	}
 	
 	//실제 파트너 가져오기
-	public List<Partner> selectAll(int startPage, int endPage, String searchItem, String searchValue) {
-		return ptnDao.selectAll( startPage,  endPage,  searchItem,  searchValue);
+	public List<Partner> selectAll(String sort) {
+		return ptnDao.selectAll(sort);
 	}
 
 	//검색시 사이즈만 가져오기위한 메서드
